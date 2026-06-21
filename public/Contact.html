@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vinayak Interiors — Consultation</title>
+<script>document.documentElement.className = "has-js";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/aurum.css" />
+<style>
+.phead{ position:relative; padding:clamp(150px,20vh,240px) var(--gut) var(--s5); }
+.phead h1{ font-family:var(--serif); font-weight:300; font-size:clamp(48px,9vw,150px); line-height:0.92; letter-spacing:-0.025em; }
+.phead h1 em{ font-style:italic; color:var(--azure-bright); }
+
+/* CONSULTATION JOURNEY */
+.consult{ padding:0 var(--gut) var(--s7); }
+.consult-shell{ position:relative; border:1px solid var(--line); background:var(--bg-1); display:grid; grid-template-columns:0.85fr 1.15fr; min-height:560px; overflow:hidden; }
+@media (max-width:880px){ .consult-shell{ grid-template-columns:1fr; } }
+.consult-aside{ position:relative; padding:clamp(32px,4vw,60px); border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; }
+.consult-aside .ph{ position:absolute; inset:0; z-index:0; opacity:.4; }
+.consult-aside-in{ position:relative; z-index:2; }
+@media (max-width:880px){ .consult-aside{ border-right:none; border-bottom:1px solid var(--line); min-height:200px; } }
+.ca-steps{ display:flex; flex-direction:column; gap:14px; margin-top:var(--s4); }
+.ca-step{ display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); transition:color .4s; }
+.ca-step .dot{ width:7px; height:7px; border-radius:50%; border:1px solid var(--ink-faint); transition:.4s; flex-shrink:0; }
+.ca-step.active{ color:var(--ink); }
+.ca-step.active .dot{ background:var(--azure); border-color:var(--azure); box-shadow:0 0 0 4px var(--azure-glow); }
+.ca-step.done{ color:var(--ink-soft); cursor:pointer; }
+.ca-step.done:hover{ color:var(--azure-bright); }
+.ca-step.done .dot{ background:var(--ink-soft); border-color:var(--ink-soft); }
+.ca-steps-hint{ display:none; font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); margin-top:12px; }
+
+.consult-main{ position:relative; padding:clamp(32px,4vw,64px); display:flex; flex-direction:column; }
+.consult-hint{ display:none; align-items:center; gap:10px; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--azure); margin-bottom:var(--s3); }
+.consult-hint-icon{ width:22px; height:22px; border:1px solid var(--azure); display:inline-flex; align-items:center; justify-content:center; font-size:12px; line-height:1; flex-shrink:0; animation:consultHintPulse 2.4s ease-in-out infinite; }
+.consult-hint.is-dismissed{ display:none !important; }
+@keyframes consultHintPulse{ 0%,100%{ opacity:.65; box-shadow:0 0 0 0 rgba(44,154,212,0); } 50%{ opacity:1; box-shadow:0 0 0 4px rgba(44,154,212,0.12); } }
+.consult-top{ display:flex; align-items:center; gap:16px; margin-bottom:var(--s4); }
+.consult-track{ flex:1; height:1px; background:var(--line); position:relative; }
+.consult-fill{ position:absolute; left:0; top:0; height:1px; background:var(--azure); transition:width .7s var(--e-out); }
+.consult-ix{ font-family:var(--mono); font-size:11px; color:var(--ink-dim); }
+.consult-ix b{ color:var(--azure); font-weight:400; }
+
+.cstage{ position:relative; flex:1; min-height:300px; }
+.cstep{ position:absolute; inset:0; opacity:0; transform:translateY(22px); pointer-events:none; transition:opacity .55s var(--e-out), transform .55s var(--e-out); }
+.cstep.on{ position:relative; opacity:1; transform:none; pointer-events:auto; }
+.cstep .cq{ font-family:var(--serif); font-weight:300; font-size:clamp(28px,3.4vw,46px); line-height:1.04; letter-spacing:-0.01em; }
+.cstep .cq em{ font-style:italic; color:var(--azure-bright); }
+.cstep .chint{ font-family:var(--serif); font-size:16px; color:var(--ink-soft); margin-top:10px; max-width:40ch; }
+
+.cfield{ position:relative; margin-top:var(--s4); }
+.cfield label{ font-family:var(--sans); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); transition:color .4s; }
+.cfield input{ width:100%; font-family:var(--serif); font-size:24px; color:var(--ink); padding:10px 0 12px; border-bottom:1px solid var(--line-strong); }
+.cfield input::placeholder{ color:var(--ink-faint); font-style:italic; }
+.cfield .ul{ position:absolute; left:0; bottom:0; height:1px; width:100%; background:var(--azure); transform:scaleX(0); transform-origin:left; transition:transform .5s var(--e-out); }
+.cfield.focus .ul{ transform:scaleX(1); }
+.cfield.focus label{ color:var(--azure); }
+
+.copts{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:var(--s3); }
+@media (max-width:520px){ .copts{ grid-template-columns:1fr; } }
+.copt{ position:relative; text-align:left; padding:16px 18px; border:1px solid var(--line); transition:border-color .4s, background .4s; overflow:hidden; }
+.copt .on-name{ font-family:var(--serif); font-size:19px; color:var(--ink); display:block; }
+.copt .on-d{ font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); margin-top:5px; display:block; }
+.copt:hover{ border-color:var(--line-strong); background:var(--bg-2); }
+.copt.sel{ border-color:var(--azure); background:var(--azure-glow); }
+.copt.sel .on-name{ color:var(--azure-bright); }
+.copt-hint{ display:none; font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--azure); margin-top:14px; }
+.copt-hint.is-dismissed{ display:none !important; }
+
+.cerr{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--brass); margin-top:12px; min-height:14px; opacity:0; transition:opacity .3s; }
+.cerr.show{ opacity:.9; }
+
+.cnav{ display:flex; align-items:center; justify-content:space-between; margin-top:var(--s4); padding-top:var(--s3); border-top:1px solid var(--line-soft); }
+.cback{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); display:inline-flex; align-items:center; gap:8px; transition:color .3s, gap .4s; }
+.cback:hover{ color:var(--ink); gap:13px; }
+.cback[hidden]{ visibility:hidden; }
+
+.cdone{ text-align:left; }
+.cdone .seal{ width:56px; height:56px; margin-bottom:var(--s3); }
+
+/* LOCATIONS */
+.locs{ padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); }
+.locs-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--s4); }
+@media (max-width:880px){ .locs-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .locs-grid{ grid-template-columns:1fr; } }
+.loc{ position:relative; background:var(--bg-1); padding:clamp(24px,2.6vw,38px); min-height:260px; display:flex; flex-direction:column; justify-content:space-between; transition:background .5s var(--e-out); overflow:hidden; }
+.loc::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--azure); transition:width .6s var(--e-out); }
+.loc:hover{ background:var(--bg-2); }
+.loc:hover::after{ width:100%; }
+.loc .lno{ font-family:var(--mono); font-size:11px; color:var(--azure); letter-spacing:.1em; }
+.loc .lname{ font-family:var(--serif); font-weight:300; font-size:clamp(30px,3vw,44px); line-height:1; margin-top:auto; }
+.loc .lcoord{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink-dim); margin-top:14px; text-transform:uppercase; }
+.loc .laddr{ font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.5; }
+
+/* DIRECT CONTACT */
+.direct{ padding:var(--s6) var(--gut) var(--s7); border-top:1px solid var(--line-soft); display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s4); }
+@media (max-width:880px){ .direct{ grid-template-columns:1fr; gap:var(--s3); } }
+.direct .dlabel{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:12px; }
+.direct .dval{ font-family:var(--serif); font-size:clamp(22px,2.2vw,32px); color:var(--ink); }
+.direct .dval a:hover{ color:var(--azure-bright); }
+
+/* ============================================================
+   CONSULTATION JOURNEY — EACH STEP FEELS LIKE A ROOM
+   ============================================================ */
+
+/* Step container transitions */
+.cstep { transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+
+/* Step 0 — Reception: formal, welcoming, brass tone */
+.cstep[data-step="0"] .cq { color: var(--ink); }
+.cstep[data-step="0"] .cq em { color: var(--brass-bright); }
+.cstep[data-step="0"] .cfield .ul { background: var(--brass); }
+.cstep[data-step="0"] .cfield.focus label { color: var(--brass); }
+
+/* Step 1 — Studio entrance: professional, azure tone */
+.cstep[data-step="1"] .cq em { color: var(--azure-bright); }
+.cstep[data-step="1"] .cfield .ul { background: var(--azure); }
+.cstep[data-step="1"] .cfield.focus label { color: var(--azure-bright); }
+
+/* Step 2 — The empty room: possibility, cool blue-grey */
+.cstep[data-step="2"] .cq em { color: #8ecfee; }
+.cstep[data-step="2"] .copt.sel { border-color: var(--azure); background: rgba(44,154,212,0.1); }
+.cstep[data-step="2"] .copt.sel .on-name { color: var(--azure-bright); }
+
+/* Step 3 — Material library: tactile, warm brass */
+.cstep[data-step="3"] .cq em { color: var(--brass-bright); }
+.cstep[data-step="3"] .copt { border-color: rgba(194,162,105,0.15); }
+.cstep[data-step="3"] .copt:hover { border-color: rgba(194,162,105,0.4); background: rgba(194,162,105,0.05); }
+.cstep[data-step="3"] .copt.sel { border-color: var(--brass); background: rgba(194,162,105,0.12); }
+.cstep[data-step="3"] .copt.sel .on-name { color: var(--brass-bright); }
+
+/* Step 4 — Sitting across the designer: intimate, warm */
+.cstep[data-step="4"] .cq em { color: var(--brass-bright); }
+.cstep[data-step="4"] .cfield .ul { background: var(--brass); }
+.cstep[data-step="4"] .cfield.focus label { color: var(--brass); }
+.cstep[data-step="4"] .chint { font-style: italic; color: var(--ink-soft); }
+
+/* Step 5 — Confirmation: sealed, complete */
+.cstep[data-step="5"] .kicker { color: var(--brass); }
+.cstep[data-step="5"] .cq em { color: var(--brass-bright); }
+
+/* Progress fill changes color per step */
+.consult-fill { transition: width 0.7s cubic-bezier(0.16,1,0.3,1), background 0.7s; }
+
+/* Consultation shell atmosphere */
+.consult-shell { background: var(--bg-1); box-shadow: 0 40px 120px rgba(0,0,0,0.5); }
+.consult-aside { background: linear-gradient(180deg, rgba(16,13,8,0.95), rgba(10,8,5,0.98)); }
+.consult-main { background: linear-gradient(135deg, #0a0c10, #0c0e14); }
+
+/* Step indicator dots */
+.ca-step.active .dot { background: var(--brass); border-color: var(--brass); box-shadow: 0 0 0 4px rgba(194,162,105,0.2); }
+.ca-step.done .dot { background: var(--azure); border-color: var(--azure); }
+
+/* Cinematic step transition */
+.cstage { perspective: 800px; }
+.cstep.on { animation: stepEnter 0.65s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes stepEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Location cards */
+.loc { transition: background 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s; }
+.loc:hover { transform: translateY(-4px); }
+.loc .lname { color: var(--ink); transition: color 0.4s; }
+.loc:hover .lname { color: var(--brass-bright); }
+
+/* Darken consultation aside so sidebar text is readable */
+.consult-aside .ph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8,10,14,0.78) 0%,
+    rgba(8,10,14,0.76) 50%,
+    rgba(8,10,14,0.80) 100%
+  );
+  z-index: 1;
+}
+.consult-aside-in { z-index: 2; position: relative; }
+
+/* ============================================================
+   MOBILE & TABLET RESPONSIVE — Contact.html
+   ============================================================ */
+@media (max-width: 880px) {
+  .phead { padding: 120px var(--gut) var(--s4); }
+  .phead h1 { font-size: clamp(36px,8vw,72px); }
+  .consult-shell { grid-template-columns: 1fr; }
+  .consult-aside { min-height: auto; padding: 24px 20px; border-right: none; border-bottom: 1px solid var(--line); }
+  .consult-aside .ph-tag { display: none; }
+  .ca-steps { gap: 10px; margin-top: var(--s3); }
+  .ca-step { font-size: 10px; }
+  .ca-steps-hint { display: block; }
+  .consult-aside .cap { margin-top: var(--s3); padding-top: var(--s2); border-top: 1px solid rgba(255,255,255,0.08); font-size: 9px; line-height: 1.5; }
+  .consult-main { padding: 28px 20px 40px; }
+  .consult-hint { display: flex; }
+  .copt-hint { display: block; }
+  .copts { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .copt { cursor: pointer; min-height: 56px; }
+  .cstage { flex: 0 1 auto; min-height: 150px; }
+  .cnav { flex-direction: row; justify-content: space-between; gap: 12px; margin-top: var(--s2); padding-top: var(--s2); }
+  .cnav .btn { flex: 1; justify-content: center; min-height: 48px; }
+  .consult { padding-bottom: 84px; }
+  .locs { padding: 84px var(--gut); }
+  .locs-grid { grid-template-columns: repeat(2,1fr); margin-top: var(--s3); }
+  .follow { padding: 38px var(--gut); }
+  .direct { grid-template-columns: 1fr; gap: var(--s3); padding: var(--s3) var(--gut); }
+}
+@media (max-width: 520px) {
+  .copts { grid-template-columns: 1fr; }
+  .locs-grid { grid-template-columns: 1fr; }
+  .copt { padding: 14px 16px; }
+  .cstep .cq { font-size: clamp(24px,6vw,36px); }
+}
+</style>
+</head>
+<body data-page="contact">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="atmos"></div>
+<div class="torch"></div>
+<div class="progress"></div>
+<div class="cur-ring"></div>
+<div class="cur-dot"></div>
+
+<header class="nav">
+  <a class="nav-brand magnetic" data-mag="0.2" href="index.html"><span class="logo" data-logo></span><span class="wm">VINAYAK <b>INTERIORS</b></span></a>
+  <nav class="nav-links">
+    <a class="nav-link" data-for="home" href="index.html">Home</a>
+    <a class="nav-link" data-for="projects" href="Projects.html">Projects</a>
+    <a class="nav-link" data-for="services" href="Services.html">Studio</a>
+    <a class="nav-link" data-for="contact" href="Contact.html">Contact</a>
+    <a class="nav-cta magnetic" data-mag="0.25" href="index.html">Enter Studio <span class="arw">→</span></a>
+  </nav>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+<div class="nav-sheet">
+  <a href="index.html" data-nav="home">Home</a><a href="Projects.html" data-nav="projects"><em>Projects</em></a><a href="Services.html" data-nav="studio">Studio</a><a href="Contact.html" data-nav="contact"><em>Contact</em></a><a href="index.html" data-nav="entrance">Enter Studio</a>
+</div>
+
+<main id="main">
+
+  <section class="phead">
+    <div class="wrap">
+      <div class="kicker" data-reveal>The Consultation</div>
+      <h1 data-reveal="mask" style="margin-top:24px;"><span>Begin a <em>conversation</em>.</span></h1>
+      <p class="lede" data-reveal style="margin-top:28px;">Every Vinayak Interiors home starts the same way — quietly, over a conversation. Tell us a little about your space and we'll bring the drawings to the table.</p>
+    </div>
+  </section>
+
+  <!-- CONSULTATION JOURNEY -->
+  <section class="consult">
+    <div class="wrap">
+      <div class="consult-shell" data-reveal>
+        <aside class="consult-aside">
+          <div class="ph lazy-bg" data-lazy-bg="assets/images/img-contact.jpg" style="position:absolute;inset:0;"><span class="ph-tag"><span class="a">◐ STUDIO</span><span class="b">Vinayak consultation room</span></span></div>
+          <div class="consult-aside-in">
+            <div class="kicker">Your Brief</div>
+            <div class="ca-steps" id="caSteps">
+              <div class="ca-step active"><span class="dot"></span>Your name</div>
+              <div class="ca-step"><span class="dot"></span>Where to reach you</div>
+              <div class="ca-step"><span class="dot"></span>The space</div>
+              <div class="ca-step"><span class="dot"></span>The feeling</div>
+              <div class="ca-step"><span class="dot"></span>A few words</div>
+            </div>
+            <p class="ca-steps-hint">Completed steps are tappable</p>
+          </div>
+          <div class="cap consult-aside-in" style="margin-top:auto;">No obligation · A designer replies within two working days</div>
+        </aside>
+
+        <div class="consult-main">
+          <p class="consult-hint" id="consultHint"><span class="consult-hint-icon" aria-hidden="true">→</span> Answer below · tap Continue when ready</p>
+          <div class="consult-top">
+            <span class="consult-ix"><b id="cIx">01</b> — 05</span>
+            <div class="consult-track"><div class="consult-fill" id="cFill" style="width:20%;"></div></div>
+          </div>
+
+          <div class="cstage" id="cStage">
+            <!-- 0 name -->
+            <div class="cstep on" data-step="0">
+              <div class="cq">First — what shall we <em>call you</em>?</div>
+              <div class="chint">So the studio knows who they're designing for.</div>
+              <div class="cfield"><label>Full Name</label><input id="f_name" type="text" placeholder="e.g. Ananya Rao" autocomplete="name" /><span class="ul"></span></div>
+            </div>
+            <!-- 1 contact -->
+            <div class="cstep" data-step="1">
+              <div class="cq">Where may we <em>reach you</em>?</div>
+              <div class="chint">We'll send a note to arrange your consultation.</div>
+              <div class="cfield"><label>Email</label><input id="f_email" type="email" placeholder="you@residence.com" autocomplete="email" /><span class="ul"></span></div>
+              <div class="cfield"><label>Phone</label><input id="f_phone" type="tel" placeholder="+91 ·····" autocomplete="tel" /><span class="ul"></span></div>
+            </div>
+            <!-- 2 space -->
+            <div class="cstep" data-step="2">
+              <div class="cq">What are we <em>composing</em>?</div>
+              <div class="chint">Choose the space closest to your project.</div>
+              <p class="copt-hint">Tap an option to select</p>
+              <div class="copts" id="optSpace">
+                <button class="copt" type="button" data-v="2 BHK"><span class="on-name">2 BHK</span><span class="on-d">Family home</span></button>
+                <button class="copt" type="button" data-v="3 BHK"><span class="on-name">3 BHK</span><span class="on-d">Layered home</span></button>
+                <button class="copt" type="button" data-v="4 BHK"><span class="on-name">4 BHK</span><span class="on-d">Estate</span></button>
+                <button class="copt" type="button" data-v="Modular Kitchen"><span class="on-name">Modular Kitchen</span><span class="on-d">The hearth</span></button>
+                <button class="copt" type="button" data-v="Living Room"><span class="on-name">Living Room</span><span class="on-d">Signature space</span></button>
+              </div>
+            </div>
+            <!-- 3 style -->
+            <div class="cstep" data-step="3">
+              <div class="cq">Which <em>language</em> does it speak?</div>
+              <div class="chint">The mood you're drawn to — we'll refine it together.</div>
+              <p class="copt-hint">Tap an option to select</p>
+              <div class="copts" id="optStyle">
+                <button class="copt" type="button" data-v="Modern"><span class="on-name">Modern</span><span class="on-d">Clean · open</span></button>
+                <button class="copt" type="button" data-v="Minimal"><span class="on-name">Minimal</span><span class="on-d">Quiet · essential</span></button>
+                <button class="copt" type="button" data-v="Luxury"><span class="on-name">Luxury</span><span class="on-d">Rich · bespoke</span></button>
+                <button class="copt" type="button" data-v="Scandinavian"><span class="on-name">Scandinavian</span><span class="on-d">Warm · soft</span></button>
+                <button class="copt" type="button" data-v="Contemporary"><span class="on-name">Contemporary</span><span class="on-d">Current · bold</span></button>
+              </div>
+            </div>
+            <!-- 4 message -->
+            <div class="cstep" data-step="4">
+              <div class="cq">Anything you'd like us to <em>know</em>?</div>
+              <div class="chint">Timeline, budget range, a feeling, a reference — all welcome.</div>
+              <div class="cfield"><label>Your note (optional)</label><input id="f_msg" type="text" placeholder="Tell us about your home…" /><span class="ul"></span></div>
+            </div>
+            <!-- done -->
+            <div class="cstep" data-step="5">
+              <div class="cdone">
+                <span class="seal" data-logo></span>
+                <div class="kicker">Received</div>
+                <div class="cq" style="margin-top:18px;">Thank you, <em id="doneName">there</em>.</div>
+                <div class="chint" id="doneLine">Your brief is with the studio. A designer will reach out within two working days to arrange your private consultation.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cerr" id="cErr"></div>
+
+          <div class="cnav" id="cNav">
+            <button class="cback" id="cBack" hidden>← Back</button>
+            <button class="btn solid magnetic" data-mag="0.25" id="cNext"><span class="cNextLabel">Continue</span> <span class="arw">→</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="locs" id="locations">
+    <div class="wrap">
+      <div class="kicker brass" data-reveal>The Studios</div>
+      <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Four cities, <em>one</em> standard.</span></h2>
+      <div class="locs-grid" data-stagger>
+        <div class="loc" data-reveal><div class="lno">01</div><div><div class="lname">Bangalore</div><div class="lcoord">N 12.97° · E 77.59°</div><div class="laddr">Indiranagar Design House<br>100 Ft Road</div></div></div>
+        <div class="loc" data-reveal><div class="lno">02</div><div><div class="lname">Hubli</div><div class="lcoord">N 15.36° · E 75.12°</div><div class="laddr">Vidyanagar Atelier<br>Club Road</div></div></div>
+        <div class="loc" data-reveal><div class="lno">03</div><div><div class="lname">Dharwad</div><div class="lcoord">N 15.46° · E 75.00°</div><div class="laddr">Saptapur Studio<br>P.B. Road</div></div></div>
+        <div class="loc" data-reveal><div class="lno">04</div><div><div class="lname">Hospet</div><div class="lcoord">N 15.27° · E 76.39°</div><div class="laddr">Station Road Workshop<br>Hospet</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOLLOW & RESOURCES -->
+  <section class="follow" id="follow">
+    <div class="wrap">
+      <div class="follow-head">
+        <div class="kicker brass" data-reveal>Follow &amp; Resources</div>
+        <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Watch, follow &amp; <em>browse</em> our finishes.</span></h2>
+      </div>
+      <div class="follow-grid" data-stagger>
+        <a class="follow-card follow-card--yt" href="https://youtu.be/ZTSmjmOTvj0" target="_blank" rel="noopener noreferrer" data-reveal>
+          <div class="fc-head">
+            <span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23 7.5a3 3 0 0 0-2.12-2.12C19.5 5 12 5 12 5s-7.5 0-8.88.38A3 3 0 0 0 1 7.5 13 13 0 0 0 1 12a13 13 0 0 0 .12 4.5 3 3 0 0 0 2.12 2.12C4.5 19 12 19 12 19s7.5 0 8.88-.38a3 3 0 0 0 2.12-2.12A13 13 0 0 0 23 12a13 13 0 0 0-.12-4.5zM10 15.5v-7l6 3.5-6 3.5z"/></svg></span>
+            <span class="fc-tag">YouTube</span>
+          </div>
+          <div class="fc-body">
+            <h3 class="fc-title">Watch our work on YouTube</h3>
+            <p class="fc-desc">See completed interiors and walkthroughs from Vinayak Aluminium Interior, Dharwad.</p>
+          </div>
+          <span class="fc-arw">Open video →</span>
+        </a>
+        <a class="follow-card follow-card--fb" href="https://www.facebook.com/profile.php?id=100090776470039" target="_blank" rel="noopener noreferrer" data-reveal>
+          <div class="fc-head">
+            <span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.9V12h2.22V9.8c0-2.2 1.3-3.41 3.3-3.41.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.67-1.43 1.36V12h2.43l-.39 2.47h-2.04v8.38A12 12 0 0 0 24 12z"/></svg></span>
+            <span class="fc-tag">Facebook</span>
+          </div>
+          <div class="fc-body">
+            <h3 class="fc-title">All designs — follow on Facebook</h3>
+            <p class="fc-desc">Browse our full design library and stay updated with new projects and finishes.</p>
+          </div>
+          <span class="fc-arw">Visit Facebook →</span>
+        </a>
+        <a class="follow-card follow-card--ig" href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" target="_blank" rel="noopener noreferrer" data-reveal>
+          <div class="fc-head">
+            <span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.2c2.67 0 2.99.01 4.04.06 1.05.05 1.77.22 2.4.47.65.25 1.2.59 1.75 1.14.55.55.89 1.1 1.14 1.75.25.63.42 1.35.47 2.4.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.05 1.05-.22 1.77-.47 2.4a4.7 4.7 0 0 1-1.14 1.75 4.7 4.7 0 0 1-1.75 1.14c-.63.25-1.35.42-2.4.47-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-1.05-.05-1.77-.22-2.4-.47a4.7 4.7 0 0 1-1.75-1.14 4.7 4.7 0 0 1-1.14-1.75c-.25-.63-.42-1.35-.47-2.4-.05-1.05-.06-1.37-.06-4.04s.01-2.99.06-4.04c.05-1.05.22-1.77.47-2.4.25-.65.59-1.2 1.14-1.75.55-.55 1.1-.89 1.75-1.14.63-.25 1.35-.42 2.4-.47 1.05-.05 1.37-.06 4.04-.06zm0 1.8c-2.62 0-2.93.01-3.96.06-1 .04-1.54.2-1.9.34-.48.18-.82.4-1.18.76-.36.36-.58.7-.76 1.18-.14.36-.3.9-.34 1.9-.05 1.03-.06 1.34-.06 3.96s.01 2.93.06 3.96c.04 1 .2 1.54.34 1.9.18.48.4.82.76 1.18.36.36.7.58 1.18.76.36.14.9.3 1.9.34 1.03.05 1.34.06 3.96.06s2.93-.01 3.96-.06c1-.04 1.54-.2 1.9-.34.48-.18.82-.4 1.18-.76.36-.36.58-.7.76-1.18.14-.36.3-.9.34-1.9.05-1.03.06-1.34.06-3.96s-.01-2.93-.06-3.96c-.04-1-.2-1.54-.34-1.9a3.2 3.2 0 0 0-.76-1.18 3.2 3.2 0 0 0-1.18-.76c-.36-.14-.9-.3-1.9-.34-1.03-.05-1.34-.06-3.96-.06zm0 3.35a5.65 5.65 0 1 1 0 11.3 5.65 5.65 0 0 1 0-11.3zm0 1.8a3.85 3.85 0 1 0 0 7.7 3.85 3.85 0 0 0 0-7.7zm5.95-3.58a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0z"/></svg></span>
+            <span class="fc-tag">Instagram</span>
+          </div>
+          <div class="fc-body">
+            <h3 class="fc-title">Follow us on Instagram</h3>
+            <p class="fc-desc">Daily interiors, aluminium work and laminate selections from our Dharwad studio.</p>
+          </div>
+          <span class="fc-arw">Open Instagram →</span>
+        </a>
+        <a class="follow-card follow-card--pdf" href="assets/catalogs/flexibond-laminate-catalog.pdf" target="_blank" rel="noopener noreferrer" data-reveal>
+          <div class="fc-head">
+            <span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2.5L18.5 10H13V4.5zM8 13h8v1.5H8V13zm0 3.5h8V18H8v-1.5z"/></svg></span>
+            <span class="fc-tag">Material catalog</span>
+          </div>
+          <div class="fc-body">
+            <h3 class="fc-title">Flexibond laminate catalog</h3>
+            <p class="fc-desc">Full 3mm PVC laminate range — colours, textures and specs for wardrobes, kitchens and modular interiors.</p>
+          </div>
+          <span class="fc-arw">Open PDF catalog →</span>
+        </a>
+        <a class="follow-card follow-card--pdf" href="assets/catalogs/vinayaka-materials-catalog.pdf" target="_blank" rel="noopener noreferrer" data-reveal>
+          <div class="fc-head">
+            <span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2.5L18.5 10H13V4.5zM8 13h8v1.5H8V13zm0 3.5h8V18H8v-1.5z"/></svg></span>
+            <span class="fc-tag">Material catalog</span>
+          </div>
+          <div class="fc-body">
+            <h3 class="fc-title">Aluminium Hardware &amp; Materials Catalog</h3>
+            <p class="fc-desc">Complete technical specification — frames, hinges, handles, baskets, and fittings used across every build.</p>
+          </div>
+          <span class="fc-arw">Open PDF catalog →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECT -->
+  <section class="direct">
+    <div><div class="dlabel">Email</div><div class="dval"><a href="mailto:hello@aurumatelier.in">hello@aurumatelier.in</a></div></div>
+    <div><div class="dlabel">Telephone</div><div class="dval"><a href="tel:+918040000000">+91 80 4000 0000</a></div></div>
+    <div><div class="dlabel">Hours</div><div class="dval">Mon — Sat · 10–7</div></div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-watermark">Hello</div>
+    <div class="wrap" style="position:relative; z-index:2;">
+      <a href="#main" class="foot-cta" data-reveal="mask"><span>Let's <em>begin</em> →</span></a>
+      <div class="foot-grid">
+        <div class="foot-col">
+          <a class="nav-brand" href="index.html" style="margin-bottom:18px;"><span class="logo" data-logo style="width:34px;height:34px;"></span><span class="wm">VINAYAK <b>INTERIORS</b></span></a>
+          <p class="body" style="font-size:14px; max-width:30ch;">Interior architecture &amp; bespoke fit-out across Karnataka.</p>
+        </div>
+        <div class="foot-col"><h4>Pages</h4><a href="index.html">Home</a><a href="Projects.html">Projects</a><a href="Services.html">Studio</a><a href="Contact.html">Contact</a></div>
+        <div class="foot-col"><h4>Studios</h4><a href="#locations">Bangalore</a><a href="#locations">Hubli</a><a href="#locations">Dharwad</a><a href="#locations">Hospet</a></div>
+        <div class="foot-col"><h4>Connect</h4><a href="mailto:hello@aurumatelier.in">hello@aurumatelier.in</a><a href="tel:+918040000000">+91 80 4000 0000</a><div class="foot-soc-row"><a href="https://youtu.be/ZTSmjmOTvj0" class="foot-soc foot-soc-yt" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.12-2.12C19.5 5 12 5 12 5s-7.5 0-8.88.38A3 3 0 0 0 1 7.5 13 13 0 0 0 1 12a13 13 0 0 0 .12 4.5 3 3 0 0 0 2.12 2.12C4.5 19 12 19 12 19s7.5 0 8.88-.38a3 3 0 0 0 2.12-2.12A13 13 0 0 0 23 12a13 13 0 0 0-.12-4.5zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a><a href="https://www.facebook.com/profile.php?id=100090776470039" class="foot-soc foot-soc-fb" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.9V12h2.22V9.8c0-2.2 1.3-3.41 3.3-3.41.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.67-1.43 1.36V12h2.43l-.39 2.47h-2.04v8.38A12 12 0 0 0 24 12z"/></svg></a><a href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" class="foot-soc foot-soc-ig" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg class="soc-icon soc-icon-ig" viewBox="0 0 24 24" aria-hidden="true" fill="none"><defs><linearGradient id="foot-ig-grad" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="url(#foot-ig-grad)"/></svg></a></div><a href="#follow">Catalog &amp; resources ↗</a></div>
+      </div>
+      <div class="foot-bottom"><span class="cap">© MMXXVI Vinayak Aluminium Interiors</span><span class="cap">Composed with light</span></div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="assets/js/session.js"></script>
+<script src="assets/js/aurum.js"></script>
+<script>
+/* Consultation multi-step journey */
+(function () {
+  var step = 0, total = 5;
+  var data = { name:"", email:"", phone:"", space:"", style:"", msg:"" };
+  var stage = document.getElementById("cStage");
+  var steps = stage.querySelectorAll(".cstep");
+  var caSteps = document.querySelectorAll("#caSteps .ca-step");
+  var fill = document.getElementById("cFill");
+  var ix = document.getElementById("cIx");
+  var back = document.getElementById("cBack");
+  var next = document.getElementById("cNext");
+  var nextLabel = next.querySelector(".cNextLabel");
+  var err = document.getElementById("cErr");
+  var consultHint = document.getElementById("consultHint");
+
+  caSteps.forEach(function (c, i) {
+    c.addEventListener("click", function () {
+      if (i < step) { step = i; render(); }
+    });
+  });
+
+  // field focus rings
+  stage.querySelectorAll(".cfield input").forEach(function (inp) {
+    var f = inp.closest(".cfield");
+    inp.addEventListener("focus", function () { f.classList.add("focus"); });
+    inp.addEventListener("blur", function () { f.classList.remove("focus"); });
+    inp.addEventListener("keydown", function (e) { if (e.key === "Enter") next.click(); });
+  });
+  // option pickers
+  function wireOpts(id, key) {
+    document.querySelectorAll("#" + id + " .copt").forEach(function (o) {
+      o.addEventListener("click", function () {
+        document.querySelectorAll("#" + id + " .copt").forEach(function (x) { x.classList.remove("sel"); });
+        o.classList.add("sel"); data[key] = o.getAttribute("data-v"); err.classList.remove("show");
+        var hint = o.closest(".cstep").querySelector(".copt-hint");
+        if (hint) hint.classList.add("is-dismissed");
+      });
+    });
+  }
+  wireOpts("optSpace", "space");
+  wireOpts("optStyle", "style");
+
+  function render() {
+    steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === step); });
+    caSteps.forEach(function (c, i) {
+      c.classList.toggle("active", i === step);
+      c.classList.toggle("done", i < step);
+    });
+    var shown = Math.min(step + 1, total);
+    fill.style.width = (shown / total * 100) + "%";
+    ix.textContent = "0" + Math.min(step + 1, total);
+    back.hidden = step === 0;
+    if (step === total - 1) nextLabel.textContent = "Send brief";
+    else if (step >= total) nextLabel.textContent = "Done";
+    else nextLabel.textContent = "Continue";
+    if (step >= total) { document.getElementById("cNav").style.display = "none"; }
+    if (consultHint && step > 0) consultHint.classList.add("is-dismissed");
+  }
+
+  function validate() {
+    err.classList.remove("show");
+    if (step === 0) { data.name = document.getElementById("f_name").value.trim(); if (data.name.length < 2) return "Kindly share your name"; }
+    if (step === 1) {
+      data.email = document.getElementById("f_email").value.trim();
+      data.phone = document.getElementById("f_phone").value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) return "A valid email, please";
+      if (data.phone.replace(/\D/g, "").length < 7) return "A number we can reach you on";
+    }
+    if (step === 2 && !data.space) return "Choose the space";
+    if (step === 3 && !data.style) return "Choose a direction";
+    return "";
+  }
+
+  next.addEventListener("click", function () {
+    var e = validate();
+    if (e) { err.textContent = e; err.classList.add("show"); return; }
+    if (step < total - 1) { step++; render(); }
+    else {
+      // finish
+      data.msg = document.getElementById("f_msg").value.trim();
+      step = total; // done screen
+      steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === 5); });
+      caSteps.forEach(function (c) { c.classList.add("done"); c.classList.remove("active"); });
+      fill.style.width = "100%"; ix.textContent = "05";
+      document.getElementById("doneName").textContent = data.name.split(" ")[0] || "there";
+      document.getElementById("doneLine").textContent = "Your " + (data.style ? data.style.toLowerCase() + " " : "") + (data.space || "project") + " brief is with the studio. A designer will reach out within two working days to arrange your private consultation.";
+      document.getElementById("cNav").style.display = "none";
+    }
+  });
+  back.addEventListener("click", function () { if (step > 0) { step--; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

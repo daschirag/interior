@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vinayak Interiors — Projects</title>
+<script>document.documentElement.className = "has-js";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/aurum.css" />
+<style>
+/* page header */
+.phead{ position:relative; padding:clamp(150px,20vh,240px) var(--gut) var(--s6); overflow:hidden; }
+.phead h1{ font-family:var(--serif); font-weight:300; font-size:clamp(56px,11vw,180px); line-height:0.92; letter-spacing:-0.025em; }
+.phead h1 em{ font-style:italic; color:var(--azure-bright); }
+.phead-row{ display:flex; justify-content:space-between; align-items:flex-end; gap:var(--s4); flex-wrap:wrap; margin-top:var(--s4); }
+.phead .ix-list{ display:flex; gap:var(--s4); }
+.phead .ix-list div .a{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); }
+.phead .ix-list div .b{ font-family:var(--serif); font-size:30px; color:var(--ink); }
+
+/* ---- HORIZONTAL STORYTELLING ---- */
+.hwrap{ position:relative; }
+.hwrap .hhint{ position:absolute; top:var(--s4); right:var(--gut); z-index:5; }
+.hwrap.fallback{ overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.hwrap.fallback::-webkit-scrollbar{ display:none; }
+.hwrap.fallback .htrack{ width:max-content; }
+/* Side scroll indicators */
+.hscroll-ui{ position:absolute; inset:0; pointer-events:none; z-index:6; }
+.hscroll-prompt{
+  position:absolute; bottom:72px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--azure-bright); background:rgba(8,10,14,.72); backdrop-filter:blur(8px);
+  padding:10px 16px; border:1px solid rgba(44,154,212,.25);
+  transition:opacity .5s var(--e-out);
+  animation:hscrollPulse 2.4s ease-in-out infinite;
+}
+.hscroll-prompt-ico{ display:inline-block; animation:hscrollNudge 1.4s ease-in-out infinite; }
+@keyframes hscrollNudge{ 0%,100%{ transform:translateX(0); opacity:.7; } 50%{ transform:translateX(7px); opacity:1; } }
+@keyframes hscrollPulse{ 0%,100%{ opacity:.85; } 50%{ opacity:1; } }
+.hscroll-edge{
+  position:absolute; top:0; bottom:0; width:48px; z-index:5; pointer-events:none;
+}
+.hscroll-edge.left{ left:0; background:linear-gradient(90deg, rgba(4,6,8,.85), transparent); }
+.hscroll-edge.right{ right:0; background:linear-gradient(270deg, rgba(4,6,8,.85), transparent); }
+.hscroll-edge.right::after{
+  content:"→"; position:absolute; right:14px; top:50%; transform:translateY(-50%);
+  font-family:var(--mono); font-size:18px; color:var(--azure-bright);
+  animation:hscrollNudge 1.4s ease-in-out infinite;
+}
+.hscroll-dots{
+  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+  display:flex; gap:8px; align-items:center;
+}
+.hscroll-dots i{
+  width:6px; height:6px; border-radius:50%; background:var(--ink-faint);
+  transition:background .35s, transform .35s;
+}
+.hscroll-dots i.on{ background:var(--azure-bright); transform:scale(1.35); }
+.hscroll-dots i.on.brass{ background:var(--brass-bright); }
+.hskip{
+  position:fixed; top:88px; right:max(20px, var(--gut));
+  z-index:85; pointer-events:auto;
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft);
+  background:rgba(8,10,14,.72); backdrop-filter:blur(8px);
+  border:1px solid rgba(44,154,212,.2); border-radius:4px;
+  padding:9px 14px; cursor:pointer;
+  opacity:0; visibility:hidden;
+  transition:opacity .4s var(--e-out), visibility .4s, color .35s, border-color .35s;
+}
+.hskip.show{ opacity:1; visibility:visible; }
+.hskip:hover{ color:var(--azure-bright); border-color:rgba(44,154,212,.4); }
+.htrack{ display:flex; align-items:stretch; }
+.hpanel{ position:relative; flex:0 0 100vw; height:100vh; display:grid; grid-template-columns:1.05fr 0.95fr; scroll-snap-align:start; border-left:1px solid var(--line); }
+.hpanel-media{ position:relative; overflow:hidden; }
+.hpanel-media .ph{ position:absolute; inset:0; }
+.hpanel-media .ph::after{ display:none; }
+.hpanel-body{ position:relative; display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,5vw,90px); }
+.hpanel-no{ font-family:var(--mono); font-size:12px; letter-spacing:.2em; color:var(--azure); }
+.hpanel-ttl{ font-family:var(--serif); font-weight:300; font-size:clamp(38px,4.4vw,72px); line-height:0.98; letter-spacing:-0.015em; margin-top:18px; }
+.hpanel-ttl em{ font-style:italic; color:var(--brass-bright); }
+.hpanel-meta{ display:flex; gap:var(--s4); margin-top:var(--s3); flex-wrap:wrap; }
+.hpanel-meta div .a{ font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); }
+.hpanel-meta div .b{ font-family:var(--sans); font-size:15px; color:var(--ink-soft); margin-top:4px; }
+.hpanel-desc{ font-family:var(--serif); font-size:18px; line-height:1.55; color:var(--ink-soft); margin-top:var(--s3); max-width:42ch; }
+.hpanel-tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:var(--s4); }
+.hpanel-tags span{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--line); padding:7px 12px; }
+.hpanel-intro{ flex:0 0 60vw; height:100vh; display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,5vw,90px); border-left:none; scroll-snap-align:start; }
+.hprog{ position:fixed; left:var(--gut); right:var(--gut); bottom:34px; height:1px; background:var(--line); z-index:40; opacity:0; transition:opacity .4s; }
+.hprog.show{ opacity:1; }
+.hprog i{ position:absolute; left:0; top:0; height:1px; width:0; background:var(--azure); }
+
+/* ---- BEFORE / AFTER ---- */
+.ba-sec{ padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); }
+.ba-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--s3); margin-bottom:var(--s4); }
+.ba{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; border:1px solid var(--line); user-select:none; touch-action:pan-y pinch-zoom; }
+.ba-layer{ position:absolute; inset:0; }
+.ba-layer .ph{ position:absolute; inset:0; }
+.ba-before{ z-index:2; width:50%; border-right:2px solid var(--azure-bright); overflow:hidden; }
+.ba-before .ph-inner{ position:absolute; top:0; left:0; height:100%; }
+.ba .ph::after{ display:none; }
+.ba-tag{ position:absolute; top:20px; z-index:4; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; padding:8px 14px; background:rgba(10,12,15,.6); backdrop-filter:blur(6px); }
+.ba-tag.before{ left:20px; color:var(--ink-soft); }
+.ba-tag.after{ right:20px; color:var(--azure-bright); }
+.ba-handle{ position:absolute; top:0; bottom:0; z-index:5; width:44px; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; cursor:ew-resize; left:50%; touch-action:none; }
+.ba-handle::before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:var(--azure-bright); }
+.ba-knob{
+  width:52px; height:52px; border-radius:50%; border:1px solid var(--azure-bright);
+  background:rgba(10,12,15,.7); backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:14px; color:var(--azure-bright);
+  position:relative; z-index:2;
+  animation:baKnobPulse 2.2s ease-in-out infinite;
+}
+.ba-knob::before{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  border:1px solid rgba(46,155,214,0.45); pointer-events:none;
+  animation:baKnobRing 2.2s ease-in-out infinite;
+}
+@keyframes baKnobPulse{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.06); }
+}
+@keyframes baKnobRing{
+  0%,100%{ transform:scale(1); opacity:0.55; }
+  50%{ transform:scale(1.32); opacity:0; }
+}
+.ba.interacted .ba-knob,
+.ba.interacted .ba-knob::before{ animation:none; }
+.ba-hint{ text-align:center; margin-top:var(--s2); }
+
+/* PROJECT PANELS — UNIQUE COLOR GRADES */
+
+/* Penthouse Fourteen — warm brass, elevated estate */
+.hpanel:nth-of-type(1) { background: linear-gradient(160deg, #0e0c08, #1a1508); }
+.hpanel:nth-of-type(1) .hpanel-body { background: linear-gradient(135deg, #0e0c08, #1a1508); }
+.hpanel:nth-of-type(1) .hpanel-no { color: #c2a269; }
+.hpanel:nth-of-type(1) .hpanel-ttl em { color: #e6cb94; }
+.hpanel:nth-of-type(1) .hpanel-tags span { border-color: rgba(194,162,105,0.25); color: #c2a269; }
+.hpanel:nth-of-type(1) .hpanel-meta div .b { color: #e6cb94; }
+
+/* Basalt House — dark, cool, near-black minimal */
+.hpanel:nth-of-type(2) { background: linear-gradient(160deg, #060708, #0a0c0e); }
+.hpanel:nth-of-type(2) .hpanel-body { background: linear-gradient(135deg, #060708, #0c0e10); }
+.hpanel:nth-of-type(2) .hpanel-no { color: #4a8fa8; }
+.hpanel:nth-of-type(2) .hpanel-ttl em { color: #8ecfee; }
+.hpanel:nth-of-type(2) .hpanel-tags span { border-color: rgba(78,100,110,0.3); color: #6a9aaa; }
+.hpanel:nth-of-type(2) .hpanel-desc { color: #8a9aa4; }
+
+/* Linen & Oak — soft, warm, Scandinavian */
+.hpanel:nth-of-type(3) { background: linear-gradient(160deg, #100d08, #1a1408); }
+.hpanel:nth-of-type(3) .hpanel-body { background: linear-gradient(135deg, #100d08, #1e1608); }
+.hpanel:nth-of-type(3) .hpanel-no { color: #c8a878; }
+.hpanel:nth-of-type(3) .hpanel-ttl em { color: #e8d0a8; }
+.hpanel:nth-of-type(3) .hpanel-tags span { border-color: rgba(200,168,120,0.2); color: #c8a878; }
+.hpanel:nth-of-type(3) .hpanel-desc { color: #b8a888; }
+.hpanel:nth-of-type(3) .hpanel-meta div .b { color: #e8d0a8; }
+
+/* ============================================================
+   MOBILE & TABLET RESPONSIVE — Projects.html
+   ============================================================ */
+@media (max-width: 880px) {
+  .phead { padding: 120px var(--gut) var(--s4); }
+  .phead h1 { font-size: clamp(40px,9vw,80px); }
+  .hwrap .hhint,
+  .hscroll-edge,
+  .hscroll-ui,
+  .hprog,
+  .hskip { display: none !important; }
+  .hwrap { overflow: visible; }
+  .htrack {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    gap: var(--s4);
+    padding: 0 max(20px, var(--gut)) var(--s5);
+  }
+  .hpanel,
+  .hpanel-intro {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    grid-template-columns: 1fr;
+    border-left: none;
+    scroll-snap-align: unset;
+  }
+  .hpanel-intro {
+    padding: var(--s4) 0 var(--s3);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .hpanel {
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
+  }
+  .hpanel + .hpanel { margin-top: 0; }
+  .hpanel-media {
+    position: relative;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+  .hpanel-body { padding: 28px 24px 36px; }
+  .hpanel-ttl { font-size: clamp(30px,6vw,52px); }
+  .ba-sec { padding: var(--s4) var(--gut) var(--s5); }
+  .ba-head > div:first-child,
+  .ba-head > .body { flex: none; min-width: 0; }
+  .ba-head { flex-direction: column; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+  .ba { aspect-ratio: 4/3; min-height: 240px; }
+  .ba-hint { margin-top: 12px; }
+}
+@media (max-width: 520px) {
+  .hpanel-media { aspect-ratio: 4 / 5; }
+  .hpanel-meta { gap: 12px; }
+  .hpanel-tags { gap: 6px; }
+  .hpanel-tags span { padding: 5px 9px; font-size: 9px; }
+  .ba { aspect-ratio: 1/1; }
+}
+</style>
+</head>
+<body data-page="projects">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="atmos"></div>
+<div class="torch"></div>
+<div class="progress"></div>
+<div class="cur-ring"></div>
+<div class="cur-dot"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <a class="nav-brand magnetic" data-mag="0.2" href="index.html"><span class="logo" data-logo></span><span class="wm">VINAYAK <b>INTERIORS</b></span></a>
+  <nav class="nav-links">
+    <a class="nav-link" data-for="home" href="index.html">Home</a>
+    <a class="nav-link" data-for="projects" href="Projects.html">Projects</a>
+    <a class="nav-link" data-for="services" href="Services.html">Studio</a>
+    <a class="nav-link" data-for="contact" href="Contact.html">Contact</a>
+    <a class="nav-cta magnetic" data-mag="0.25" href="index.html">Enter Studio <span class="arw">→</span></a>
+  </nav>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+<div class="nav-sheet">
+  <a href="index.html" data-nav="home">Home</a><a href="Projects.html" data-nav="projects"><em>Projects</em></a><a href="Services.html" data-nav="studio">Studio</a><a href="Contact.html" data-nav="contact"><em>Contact</em></a><a href="index.html" data-nav="entrance">Enter Studio</a>
+</div>
+
+<main id="main">
+
+  <!-- HEADER -->
+  <section class="phead">
+    <div class="wrap">
+      <div class="kicker" data-reveal>Selected Work — 2021 / 2026</div>
+      <h1 data-reveal="mask" style="margin-top:26px;"><span>The <em>portfolio</em>.</span></h1>
+      <div class="phead-row">
+        <p class="lede" data-reveal>Each project is a composition — a brief resolved through light, proportion and material. Scroll through three recent homes, then pull the divider to watch one transform.</p>
+        <div class="ix-list" data-reveal>
+          <div><div class="a">Completed</div><div class="b">240+</div></div>
+          <div><div class="a">Cities</div><div class="b">04</div></div>
+          <div><div class="a">Since</div><div class="b">MMXXI</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORIZONTAL STORYTELLING -->
+  <section class="hwrap" id="hwrap">
+    <div class="hhint cap" data-reveal>↓ Scroll — drag sideways →</div>
+    <div class="hscroll-edge left" aria-hidden="true"></div>
+    <div class="hscroll-edge right" aria-hidden="true"></div>
+    <div class="hscroll-ui">
+      <div class="hscroll-prompt" id="hPrompt"><span class="hscroll-prompt-ico">→</span> Scroll to explore the projects</div>
+      <div class="hscroll-dots" id="hDots" aria-hidden="true"></div>
+    </div>
+    <div class="htrack" id="htrack">
+      <!-- intro panel -->
+      <div class="hpanel-intro">
+        <div class="kicker brass">Project Journeys</div>
+        <h2 class="h2" style="margin-top:22px; max-width:14ch;">Three homes, <span class="brass">told</span> left to right.</h2>
+        <p class="body" style="margin-top:24px;">As you scroll, the gallery moves horizontally — each home a chapter. Keep going to reach the transformations.</p>
+      </div>
+      <!-- panel 1 -->
+      <article class="hpanel">
+        <div class="hpanel-media"><div class="ph ticks lazy-bg" data-lazy-bg="assets/images/img-panel-penthouse.jpg" style="position:absolute;inset:0;"></div></div>
+        <div class="hpanel-body">
+          <div class="hpanel-no">01 / 03</div>
+          <h3 class="hpanel-ttl">Penthouse <em>Fourteen</em></h3>
+          <div class="hpanel-meta">
+            <div><div class="a">Type</div><div class="b">4 BHK Residence</div></div>
+            <div><div class="a">City</div><div class="b">Bangalore</div></div>
+            <div><div class="a">Year</div><div class="b">2025</div></div>
+          </div>
+          <p class="hpanel-desc">A sky-level home composed around a travertine spine, with brass thresholds marking each shift in mood from public to private.</p>
+          <div class="hpanel-tags"><span>Travertine</span><span>Brass</span><span>Oak</span><span>Linen</span></div>
+        </div>
+      </article>
+      <!-- panel 2 -->
+      <article class="hpanel">
+        <div class="hpanel-media"><div class="ph ticks lazy-bg" data-lazy-bg="assets/images/img-panel-basalt.jpg" style="position:absolute;inset:0;"></div></div>
+        <div class="hpanel-body">
+          <div class="hpanel-no">02 / 03</div>
+          <h3 class="hpanel-ttl">The <em>Basalt</em> House</h3>
+          <div class="hpanel-meta">
+            <div><div class="a">Type</div><div class="b">Villa</div></div>
+            <div><div class="a">City</div><div class="b">Dharwad</div></div>
+            <div><div class="a">Year</div><div class="b">2024</div></div>
+          </div>
+          <p class="hpanel-desc">Dark stone and low light. A house that holds the heat out and the calm in — built around a planted internal court.</p>
+          <div class="hpanel-tags"><span>Basalt</span><span>Walnut</span><span>Bronze</span></div>
+        </div>
+      </article>
+      <!-- panel 3 -->
+      <article class="hpanel">
+        <div class="hpanel-media"><div class="ph ticks lazy-bg" data-lazy-bg="assets/images/img-panel-linen-oak.jpg" style="position:absolute;inset:0;"></div></div>
+        <div class="hpanel-body">
+          <div class="hpanel-no">03 / 03</div>
+          <h3 class="hpanel-ttl">Linen &amp; <em>Oak</em></h3>
+          <div class="hpanel-meta">
+            <div><div class="a">Type</div><div class="b">2 BHK Apartment</div></div>
+            <div><div class="a">City</div><div class="b">Hubli</div></div>
+            <div><div class="a">Year</div><div class="b">2025</div></div>
+          </div>
+          <p class="hpanel-desc">A soft, bright apartment for a young family — rift oak, raw linen and a kitchen that opens fully to the living room.</p>
+          <div class="hpanel-tags"><span>Rift Oak</span><span>Linen</span><span>Plaster</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+  <div class="hprog" id="hprog"><i></i></div>
+  <button type="button" class="hskip" id="hSkip" aria-label="Skip Project Journeys section">Skip section ↓</button>
+
+  <!-- BEFORE / AFTER -->
+  <section class="ba-sec" id="transform">
+    <div class="wrap">
+      <div class="ba-head">
+        <div>
+          <div class="kicker" data-reveal>The Transformation</div>
+          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Before, and <em>after</em>.</span></h2>
+        </div>
+        <p class="body" data-reveal>Penthouse Fourteen — the living room, as found and as composed. Pull the divider.</p>
+      </div>
+      <div class="ba" id="ba">
+        <div class="ba-layer ba-after"><div class="ph lazy-bg" id="baAfter" data-lazy-bg="assets/images/img-ba-after.jpg" style="background-size:cover;background-position:center;"></div></div>
+        <div class="ba-layer ba-before" id="baBefore"><div class="ph ph-inner lazy-bg" id="baBeforeInner" data-lazy-bg="assets/images/img-ba-before.jpg" style="background-size:cover;background-position:center;filter:grayscale(0.6) brightness(0.75);"></div></div>
+        <span class="ba-tag before">Before</span>
+        <span class="ba-tag after">After</span>
+        <div class="ba-handle" id="baHandle"><div class="ba-knob">⇄</div></div>
+      </div>
+      <div class="ba-hint cap">Drag the handle · swipe left/right · or use ← → keys</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" style="border-top:1px solid var(--line-soft);">
+    <div class="cta-inner wrap">
+      <div class="kicker brass" data-reveal style="justify-content:center;">Your project next</div>
+      <h2 class="display" data-reveal="mask" style="margin-top:24px;"><span>Begin a <span class="brass">composition</span>.</span></h2>
+      <div class="btns" style="display:flex; gap:16px; justify-content:center; margin-top:48px; flex-wrap:wrap;">
+        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html">Book a consultation <span class="arw">→</span></a>
+        <a class="btn magnetic" data-mag="0.3" href="Services.html">Explore the studio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-watermark">Work</div>
+    <div class="wrap" style="position:relative; z-index:2;">
+      <a href="Contact.html" class="foot-cta" data-reveal="mask"><span>Compose <em>with us</em> →</span></a>
+      <div class="foot-grid">
+        <div class="foot-col">
+          <a class="nav-brand" href="index.html" style="margin-bottom:18px;"><span class="logo" data-logo style="width:34px;height:34px;"></span><span class="wm">VINAYAK <b>INTERIORS</b></span></a>
+          <p class="body" style="font-size:14px; max-width:30ch;">Interior architecture &amp; bespoke fit-out across Karnataka.</p>
+        </div>
+        <div class="foot-col"><h4>Pages</h4><a href="index.html">Home</a><a href="Projects.html">Projects</a><a href="Services.html">Studio</a><a href="Contact.html">Contact</a></div>
+        <div class="foot-col"><h4>Studios</h4><a href="Contact.html">Bangalore</a><a href="Contact.html">Hubli</a><a href="Contact.html">Dharwad</a><a href="Contact.html">Hospet</a></div>
+        <div class="foot-col"><h4>Connect</h4><a href="mailto:hello@aurumatelier.in">hello@aurumatelier.in</a><a href="Contact.html">+91 80 4000 0000</a><div class="foot-soc-row"><a href="https://youtu.be/ZTSmjmOTvj0" class="foot-soc foot-soc-yt" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.12-2.12C19.5 5 12 5 12 5s-7.5 0-8.88.38A3 3 0 0 0 1 7.5 13 13 0 0 0 1 12a13 13 0 0 0 .12 4.5 3 3 0 0 0 2.12 2.12C4.5 19 12 19 12 19s7.5 0 8.88-.38a3 3 0 0 0 2.12-2.12A13 13 0 0 0 23 12a13 13 0 0 0-.12-4.5zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a><a href="https://www.facebook.com/profile.php?id=100090776470039" class="foot-soc foot-soc-fb" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.9V12h2.22V9.8c0-2.2 1.3-3.41 3.3-3.41.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.67-1.43 1.36V12h2.43l-.39 2.47h-2.04v8.38A12 12 0 0 0 24 12z"/></svg></a><a href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" class="foot-soc foot-soc-ig" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg class="soc-icon soc-icon-ig" viewBox="0 0 24 24" aria-hidden="true" fill="none"><defs><linearGradient id="foot-ig-grad" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="url(#foot-ig-grad)"/></svg></a></div><a href="Contact.html#follow">Catalog &amp; resources ↗</a></div>
+      </div>
+      <div class="foot-bottom"><span class="cap">© MMXXVI Vinayak Aluminium Interiors</span><span class="cap">Composed with light</span></div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+window.AURUM = window.AURUM || {};
+AURUM.onSmooth = function () {
+  var wrap = document.getElementById("hwrap");
+  var track = document.getElementById("htrack");
+  var prog = document.getElementById("hprog");
+  var dotsEl = document.getElementById("hDots");
+  var prompt = document.getElementById("hPrompt");
+  var skipBtn = document.getElementById("hSkip");
+  if (!wrap || !track) return;
+
+  var isMobile = window.matchMedia("(max-width: 880px)").matches;
+  if (isMobile) return;
+
+  if (!(window.gsap && window.ScrollTrigger)) return;
+
+  var panels = track.children;
+
+  if (dotsEl) {
+    dotsEl.innerHTML = "";
+    for (var i = 0; i < panels.length; i++) {
+      var dot = document.createElement("i");
+      if (i === 0) dot.className = "on brass";
+      dotsEl.appendChild(dot);
+    }
+  }
+  function setDot(idx) {
+    if (!dotsEl) return;
+    Array.prototype.forEach.call(dotsEl.children, function (d, i) {
+      d.classList.toggle("on", i === idx);
+      d.classList.toggle("brass", i === 0);
+    });
+  }
+  function hidePrompt() {
+    if (prompt) prompt.style.opacity = "0";
+  }
+
+  function setSkipVisible(show) {
+    if (skipBtn) skipBtn.classList.toggle("show", show);
+  }
+
+  track.style.willChange = "transform";
+  var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth); };
+  var hTween = gsap.to(track, {
+    x: function () { return -dist(); },
+    ease: "none",
+    scrollTrigger: {
+      trigger: wrap,
+      start: "top top",
+      end: function () { return "+=" + dist(); },
+      pin: true,
+      scrub: 0.6,
+      invalidateOnRefresh: true,
+      onToggle: function (s) {
+        if (prog) prog.classList.toggle("show", s.isActive);
+        setSkipVisible(s.isActive);
+      },
+      onEnter: function () { setSkipVisible(true); },
+      onEnterBack: function () { setSkipVisible(true); },
+      onLeave: function () { setSkipVisible(false); },
+      onLeaveBack: function () { setSkipVisible(false); },
+      onUpdate: function (s) {
+        if (prog) prog.querySelector("i").style.width = (s.progress * 100) + "%";
+        var idx = Math.round(s.progress * (panels.length - 1));
+        setDot(idx);
+        if (s.progress > 0.04) hidePrompt();
+      }
+    }
+  });
+  var hST = hTween.scrollTrigger;
+  if (hST && hST.isActive) setSkipVisible(true);
+  if (skipBtn) {
+    skipBtn.addEventListener("click", function () {
+      if (!hST) return;
+      hidePrompt();
+      var scrollY = hST.end + 2;
+      if (AURUM.lenis) {
+        AURUM.lenis.scrollTo(scrollY, { duration: 1.1 });
+      } else {
+        window.scrollTo({ top: scrollY, behavior: "smooth" });
+      }
+    });
+  }
+  setDot(0);
+};
+</script>
+<script src="assets/js/session.js"></script>
+<script src="assets/js/aurum.js"></script>
+<script>
+/* Before / After comparison */
+(function () {
+  var ba = document.getElementById("ba");
+  var before = document.getElementById("baBefore");
+  var inner = document.getElementById("baBeforeInner");
+  var handle = document.getElementById("baHandle");
+  if (!ba || !before || !inner || !handle) return;
+  var pos = 50;
+  var dragging = false;
+
+  function markInteracted() {
+    ba.classList.add("interacted");
+  }
+
+  function apply() {
+    var w = ba.clientWidth;
+    if (!w) return;
+    before.style.width = pos + "%";
+    handle.style.left = pos + "%";
+    inner.style.width = w + "px";
+  }
+  function setFromX(clientX) {
+    var r = ba.getBoundingClientRect();
+    pos = Math.max(2, Math.min(98, ((clientX - r.left) / r.width) * 100));
+    apply();
+  }
+
+  handle.addEventListener("pointerdown", function (e) {
+    markInteracted();
+    dragging = true;
+    setFromX(e.clientX);
+    handle.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  handle.addEventListener("pointermove", function (e) {
+    if (dragging) { setFromX(e.clientX); e.preventDefault(); }
+  });
+  handle.addEventListener("pointerup", function () { dragging = false; });
+  handle.addEventListener("pointercancel", function () { dragging = false; });
+
+  ba.addEventListener("touchstart", function (e) {
+    if (e.target === handle || handle.contains(e.target)) return;
+    markInteracted();
+    var t = e.touches[0];
+    if (t) setFromX(t.clientX);
+  }, { passive: true });
+
+  ba.setAttribute("tabindex", "0");
+  ba.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") { markInteracted(); pos = Math.max(2, pos - 4); apply(); }
+    if (e.key === "ArrowRight") { markInteracted(); pos = Math.min(98, pos + 4); apply(); }
+  });
+
+  window.addEventListener("resize", apply);
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(apply).observe(ba);
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) apply(); });
+    }, { threshold: 0.1 }).observe(ba);
+  }
+  requestAnimationFrame(apply);
+  setTimeout(apply, 400);
+})();
+</script>
+</body>
+</html>
+
+

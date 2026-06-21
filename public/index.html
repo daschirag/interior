@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vinayak Interiors — The Threshold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/world.css" />
+<style>
+/* ============================================================
+   MOBILE & TABLET RESPONSIVE — index.html (auth)
+   ============================================================ */
+@media (max-width: 880px) {
+  .topbar { padding: 18px 20px; align-items: center; }
+  .brand .mark { width: 28px; height: 28px; }
+  .brand .word { font-size: 11px; letter-spacing: 0.22em; }
+  .back-mini { font-size: 9px; }
+  .portal { width: min(54vmin, 300px); height: 72vh; }
+  .arch { width: min(62vmin, 340px); height: 78vh; }
+  .hero { width: min(82vw, 340px); top: 48%; }
+  .hero h1 { font-size: clamp(34px, 9vw, 56px); }
+  .hero .sub { font-size: 14px; margin-top: 14px; }
+  .corner.bl,
+  .corner.br { bottom: max(20px, env(safe-area-inset-bottom, 20px)); }
+  .corner.bl { left: 20px; }
+  .corner.br { right: 20px; font-size: 9px; }
+  .cue { bottom: max(22px, env(safe-area-inset-bottom, 22px)); }
+  .panel-anchor { padding: 16px 16px max(20px, env(safe-area-inset-bottom, 20px)); align-items: center; }
+  .panel {
+    width: min(400px, 94vw);
+    max-height: 88svh;
+    overflow-y: auto;
+    padding: clamp(28px, 4vw, 40px) clamp(22px, 4vw, 36px) clamp(32px, 5vw, 44px);
+  }
+  .p-title { font-size: clamp(28px,6vw,42px); }
+  .fields { margin-top: 24px; gap: 20px; }
+  .field input { border-bottom: none; padding-bottom: 10px; }
+  .field .ul { height: 1px; background: var(--line-strong); transform: scaleX(1); }
+  .field.focus .ul { background: var(--azure); }
+  .cta-row { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 28px; }
+  .cta-row .btn { width: 100%; justify-content: center; }
+  .opts { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .alt-line { margin-top: 28px; }
+}
+@media (max-width: 520px) {
+  .topbar { padding: 14px 16px; }
+  .back-mini { display: none; }
+  .portal { width: min(68vw, 280px); height: 68vh; }
+  .arch { width: min(76vw, 310px); height: 74vh; }
+  .hero { width: 88vw; }
+  .hero h1 { font-size: clamp(30px, 8.5vw, 48px); }
+  .hero .ey { font-size: 9px; margin-bottom: 16px; }
+  .panel { padding: 22px 18px 28px; max-height: 90svh; }
+  .p-title { font-size: clamp(24px,7vw,36px); }
+  .p-lede { font-size: 15px; }
+  .opts { grid-template-columns: 1fr; }
+  .alt-line { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .corner.br { max-width: 42vw; text-align: right; line-height: 1.5; }
+}
+</style>
+</head>
+<body>
+
+<!-- reusable logo symbol: blue funnel bars + ivory checkmark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 120 120">
+    <polygon points="29,33 91,33 85,44 35,44" fill="#2E9BD6"/>
+    <polygon points="38,49 82,49 77,60 43,60" fill="#2E9BD6"/>
+    <path d="M33 55 L55 92 L96 17" fill="none" stroke="#ECE7DD" stroke-width="13"
+          stroke-linecap="square" stroke-linejoin="miter"/>
+  </symbol>
+</svg>
+
+<!-- ================= THE WORLD (fixed, choreographed by scroll) ================= -->
+<div class="stage" id="stage">
+  <!-- back fog -->
+  <div class="fog back" id="fogBack">
+    <i style="width:48vw;height:48vw;left:-6%;top:18%;animation:drift1 26s ease-in-out infinite"></i>
+    <i style="width:40vw;height:40vw;right:-4%;top:30%;animation:drift2 32s ease-in-out infinite"></i>
+    <i style="width:60vw;height:60vw;left:20%;bottom:-18%;animation:drift1 38s ease-in-out infinite reverse"></i>
+  </div>
+
+  <div class="world" id="world">
+    <div class="bloom" id="bloom"></div>
+    <div class="rays" id="rays"></div>
+    <div class="wall left"  id="wallL"><div class="pilaster" style="right:0"></div></div>
+    <div class="wall right" id="wallR"><div class="pilaster" style="left:0"></div></div>
+    <div class="portal" id="portal"></div>
+    <div class="beam"   id="beam"></div>
+    <div class="floor"  id="floor"></div>
+    <div class="arch"   id="arch"></div>
+  </div>
+
+  <canvas id="dust"></canvas>
+
+  <!-- front mist -->
+  <div class="fog front" id="fogFront">
+    <i style="width:38vw;height:38vw;left:-8%;bottom:6%;animation:drift2 22s ease-in-out infinite"></i>
+    <i style="width:34vw;height:34vw;right:-6%;bottom:12%;animation:drift1 28s ease-in-out infinite"></i>
+  </div>
+
+  <!-- scene-1 darkness + cursor torch -->
+  <div class="torch-glow" id="torchGlow"></div>
+  <div class="veil" id="veil"></div>
+  <div class="flash" id="flash"></div>
+</div>
+
+<!-- whisper words across the journey -->
+<div class="whispers" id="whispers">
+  <span class="whisper" data-at="0.46">Welcome to<br><em>Vinayak Aluminium Interiors</em>.<span class="sub">Vinayak Interiors</span></span>
+</div>
+
+<!-- ================= FLOATING GLASS PANEL (enter) ================= -->
+<div class="panel-anchor">
+  <div class="panel" id="panel">
+    <span class="tick tl"></span><span class="tick tr"></span>
+    <span class="tick bl"></span><span class="tick br"></span>
+    <div class="pbody" id="pbody">
+      <div class="view">
+        <svg class="seal"><use href="#logo"/></svg>
+        <div class="eyebrow">Vinayak Interiors Awaits</div>
+        <h2 class="p-title">Step <em>inside</em>.</h2>
+        <p class="p-lede">You have crossed the threshold. The studio is prepared for you.</p>
+        <div class="cta-row">
+          <a class="btn solid" id="enterSite" href="dashboard.html">Enter Vinayak Interiors <span class="arw">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FIXED CHROME ================= -->
+<div class="chrome">
+  <div class="topbar">
+    <a class="brand" href="#" id="brandHome">
+      <svg class="mark"><use href="#logo"/></svg>
+      <span class="word">VINAYAK <b>INTERIORS</b></span>
+    </a>
+    <div style="display:flex; align-items:flex-start; gap:clamp(20px,3vw,48px)">
+      </div>
+  </div>
+
+  <div class="hero lift" id="hero">
+    <div class="ey rw"><span>The Threshold</span></div>
+    <h1><span class="rw"><span style="animation-delay:.18s">Step into</span></span><span class="rw"><span style="animation-delay:.34s">the <em>atelier</em></span></span></h1>
+    <div class="sub rw"><span style="animation-delay:.5s">welcome to vinayak aluminium interiors</span></div>
+  </div>
+
+  <div class="corner bl">VINAYAK INTERIORS &middot; ALUMINIUM</div>
+
+  <div class="cue" id="cue">
+    <span>Scroll to enter</span>
+    <div class="rail"></div>
+  </div>
+</div>
+
+<!-- preload -->
+<div class="preload" id="preload">
+  <div class="line"></div>
+  <div class="pct" id="pct">00</div>
+</div>
+
+<!-- the tall scroll track that drives the camera -->
+<div class="scroll-track"></div>
+
+<!-- custom cursor -->
+<div class="cur-ring" id="curRing"></div>
+<div class="cur-dot"  id="curDot"></div>
+
+<script src="assets/js/engine.js"></script>
+</body>
+</html>

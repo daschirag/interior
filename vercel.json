@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "buildCommand": null,
+  "outputDirectory": "public",
+  "installCommand": null,
+  "framework": null,
+  "headers": [
+    {
+      "source": "/(.*)\\.(jpg|jpeg|png|webp|gif|svg|ico|mp4|webm|pdf|css|js|woff2)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
