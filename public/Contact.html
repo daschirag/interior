@@ -460,7 +460,43 @@
 <script src="assets/js/aurum.js"></script>
 <script>
 /* Consultation multi-step journey */
+async function trackEvent(eventType, page) {
+  try {
+    await fetch("http://localhost:5000/api/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        eventType,
+        page,
+      }),
+    });
+  } catch (error) {
+    console.error("Analytics error:", error);
+  }
+}
+let formStarted = false;
+function trackFormStart() {
+  if (formStarted) return;
+
+  formStarted = true;
+
+  trackEvent("form_start", "Contact.html");
+}
 (function () {
+  trackEvent("page_view", "Contact.html");
+  document.getElementById("f_name")
+  .addEventListener("input", trackFormStart);
+
+document.getElementById("f_email")
+  .addEventListener("input", trackFormStart);
+
+document.getElementById("f_phone")
+  .addEventListener("input", trackFormStart);
+
+document.getElementById("f_msg")
+  .addEventListener("input", trackFormStart);
   var step = 0, total = 5;
   var data = { name:"", email:"", phone:"", space:"", style:"", msg:"" };
   var stage = document.getElementById("cStage");
@@ -559,6 +595,7 @@ async function submitContactForm() {
     if (!response.ok || !result.success) {
       throw new Error("Failed to submit form");
     }
+    trackEvent("form_submit", "Contact.html");
 
     step = total;
 
