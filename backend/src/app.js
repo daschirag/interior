@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const contactRoutes = require("./routes/contactRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes");
 
 const app = express();
 
@@ -18,5 +19,5 @@ app.get("/", (req, res) => {
 
 app.use("/api/contact", contactRoutes);
 app.use("/api/events", eventRoutes);
-
+app.use("/api/analytics", analyticsRoutes);
 module.exports = app;
