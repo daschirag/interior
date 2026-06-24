@@ -531,22 +531,73 @@
     if (step === 3 && !data.style) return "Choose a direction";
     return "";
   }
+async function submitContactForm() {
+  data.msg = document.getElementById("f_msg").value.trim();
 
+  try {
+    next.disabled = true;
+    nextLabel.textContent = "Sending...";
+
+    const response = await fetch(
+      "http://localhost:5000/api/contact",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          message: data.msg,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error("Failed to submit form");
+    }
+
+    step = total;
+
+    steps.forEach(function (s) {
+      s.classList.toggle("on", +s.getAttribute("data-step") === 5);
+    });
+
+    caSteps.forEach(function (c) {
+      c.classList.add("done");
+      c.classList.remove("active");
+    });
+
+    fill.style.width = "100%";
+    ix.textContent = "05";
+
+    document.getElementById("doneName").textContent =
+      data.name.split(" ")[0] || "there";
+
+    document.getElementById("doneLine").textContent =
+      "Your brief has been submitted successfully. A designer will contact you shortly.";
+
+    document.getElementById("cNav").style.display = "none";
+  } catch (error) {
+    err.textContent = error.message;
+    err.classList.add("show");
+
+    next.disabled = false;
+    nextLabel.textContent = "Send brief";
+
+    console.error(error);
+  }
+}
   next.addEventListener("click", function () {
     var e = validate();
     if (e) { err.textContent = e; err.classList.add("show"); return; }
     if (step < total - 1) { step++; render(); }
     else {
-      // finish
-      data.msg = document.getElementById("f_msg").value.trim();
-      step = total; // done screen
-      steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === 5); });
-      caSteps.forEach(function (c) { c.classList.add("done"); c.classList.remove("active"); });
-      fill.style.width = "100%"; ix.textContent = "05";
-      document.getElementById("doneName").textContent = data.name.split(" ")[0] || "there";
-      document.getElementById("doneLine").textContent = "Your " + (data.style ? data.style.toLowerCase() + " " : "") + (data.space || "project") + " brief is with the studio. A designer will reach out within two working days to arrange your private consultation.";
-      document.getElementById("cNav").style.display = "none";
-    }
+  submitContactForm();
+}
   });
   back.addEventListener("click", function () { if (step > 0) { step--; render(); } });
   render();
