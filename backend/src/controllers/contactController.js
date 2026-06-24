@@ -27,7 +27,29 @@ const submitContact = async (req, res) => {
     });
   }
 };
+const getRecentLeads = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT *
+      FROM contact_submissions
+      ORDER BY created_at DESC
+      LIMIT 10
+    `);
 
+    res.json({
+      success: true,
+      data: result.rows,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch leads",
+    });
+  }
+};
 module.exports = {
   submitContact,
+  getRecentLeads,
 };

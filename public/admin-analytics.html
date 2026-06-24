@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="assets/css/aurum.css" />
+  <style>
+.analytics-page{
+  min-height:100vh;
+  background:var(--bg-1);
+  padding:120px 8vw;
+}
+
+.analytics-title{
+  font-family:var(--serif);
+  font-size:clamp(48px,6vw,90px);
+  font-weight:300;
+  margin-bottom:60px;
+}
+
+.analytics-title em{
+  color:var(--azure-bright);
+  font-style:italic;
+}
+
+.analytics-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:24px;
+}
+
+.metric-card{
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  padding:32px;
+  transition:.3s;
+}
+
+.metric-card:hover{
+  border-color:var(--azure);
+}
+
+.metric-card span{
+  font-family:var(--mono);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--ink-dim);
+  font-size:11px;
+}
+
+.metric-card h2{
+  margin-top:18px;
+  font-family:var(--serif);
+  font-size:64px;
+  font-weight:300;
+  color:var(--ink);
+}
+</style>
+</head>
+<body>
+
+<section class="analytics-page">
+  <div class="container">
+
+    <h1 class="analytics-title">
+      Analytics <em>Dashboard</em>
+    </h1>
+
+    <div class="analytics-grid">
+
+      <div class="metric-card">
+        <span>Page Views</span>
+        <h2 id="pageViews">0</h2>
+      </div>
+
+      <div class="metric-card">
+        <span>Unique Visitors</span>
+        <h2 id="uniqueVisitors">0</h2>
+      </div>
+
+      <div class="metric-card">
+        <span>Form Starts</span>
+        <h2 id="formStarts">0</h2>
+      </div>
+
+      <div class="metric-card">
+        <span>Form Submits</span>
+        <h2 id="formSubmits">0</h2>
+      </div>
+
+    </div>
+  </div>
+<section style="margin-top:100px">
+  <h2 class="analytics-title" style="font-size:48px">
+    Recent <em>Leads</em>
+  </h2>
+
+  <div
+    style="
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      padding: 30px;
+      overflow-x: auto;
+    "
+  >
+    <table
+      style="
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--ink);
+      "
+    >
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:16px;">Name</th>
+          <th style="text-align:left;padding:16px;">Email</th>
+          <th style="text-align:left;padding:16px;">Phone</th>
+        </tr>
+      </thead>
+
+      <tbody id="leadsBody"></tbody>
+    </table>
+  </div>
+</section>
+<script src="admin-analytics.js"></script>
+
+
+</body>
+</html>
