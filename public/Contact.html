@@ -460,6 +460,21 @@
 <script src="assets/js/aurum.js"></script>
 <script>
 /* Consultation multi-step journey */
+function getVisitorId() {
+  let visitorId = localStorage.getItem("visitor_id");
+
+  if (!visitorId) {
+    visitorId =
+      "visitor_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).substring(2, 9);
+
+    localStorage.setItem("visitor_id", visitorId);
+  }
+
+  return visitorId;
+}
 async function trackEvent(eventType, page) {
   try {
     await fetch("http://localhost:5000/api/events", {
@@ -470,6 +485,7 @@ async function trackEvent(eventType, page) {
       body: JSON.stringify({
         eventType,
         page,
+        visitorId: getVisitorId(),
       }),
     });
   } catch (error) {
