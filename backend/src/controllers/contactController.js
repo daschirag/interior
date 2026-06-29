@@ -49,7 +49,28 @@ const getRecentLeads = async (req, res) => {
     });
   }
 };
+const getTotalLeads = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT COUNT(*) AS total
+      FROM contact_submissions
+    `);
+
+    res.json({
+      success: true,
+      total: result.rows[0].total,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch total leads",
+    });
+  }
+};
 module.exports = {
   submitContact,
   getRecentLeads,
+  getTotalLeads,
 };

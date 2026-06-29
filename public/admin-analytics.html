@@ -1,23 +1,110 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
-<meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analytics Dashboard</title>
+
   <link rel="stylesheet" href="assets/css/aurum.css" />
-  <style>
+<style>
+*{
+  box-sizing:border-box;
+}
+
 .analytics-page{
   min-height:100vh;
   background:var(--bg-1);
-  padding:120px 8vw;
+  padding:70px 6vw 80px;
+}
+.analytics-subtitle{
+    color:var(--ink-dim);
+    font-size:15px;
+    font-weight:400;
+    line-height:1.6;
+    letter-spacing:.02em;
+    margin-top:-24px;
+    margin-bottom:42px;
+    max-width:620px;
+}
+.container{
+  max-width:1500px;
+  margin:auto;
+}
+.analytics-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:24px;
+  margin-bottom:42px;
 }
 
+.analytics-heading{
+  flex:1;
+}
+
+.last-updated{
+  text-align:right;
+  min-width:170px;
+}
+
+.last-updated span{
+  display:block;
+  font-family:var(--mono);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--ink-dim);
+  margin-bottom:8px;
+}
+
+.last-updated strong{
+  display:block;
+  color:var(--ink);
+  font-size:15px;
+  font-weight:500;
+  line-height:1.5;
+}
+.analytics-filters{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    min-width:170px;
+}
+
+.analytics-filters label{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--ink-dim);
+}
+
+.filter-select{
+    background:var(--bg-2);
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:10px 14px;
+    font-size:14px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.filter-select:hover{
+    border-color:var(--azure-bright);
+}
+
+.filter-select:focus{
+    outline:none;
+    border-color:var(--azure-bright);
+}
 .analytics-title{
   font-family:var(--serif);
-  font-size:clamp(48px,6vw,90px);
+  font-size:clamp(34px,4vw,54px);
   font-weight:300;
-  margin-bottom:60px;
+  line-height:1.08;
+  margin-bottom:18px;
 }
 
 .analytics-title em{
@@ -27,105 +114,400 @@
 
 .analytics-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:24px;
+  margin-bottom:90px;
 }
 
 .metric-card{
   background:var(--bg-2);
-  border:1px solid var(--line);
-  padding:32px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:6px;
+  padding:34px 30px;
   transition:.3s;
 }
-
 .metric-card:hover{
-  border-color:var(--azure);
+  border-color:var(--azure-bright);
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(82,170,255,.08);
 }
 
 .metric-card span{
-  font-family:var(--mono);
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--ink-dim);
-  font-size:11px;
+    display:block;
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:18px;
+    font-weight:900;
+    color:#7CC6FF;
+    margin-bottom:16px;
+    line-height:1.3;
 }
-
 .metric-card h2{
   margin-top:18px;
   font-family:var(--serif);
-  font-size:64px;
-  font-weight:300;
+  font-size:60px;
+  font-weight:500;
   color:var(--ink);
+}
+.skeleton {
+  display: inline-block;
+  width: 90px;
+  height: 54px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,.05) 25%,
+    rgba(255,255,255,.12) 50%,
+    rgba(255,255,255,.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.3s infinite;
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.recent-leads{
+  margin-top:30px;
+}
+.table-card{
+  background:var(--bg-2);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:6px;
+  overflow-x:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  color:var(--ink);
+}
+
+th{
+  text-align:left;
+  padding:18px 20px;
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid var(--line);
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#EEF4FF;
+}
+td{
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+}
+
+tbody tr{
+  transition:background-color .25s ease;
+}
+
+tbody tr:hover{
+  background:rgba(82,170,255,.12);
+}
+
+tbody tr:last-child td{
+  border-bottom:none;
+}
+tbody tr:last-child td{
+  border-bottom:none;
+}
+
+/* Paste here ↓↓↓ */
+
+.empty-state{
+    padding:60px 30px !important;
+    text-align:center;
+}
+
+.empty-title{
+    font-family:var(--serif);
+    font-size:28px;
+    font-weight:300;
+    color:var(--ink);
+    margin-bottom:10px;
+}
+
+.empty-subtitle{
+    color:var(--ink-dim);
+    font-size:15px;
+    line-height:1.6;
+    max-width:420px;
+    margin:0 auto;
+}
+
+.analytics-charts{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    margin-bottom:90px;
+}
+
+.chart-card{
+    background:var(--bg-2);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:6px;
+    padding:30px;
+    transition:.3s;
+}
+
+.chart-card:hover{
+    border-color:var(--azure-bright);
+}
+.chart-card h3{
+    font-family:var(--serif);
+    font-size:24px;
+    font-weight:300;
+    color:var(--ink);
+    margin-bottom:22px;
+}
+
+.chart-card canvas{
+    width:100% !important;
+    height:320px !important;
+}
+/* Laptop */
+
+@media (max-width:1024px){
+
+.analytics-grid{
+  grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* Laptop */
+
+@media (max-width:1024px){
+
+.analytics-grid{
+  grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* Tablet */
+
+@media (max-width:768px){
+
+.analytics-page{
+  padding:90px 30px 60px;
+}
+
+.analytics-grid{
+  grid-template-columns:repeat(2,1fr);
+}
+
+.analytics-title{
+  font-size:56px;
+}
+
+.metric-card h2{
+    font-size:54px;
+    line-height:1;
+}
+.analytics-charts{
+    grid-template-columns:1fr;
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:480px){
+
+.analytics-page{
+  padding:70px 18px;
+}
+
+.analytics-grid{
+  grid-template-columns:1fr;
+}
+
+.analytics-title{
+  font-size:40px;
+}
+
+.metric-card{
+  padding:22px;
+}
+
+.metric-card h2{
+  font-size:44px;
+}
+.analytics-header{
+  flex-direction:column;
+  gap:18px;
+}
+
+.last-updated{
+  text-align:left;
+}
+
+th,
+td{
+  padding:14px;
+  font-size:14px;
+}
+
 }
 </style>
 </head>
+
 <body>
 
-<section class="analytics-page">
-  <div class="container">
+  <section class="analytics-page">
+
+    <div class="container">
+
+      <div class="analytics-header">
+
+  <div class="analytics-heading">
 
     <h1 class="analytics-title">
       Analytics <em>Dashboard</em>
     </h1>
 
-    <div class="analytics-grid">
+    <p class="analytics-subtitle">
+      Website Performance Overview
+    </p>
 
-      <div class="metric-card">
-        <span>Page Views</span>
-        <h2 id="pageViews">0</h2>
-      </div>
+  </div>
 
-      <div class="metric-card">
-        <span>Unique Visitors</span>
-        <h2 id="uniqueVisitors">0</h2>
-      </div>
+  <div style="display:flex;gap:20px;align-items:flex-start;">
 
-      <div class="metric-card">
-        <span>Form Starts</span>
-        <h2 id="formStarts">0</h2>
-      </div>
+    <div class="last-updated">
 
-      <div class="metric-card">
-        <span>Form Submits</span>
-        <h2 id="formSubmits">0</h2>
-      </div>
+      <span>Last Updated</span>
+
+      <strong id="lastUpdated">--</strong>
 
     </div>
-  </div>
-<section style="margin-top:100px">
-  <h2 class="analytics-title" style="font-size:48px">
-    Recent <em>Leads</em>
-  </h2>
 
-  <div
-    style="
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      padding: 30px;
-      overflow-x: auto;
-    "
-  >
-    <table
-      style="
-        width: 100%;
-        border-collapse: collapse;
-        color: var(--ink);
-      "
-    >
-      <thead>
-        <tr>
-          <th style="text-align:left;padding:16px;">Name</th>
-          <th style="text-align:left;padding:16px;">Email</th>
-          <th style="text-align:left;padding:16px;">Phone</th>
-        </tr>
-      </thead>
+    <div class="analytics-filters">
 
-      <tbody id="leadsBody"></tbody>
-    </table>
+      <label for="dateFilter">Period</label>
+
+      <select id="dateFilter" class="filter-select">
+        <option value="today">Today</option>
+        <option value="7">Last 7 Days</option>
+        <option value="30">Last 30 Days</option>
+        <option value="all" selected>All Time</option>
+      </select>
+
+    </div>
+
   </div>
+
+</div>
+    <div class="analytics-grid">
+
+  <div class="metric-card">
+    <span>Page Views</span>
+    <h2 id="pageViews">
+      <span class="skeleton"></span>
+    </h2>
+  </div>
+
+  <div class="metric-card">
+    <span>Unique Visitors</span>
+    <h2 id="uniqueVisitors">
+      <span class="skeleton"></span>
+    </h2>
+  </div>
+
+  <div class="metric-card">
+    <span>Form Starts</span>
+    <h2 id="formStarts">
+      <span class="skeleton"></span>
+    </h2>
+  </div>
+
+  <div class="metric-card">
+    <span>Form Submits</span>
+    <h2 id="formSubmits">
+      <span class="skeleton"></span>
+    </h2>
+  </div>
+
+  <div class="metric-card">
+    <span>Total Leads</span>
+    <h2 id="totalLeads">
+      <span class="skeleton"></span>
+    </h2>
+  </div>
+
+  <div class="metric-card">
+    <span>Conversion Rate</span>
+    <h2 id="conversionRate">
+      <span class="skeleton"></span>
+    </h2>
+  </div>
+
+</div>
+<!-- Analytics Charts -->
+
+<section class="analytics-charts">
+
+  <div class="chart-card">
+    <h3>Website Traffic</h3>
+
+    <canvas id="trafficChart"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Conversion Funnel</h3>
+
+    <canvas id="funnelChart"></canvas>
+  </div>
+
 </section>
+      <!-- Recent Leads -->
+
+      
+<section class="recent-leads">
+        <h2 class="analytics-title" style="font-size:48px">
+          Recent <em>Leads</em>
+        </h2>
+
+      <div class="table-card">
+
+          <table style="
+            width:100%;
+            border-collapse:collapse;
+            color:var(--ink);
+          ">
+
+            <thead>
+<tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Submitted</th>
+</tr>
+</thead>
+
+            <tbody id="leadsBody"></tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script src="admin-analytics.js"></script>
-
-
 </body>
+
 </html>
