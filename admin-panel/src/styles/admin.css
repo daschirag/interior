@@ -1,0 +1,140 @@
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:40px;
+}
+
+.page-title{
+    margin:0;
+    color:#f5f5f5;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:64px;
+    font-weight:400;
+    line-height:1;
+}
+
+.page-subtitle{
+    margin-top:14px;
+    color:#8d97a6;
+    font-size:16px;
+    line-height:1.7;
+}
+
+/* ================= BUTTON ================= */
+
+.primary-btn,
+.admin-btn{
+    background:#4d7cff;
+    color:#fff;
+    border:none;
+    padding:14px 24px;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.primary-btn:hover,
+.admin-btn:hover{
+    background:#3d6df4;
+    transform:translateY(-2px);
+}
+
+/* ================= INPUT ================= */
+
+.admin-input,
+.search-box{
+    width:100%;
+    padding:14px 18px;
+    background:#232833;
+    color:#fff;
+    border:1px solid #313847;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+    transition:.25s;
+    box-sizing:border-box;
+}
+
+.admin-input{
+    margin-bottom:18px;
+}
+
+.admin-input:focus,
+.search-box:focus{
+    border-color:#4d7cff;
+}
+
+.admin-input::placeholder,
+.search-box::placeholder{
+    color:#8d97a6;
+}
+
+.search-box{
+    max-width:380px;
+    margin-bottom:25px;
+}
+
+/* ================= TABLE ================= */
+
+.table-card{
+    background:#20252f;
+    border:1px solid #2c3340;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.admin-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.admin-table th{
+    background:#262c38;
+    color:#fff;
+    text-align:left;
+    padding:20px;
+    font-size:15px;
+    font-weight:600;
+}
+
+.admin-table td{
+    padding:20px;
+    color:#d8dde5;
+    border-top:1px solid #313847;
+}
+
+.admin-table tr:hover{
+    background:#252b36;
+}
+
+/* ================= ACTION BUTTONS ================= */
+
+.action-btn{
+    border:none;
+    border-radius:6px;
+    padding:8px 15px;
+    cursor:pointer;
+    color:white;
+    font-size:14px;
+    margin-right:8px;
+    transition:.2s;
+}
+
+.edit-btn{
+    background:#4d7cff;
+}
+
+.edit-btn:hover{
+    background:#3d6df4;
+}
+
+.delete-btn{
+    background:#dc3545;
+}
+
+.delete-btn:hover{
+    background:#c82333;
+}

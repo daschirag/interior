@@ -1,0 +1,118 @@
+:root {
+
+  /* ===========================
+     COLORS
+  =========================== */
+
+  --bg: #0c1118;
+  --bg-secondary: #131922;
+  --card: #171d27;
+  --sidebar: #10161f;
+
+  --border: #252d39;
+  --border-light: #323c49;
+
+  --primary: #58A6FF;
+  --primary-hover: #3D8BFF;
+
+  --danger: #ef4444;
+  --success: #39d353;
+  --warning: #f59e0b;
+
+  --white: #ffffff;
+
+  --text: #e8edf4;
+  --text-light: #b7c0cb;
+  --text-muted: #7d8795;
+
+  /* ===========================
+     TYPOGRAPHY
+  =========================== */
+
+  --heading-font: "Cormorant Garamond", serif;
+  --body-font: "Inter", sans-serif;
+
+  /* ===========================
+     FONT SIZES
+  =========================== */
+
+  --h1: 58px;
+  --h2: 42px;
+  --h3: 30px;
+
+  --body: 16px;
+  --small: 14px;
+  --tiny: 12px;
+
+  /* ===========================
+     SPACING
+  =========================== */
+
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 18px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+  --space-xxl: 60px;
+
+  /* ===========================
+     RADIUS
+  =========================== */
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  /* ===========================
+     SHADOWS
+  =========================== */
+
+  --shadow:
+    0 10px 30px rgba(0,0,0,.35);
+
+  --shadow-hover:
+    0 18px 40px rgba(0,0,0,.45);
+
+  /* ===========================
+     TRANSITIONS
+  =========================== */
+
+  --transition: .25s ease;
+}
+
+/* ===========================
+   GLOBAL RESET
+=========================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body-font);
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
