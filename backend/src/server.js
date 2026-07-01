@@ -5,9 +5,10 @@ const app = require("./app");
 const testConnection = require("./database/testConnection");
 
 const PORT = process.env.PORT || 5000;
+(async () => {
+  await testConnection();
 
-testConnection();
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+})();

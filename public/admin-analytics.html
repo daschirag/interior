@@ -99,6 +99,29 @@
     outline:none;
     border-color:var(--azure-bright);
 }
+.export-actions{
+    display:flex;
+    gap:10px;
+    margin-top:14px;
+}
+
+.export-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:10px 16px;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.export-btn:hover{
+    border-color:var(--azure-bright);
+    color:var(--azure-bright);
+    transform:translateY(-2px);
+}
 .analytics-title{
   font-family:var(--serif);
   font-size:clamp(34px,4vw,54px);
@@ -389,18 +412,28 @@ td{
 
     </div>
 
-    <div class="analytics-filters">
+   <div class="analytics-filters">
 
-      <label for="dateFilter">Period</label>
+  <label for="dateFilter">Period</label>
 
-      <select id="dateFilter" class="filter-select">
-        <option value="today">Today</option>
-        <option value="7">Last 7 Days</option>
-        <option value="30">Last 30 Days</option>
-        <option value="all" selected>All Time</option>
-      </select>
+  <select id="dateFilter" class="filter-select">
+    <option value="today">Today</option>
+    <option value="7">Last 7 Days</option>
+    <option value="30">Last 30 Days</option>
+    <option value="all" selected>All Time</option>
+  </select>
 
-    </div>
+  <div class="export-actions">
+      <button id="exportCsvBtn" class="export-btn">
+          Export CSV
+      </button>
+
+      <button id="exportPdfBtn" class="export-btn">
+          Export PDF
+      </button>
+  </div>
+
+</div>
 
   </div>
 
@@ -505,6 +538,9 @@ td{
   </section>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script src="admin-analytics.js"></script>
 </body>
 

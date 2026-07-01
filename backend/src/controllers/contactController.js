@@ -28,19 +28,20 @@ const submitContact = async (req, res) => {
   }
 };
 const getRecentLeads = async (req, res) => {
-  try {
+  try {console.log("➡️ Recent Leads Started");
     const result = await pool.query(`
       SELECT *
       FROM contact_submissions
       ORDER BY created_at DESC
       LIMIT 10
     `);
-
+console.log("✅ Recent Leads Completed");
     res.json({
       success: true,
       data: result.rows,
     });
   } catch (error) {
+    console.log("❌ Recent Leads Failed");
     console.error(error);
 
     res.status(500).json({

@@ -2,6 +2,7 @@ const pool = require("../config/db");
 
 const getAnalyticsSummary = async (req, res) => {
   try {
+      console.log("➡️ Analytics Summary Started");
     const period = req.query.period || "all";
 
     let dateCondition = "";
@@ -22,43 +23,40 @@ const getAnalyticsSummary = async (req, res) => {
       default:
         dateCondition = "";
     }
-    const [pageViews, formStarts, formSubmits, uniqueVisitors, totalLeads] =
-      await Promise.all([
-        pool.query(`
-        SELECT COUNT(*) AS count
-        FROM analytics_events
-        WHERE event_type = 'page_view'
+    const pageViews = await pool.query(`
+SELECT COUNT(*) AS count
+FROM analytics_events
+WHERE event_type='page_view'
 ${dateCondition}
-      `),
+`);
 
-        pool.query(`
-        SELECT COUNT(*) AS count
-        FROM analytics_events
-        WHERE event_type = 'form_start'
+    const formStarts = await pool.query(`
+SELECT COUNT(*) AS count
+FROM analytics_events
+WHERE event_type='form_start'
 ${dateCondition}
-      `),
+`);
 
-        pool.query(`
-        SELECT COUNT(*) AS count
-        FROM analytics_events
-        WHERE event_type = 'form_submit'
+    const formSubmits = await pool.query(`
+SELECT COUNT(*) AS count
+FROM analytics_events
+WHERE event_type='form_submit'
 ${dateCondition}
-      `),
+`);
 
-        pool.query(`
-        SELECT COUNT(DISTINCT visitor_id) AS count
-        FROM analytics_events
-      WHERE visitor_id IS NOT NULL
+    const uniqueVisitors = await pool.query(`
+SELECT COUNT(DISTINCT visitor_id) AS count
+FROM analytics_events
+WHERE visitor_id IS NOT NULL
 ${dateCondition}
-      `),
+`);
 
-        pool.query(`
-        SELECT COUNT(*) AS count
-       FROM contact_submissions
+    const totalLeads = await pool.query(`
+SELECT COUNT(*) AS count
+FROM contact_submissions
 WHERE 1=1
 ${dateCondition}
-      `),
-      ]);
+`);
 
     const pageViewsCount = Number(pageViews.rows[0].count);
     const formStartsCount = Number(formStarts.rows[0].count);
@@ -70,7 +68,7 @@ ${dateCondition}
       pageViewsCount === 0
         ? 0
         : ((formSubmitsCount / pageViewsCount) * 100).toFixed(1);
-
+console.log("✅ Analytics Summary Completed");
     res.status(200).json({
       success: true,
       data: {
@@ -83,6 +81,7 @@ ${dateCondition}
       },
     });
   } catch (error) {
+    console.log("❌ Analytics Summary Failed");
     console.error("Analytics Summary Error:", error);
 
     res.status(500).json({
@@ -93,6 +92,7 @@ ${dateCondition}
 };
 const getTrafficTrends = async (req, res) => {
   try {
+console.log("➡️ Traffic Trends Started");
     const period = req.query.period || "all";
 
     let interval;
@@ -149,12 +149,13 @@ const getTrafficTrends = async (req, res) => {
 
       ORDER BY d.event_date;
     `);
-
+console.log("✅ Traffic Trends Completed");
     res.status(200).json({
       success: true,
       data: result.rows,
     });
   } catch (error) {
+    console.log("❌ Traffic Trends Failed");
     console.error("Traffic Trends Error:", error);
 
     res.status(500).json({
