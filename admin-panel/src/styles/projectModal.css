@@ -1,0 +1,69 @@
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    backdrop-filter:blur(6px);
+}
+
+.project-modal{
+    width:560px;
+    background:#1d232d;
+    border:1px solid #2d3542;
+    border-radius:14px;
+    padding:32px;
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
+}
+
+.modal-title{
+    margin:0 0 28px;
+    color:#fff;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:38px;
+    font-weight:400;
+}
+
+.project-modal .admin-input{
+    width:100%;
+    margin-bottom:18px;
+}
+
+.checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#d4dae3;
+    font-size:15px;
+    margin:12px 0 26px;
+}
+
+.checkbox-row input{
+    width:18px;
+    height:18px;
+    accent-color:#4d7cff;
+    cursor:pointer;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+}
+
+.cancel-btn{
+    border:none;
+    background:#2c3442;
+    color:white;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.25s;
+}
+
+.cancel-btn:hover{
+    background:#3b4556;
+}
