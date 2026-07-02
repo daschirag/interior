@@ -468,6 +468,12 @@ html.has-js .torch{ opacity:1; }
 .foot-col h4{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:var(--s2); }
 .foot-col a,.foot-col p{ display:block; font-size:14px; color:var(--ink-soft); margin-bottom:9px; transition:color .3s; }
 .foot-col a:hover{ color:var(--azure-bright); }
+.foot-iso{
+  display:block; font-family:var(--mono); font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-dim); margin-top:14px; max-width:34ch;
+  line-height:1.55; transition:color .3s;
+}
+.foot-iso:hover{ color:var(--brass-bright); }
 .foot-bottom{ display:flex; justify-content:space-between; align-items:center; margin-top:var(--s6); padding-top:var(--s3); border-top:1px solid var(--line-soft); }
 .foot-bottom .cap{ font-size:10px; }
 .foot-watermark{ position:absolute; bottom:-4%; left:50%; transform:translateX(-50%); font-family:var(--serif); font-weight:300; font-size:26vw; color:rgba(236,239,243,0.018); white-space:nowrap; pointer-events:none; z-index:0; font-style:italic; }

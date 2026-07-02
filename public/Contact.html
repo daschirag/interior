@@ -82,17 +82,93 @@
 
 /* LOCATIONS */
 .locs{ padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); }
-.locs-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--s4); }
+.locs-intro{ max-width:52ch; margin-top:14px; font-size:14px; line-height:1.65; color:var(--ink-soft); }
+.locs-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,1.8vw,20px); margin-top:var(--s4);
+  align-items:stretch;
+}
 @media (max-width:880px){ .locs-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:520px){ .locs-grid{ grid-template-columns:1fr; } }
-.loc{ position:relative; background:var(--bg-1); padding:clamp(24px,2.6vw,38px); min-height:260px; display:flex; flex-direction:column; justify-content:space-between; transition:background .5s var(--e-out); overflow:hidden; }
-.loc::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--azure); transition:width .6s var(--e-out); }
-.loc:hover{ background:var(--bg-2); }
-.loc:hover::after{ width:100%; }
-.loc .lno{ font-family:var(--mono); font-size:11px; color:var(--azure); letter-spacing:.1em; }
-.loc .lname{ font-family:var(--serif); font-weight:300; font-size:clamp(30px,3vw,44px); line-height:1; margin-top:auto; }
-.loc .lcoord{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink-dim); margin-top:14px; text-transform:uppercase; }
-.loc .laddr{ font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.5; }
+.loc{
+  position:relative; background:var(--bg-1); border:1px solid var(--line);
+  padding:clamp(22px,2.4vw,32px); height:100%;
+  display:flex; flex-direction:column; gap:0;
+  transition:background .45s var(--e-out), border-color .45s var(--e-out), transform .45s var(--e-out), box-shadow .45s var(--e-out);
+  overflow:hidden;
+}
+.loc::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(120% 80% at 0% 0%, rgba(44,154,212,0.07), transparent 55%);
+  opacity:0; transition:opacity .45s var(--e-out);
+}
+.loc:hover{ background:var(--bg-2); border-color:var(--line-strong); transform:translateY(-4px); box-shadow:0 24px 48px rgba(0,0,0,0.35); }
+.loc:hover::before{ opacity:1; }
+.loc-top{
+  display:flex; align-items:baseline; gap:10px 14px;
+  padding-bottom:18px; border-bottom:1px solid var(--line-soft); margin-bottom:18px;
+  flex-shrink:0;
+}
+.loc .lno{
+  font-family:var(--mono); font-size:10px; color:var(--azure); letter-spacing:.14em;
+  flex-shrink:0; line-height:1; padding-top:0.35em;
+}
+.loc-city{
+  font-family:var(--serif); font-weight:300; font-size:clamp(26px,2.8vw,34px);
+  line-height:1.08; color:var(--ink); margin:0; flex:1; transition:color .4s;
+}
+.loc:hover .loc-city{ color:var(--brass-bright); }
+.loc-body{
+  flex:1 1 auto; display:flex; flex-direction:column; min-height:0;
+}
+.loc-brand{
+  font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-dim); margin:0 0 12px; flex-shrink:0;
+}
+.loc-addr{
+  font-size:13px; line-height:1.55; color:var(--ink-soft); margin:0; flex-shrink:0;
+  min-height:calc(1.55em * 3);
+}
+.loc-meta{
+  display:flex; flex-direction:column; gap:12px; margin:16px 0 0; padding:0; list-style:none;
+  flex-shrink:0;
+}
+.loc-meta li{ display:grid; grid-template-columns:1fr; gap:4px; }
+.loc-meta .lm-k{
+  font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint); line-height:1.2;
+}
+.loc-meta .lm-v{ font-size:12.5px; color:var(--ink-soft); line-height:1.45; min-height:1.45em; }
+.loc-actions{
+  display:flex; flex-direction:column; gap:8px;
+  margin-top:auto; padding-top:20px; flex-shrink:0;
+}
+.loc-btn{
+  display:grid; grid-template-columns:auto 1fr; grid-template-rows:auto auto;
+  column-gap:10px; row-gap:2px; align-items:center; width:100%;
+  padding:12px 14px; border:1px solid var(--line); border-radius:2px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink); background:rgba(255,255,255,0.02);
+  transition:background .35s var(--e-out), border-color .35s var(--e-out), color .35s var(--e-out), transform .35s var(--e-out);
+  min-height:44px;
+}
+.loc-btn svg{ width:16px; height:16px; grid-row:1 / -1; fill:currentColor; opacity:.85; }
+.loc-btn:hover{ transform:translateY(-1px); }
+.loc-btn--maps{
+  min-height:58px;
+  background:linear-gradient(135deg, rgba(44,154,212,0.14), rgba(44,154,212,0.06));
+  border-color:rgba(44,154,212,0.35); color:var(--azure-bright);
+}
+.loc-btn--maps:hover{ background:var(--azure); border-color:var(--azure); color:#04222f; }
+.loc-btn--maps:hover svg{ opacity:1; }
+.loc-btn--maps .loc-btn-label{ grid-column:2; grid-row:1; align-self:end; }
+.loc-btn-hint{
+  grid-column:2; grid-row:2; font-size:9px; letter-spacing:.08em; text-transform:none;
+  color:var(--ink-dim); font-family:var(--sans); font-weight:300; line-height:1.35;
+}
+.loc-btn--maps:hover .loc-btn-hint{ color:rgba(4,34,47,0.75); }
+.loc-btn--call{ grid-template-rows:1fr; min-height:44px; }
+.loc-btn--call .loc-btn-label{ grid-column:2; }
+.loc-btn--call:hover{ border-color:var(--brass); color:var(--brass-bright); background:rgba(194,162,105,0.08); }
 
 /* DIRECT CONTACT */
 .direct{ padding:var(--s6) var(--gut) var(--s7); border-top:1px solid var(--line-soft); display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s4); }
@@ -161,11 +237,8 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Location cards */
-.loc { transition: background 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s; }
-.loc:hover { transform: translateY(-4px); }
-.loc .lname { color: var(--ink); transition: color 0.4s; }
-.loc:hover .lname { color: var(--brass-bright); }
+/* Location cards — hover lift only (actions are explicit buttons) */
+.loc { transition: background 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s, border-color 0.45s, box-shadow 0.45s; }
 
 /* Darken consultation aside so sidebar text is readable */
 .consult-aside .ph::after {
@@ -205,13 +278,17 @@
   .cnav .btn { flex: 1; justify-content: center; min-height: 48px; }
   .consult { padding-bottom: 84px; }
   .locs { padding: 84px var(--gut); }
-  .locs-grid { grid-template-columns: repeat(2,1fr); margin-top: var(--s3); }
+  .locs-grid { grid-template-columns: repeat(2,1fr); margin-top: var(--s3); align-items: stretch; }
+  .loc-addr { min-height: calc(1.55em * 4); }
   .follow { padding: 38px var(--gut); }
   .direct { grid-template-columns: 1fr; gap: var(--s3); padding: var(--s3) var(--gut); }
 }
 @media (max-width: 520px) {
   .copts { grid-template-columns: 1fr; }
   .locs-grid { grid-template-columns: 1fr; }
+  .loc-addr { min-height: 0; }
+  .loc-btn { min-height: 48px; padding: 14px 16px; }
+  .loc-btn--maps { min-height: 62px; }
   .copt { padding: 14px 16px; }
   .cstep .cq { font-size: clamp(24px,6vw,36px); }
 }
@@ -351,11 +428,101 @@
     <div class="wrap">
       <div class="kicker brass" data-reveal>The Studios</div>
       <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Four cities, <em>one</em> standard.</span></h2>
+      <p class="locs-intro" data-reveal>Visit any studio in person — tap <strong style="color:var(--azure-bright);font-weight:400;">Get directions</strong> to open the route in Google Maps, or call the studio directly.</p>
       <div class="locs-grid" data-stagger>
-        <div class="loc" data-reveal><div class="lno">01</div><div><div class="lname">Vinayak Aluminium Interiors — Vijayapura</div><div class="lcoord">N 16°50' / E 75°43'</div><div class="laddr">Hubli-Bagalkot Road, Opp. Ayurgram Hospital, Amruth Nagar, Vijayapura — 586101<br><a href="tel:+917019631202">+91 70196 31202</a><br>Mon–Sat · 10am to 5:30pm<br><a href="https://maps.app.goo.gl/28Jmce9tPCoz46Zm9" target="_blank" rel="noopener noreferrer">Google Maps ↗</a></div></div></div>
-        <div class="loc" data-reveal><div class="lno">02</div><div><div class="lname">Vinayak Aluminium Interiors — Dharwad</div><div class="lcoord">N 15°27'57.1" / E 75°00'37.6"</div><div class="laddr">2nd Cross, Maratha Colony, Near Ganesh Temple, Shinde Avenue, Dharwad — 580001<br><a href="tel:+919380348113">+91 93803 48113</a><br>Mon–Sat · 10am to 5pm<br><a href="https://maps.app.goo.gl/S8DXC51UAA6QuaGv9" target="_blank" rel="noopener noreferrer">Google Maps ↗</a></div></div></div>
-        <div class="loc" data-reveal><div class="lno">03</div><div><div class="lname">Vinayak Aluminium Interiors — Kalaburagi</div><div class="lcoord">N 17°19'14.1" / E 76°48'09.9"</div><div class="laddr">SP Sambha Complex, Bidar Colony, Near Hanuman Temple, Kalaburagi — 585102<br><a href="tel:+917483620588">+91 74836 20588</a><br>Mon–Sat · 10am to 5:30pm<br><a href="https://maps.app.goo.gl/4NyUKvP6XGmdDEvr5" target="_blank" rel="noopener noreferrer">Google Maps ↗</a></div></div></div>
-        <div class="loc" data-reveal><div class="lno">04</div><div><div class="lname">Vinayak Aluminium Interiors — Hospet</div><div class="lcoord">N 15°16' / E 76°23'</div><div class="laddr">First Floor, Above Ramdev Mobile Shop, Near Ganesh Travels Office, Station Road, Hospet — 583201<br><a href="tel:+919483145955">+91 94831 45955</a><br>Mon–Sat · 10am to 5pm<br><a href="https://maps.app.goo.gl/4NyUKvP6XGmdDEvr5" target="_blank" rel="noopener noreferrer">Google Maps ↗</a></div></div></div>
+
+        <article class="loc" data-reveal>
+          <div class="loc-top"><span class="lno">01</span><h3 class="loc-city">Vijayapura</h3></div>
+          <div class="loc-body">
+            <p class="loc-brand">Vinayak Aluminium Interiors</p>
+            <p class="loc-addr">Hubli-Bagalkot Road, Opp. Ayurgram Hospital, Amruth Nagar, Vijayapura — 586101</p>
+            <ul class="loc-meta">
+              <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5:30pm</span></li>
+              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 16°50' / E 75°43'</span></li>
+            </ul>
+          </div>
+          <div class="loc-actions">
+            <a class="loc-btn loc-btn--maps" href="https://maps.app.goo.gl/28Jmce9tPCoz46Zm9" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Vijayapura studio in Google Maps">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+              <span class="loc-btn-label">Get directions</span>
+              <span class="loc-btn-hint">Opens in Google Maps · turn-by-turn route</span>
+            </a>
+            <a class="loc-btn loc-btn--call" href="tel:+917019631202" aria-label="Call Vijayapura studio">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+              <span class="loc-btn-label">Call +91 70196 31202</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="loc" data-reveal>
+          <div class="loc-top"><span class="lno">02</span><h3 class="loc-city">Dharwad</h3></div>
+          <div class="loc-body">
+            <p class="loc-brand">Vinayak Aluminium Interiors</p>
+            <p class="loc-addr">2nd Cross, Maratha Colony, Near Ganesh Temple, Shinde Avenue, Dharwad — 580001</p>
+            <ul class="loc-meta">
+              <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5pm</span></li>
+              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 15°27'57.1" / E 75°00'37.6"</span></li>
+            </ul>
+          </div>
+          <div class="loc-actions">
+            <a class="loc-btn loc-btn--maps" href="https://maps.app.goo.gl/S8DXC51UAA6QuaGv9" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Dharwad studio in Google Maps">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+              <span class="loc-btn-label">Get directions</span>
+              <span class="loc-btn-hint">Opens in Google Maps · turn-by-turn route</span>
+            </a>
+            <a class="loc-btn loc-btn--call" href="tel:+919380348113" aria-label="Call Dharwad studio">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+              <span class="loc-btn-label">Call +91 93803 48113</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="loc" data-reveal>
+          <div class="loc-top"><span class="lno">03</span><h3 class="loc-city">Kalaburagi</h3></div>
+          <div class="loc-body">
+            <p class="loc-brand">Vinayak Aluminium Interiors</p>
+            <p class="loc-addr">SP Sambha Complex, Bidar Colony, Near Hanuman Temple, Kalaburagi — 585102</p>
+            <ul class="loc-meta">
+              <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5:30pm</span></li>
+              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 17°19'14.1" / E 76°48'09.9"</span></li>
+            </ul>
+          </div>
+          <div class="loc-actions">
+            <a class="loc-btn loc-btn--maps" href="https://maps.app.goo.gl/4NyUKvP6XGmdDEvr5" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Kalaburagi studio in Google Maps">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+              <span class="loc-btn-label">Get directions</span>
+              <span class="loc-btn-hint">Opens in Google Maps · turn-by-turn route</span>
+            </a>
+            <a class="loc-btn loc-btn--call" href="tel:+917483620588" aria-label="Call Kalaburagi studio">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+              <span class="loc-btn-label">Call +91 74836 20588</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="loc" data-reveal>
+          <div class="loc-top"><span class="lno">04</span><h3 class="loc-city">Hospet</h3></div>
+          <div class="loc-body">
+            <p class="loc-brand">Vinayak Aluminium Interiors</p>
+            <p class="loc-addr">First Floor, Above Ramdev Mobile Shop, Near Ganesh Travels Office, Station Road, Hospet — 583201</p>
+            <ul class="loc-meta">
+              <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5pm</span></li>
+              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 15°16' / E 76°23'</span></li>
+            </ul>
+          </div>
+          <div class="loc-actions">
+            <a class="loc-btn loc-btn--maps" href="https://maps.app.goo.gl/4NyUKvP6XGmdDEvr5" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Hospet studio in Google Maps">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+              <span class="loc-btn-label">Get directions</span>
+              <span class="loc-btn-hint">Opens in Google Maps · turn-by-turn route</span>
+            </a>
+            <a class="loc-btn loc-btn--call" href="tel:+919483145955" aria-label="Call Hospet studio">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+              <span class="loc-btn-label">Call +91 94831 45955</span>
+            </a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -423,6 +590,17 @@
           </div>
           <span class="fc-arw">Open PDF catalog →</span>
         </a>
+        <a class="follow-card follow-card--pdf" href="assets/catalogs/vinayaka-iso-certificate.pdf" target="_blank" rel="noopener noreferrer" data-reveal>
+          <div class="fc-head">
+            <span class="fc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.39 4.84 5.34.78-3.86 3.76.91 5.32L12 14.77l-4.78 2.51.91-5.32-3.86-3.76 5.34-.78L12 2zm-7 15.5v4.5h14v-4.5l-7 3.75-7-3.75z"/></svg></span>
+            <span class="fc-tag">Certification</span>
+          </div>
+          <div class="fc-body">
+            <h3 class="fc-title">ISO 9001:2015 Certified</h3>
+            <p class="fc-desc">Certified for Quality Management Systems — every project follows documented, audited processes from measurement to handover.</p>
+          </div>
+          <span class="fc-arw">VIEW CERTIFICATE →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -442,9 +620,10 @@
         <div class="foot-col">
           <a class="nav-brand" href="index.html" style="margin-bottom:18px;"><span class="logo" data-logo style="width:34px;height:34px;"></span><span class="wm">VINAYAK <b>INTERIORS</b></span></a>
           <p class="body" style="font-size:14px; max-width:30ch;">Interior architecture &amp; bespoke fit-out across Karnataka.</p>
+          <a href="assets/catalogs/vinayaka-iso-certificate.pdf" target="_blank" rel="noopener noreferrer" class="foot-iso">ISO 9001:2015 Certified — Quality Management Systems ↗</a>
         </div>
         <div class="foot-col"><h4>Pages</h4><a href="index.html">Home</a><a href="Projects.html">Projects</a><a href="Services.html">Studio</a><a href="Contact.html">Contact</a></div>
-        <div class="foot-col"><h4>Studios</h4><a href="#locations">Bangalore</a><a href="#locations">Hubli</a><a href="#locations">Dharwad</a><a href="#locations">Hospet</a></div>
+        <div class="foot-col"><h4>Studios</h4><a href="#locations">Vijayapura</a><a href="#locations">Dharwad</a><a href="#locations">Kalaburagi</a><a href="#locations">Hospet</a></div>
         <div class="foot-col"><h4>Connect</h4><a href="mailto:vinayakainteriors308@gmail.com">vinayakainteriors308@gmail.com</a><a href="tel:+918040000000">+91 80 4000 0000</a><div class="foot-soc-row"><a href="https://youtu.be/ZTSmjmOTvj0" class="foot-soc foot-soc-yt" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.12-2.12C19.5 5 12 5 12 5s-7.5 0-8.88.38A3 3 0 0 0 1 7.5 13 13 0 0 0 1 12a13 13 0 0 0 .12 4.5 3 3 0 0 0 2.12 2.12C4.5 19 12 19 12 19s7.5 0 8.88-.38a3 3 0 0 0 2.12-2.12A13 13 0 0 0 23 12a13 13 0 0 0-.12-4.5zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a><a href="https://www.facebook.com/profile.php?id=100090776470039" class="foot-soc foot-soc-fb" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.9V12h2.22V9.8c0-2.2 1.3-3.41 3.3-3.41.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.67-1.43 1.36V12h2.43l-.39 2.47h-2.04v8.38A12 12 0 0 0 24 12z"/></svg></a><a href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" class="foot-soc foot-soc-ig" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg class="soc-icon soc-icon-ig" viewBox="0 0 24 24" aria-hidden="true" fill="none"><defs><linearGradient id="foot-ig-grad" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="url(#foot-ig-grad)"/></svg></a></div><a href="#follow">Catalog &amp; resources ↗</a></div>
       </div>
       <div class="foot-bottom"><span class="cap">© MMXXVI Vinayak Aluminium Interiors</span><span class="cap">Composed with light</span></div>
