@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { getAllowedOrigins } = require("./config/corsOrigins");
 
 const authRoutes = require("./routes/authRoutes");
 const disciplineRoutes = require("./routes/disciplineRoutes");
@@ -17,17 +18,22 @@ const studioRoutes = require("./routes/studioRoutes");
 
 const app = express();
 
-const corsOrigin = process.env.CORS_ORIGIN;
+const allowedOrigins = getAllowedOrigins();
 app.use(
-  cors(
-    corsOrigin
-      ? {
-          origin: corsOrigin.split(",").map((o) => o.trim()),
-        }
-      : undefined,
-  ),
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
 );
 app.use(express.json());
+
+function healthPayload(req, res) {
+  res.status(200).json({ status: "ok" });
+}
+
+// /health works locally; Render may intercept this path before it reaches the app.
+app.get("/health", healthPayload);
+app.get("/api/ping", healthPayload);
 
 app.get("/", (req, res) => {
   res.status(200).json({

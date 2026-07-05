@@ -4,11 +4,16 @@ const ssl = { rejectUnauthorized: false };
 
 const poolOptions = {
   ssl,
-  family: 4,
   max: 5,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 10000,
 };
+
+// Only force IPv4 when needed (local direct Supabase host). Session pooler on Render
+// works without this; set DB_FORCE_IPV4=false on Render if you ever see DNS issues.
+if (process.env.DB_FORCE_IPV4 !== "false") {
+  poolOptions.family = 4;
+}
 
 const pool = process.env.DATABASE_URL
   ? new Pool({
