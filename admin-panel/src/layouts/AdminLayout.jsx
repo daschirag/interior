@@ -1,8 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/adminLayout.css";
 
 function AdminLayout({ children }) {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
@@ -11,6 +18,7 @@ function AdminLayout({ children }) {
     { name: "Disciplines", path: "/disciplines" },
     { name: "Site Settings", path: "/site-settings" },
     { name: "Uploads", path: "/uploads" },
+    { name: "Website Editor", path: "/website-editor" },
   ];
 
   return (
@@ -38,9 +46,9 @@ function AdminLayout({ children }) {
         </nav>
 
         <div className="logout-section">
-          <Link to="/" className="menu-item">
+          <button type="button" className="menu-item logout-btn" onClick={handleLogout}>
             Logout
-          </Link>
+          </button>
         </div>
       </aside>
 

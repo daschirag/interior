@@ -168,9 +168,9 @@
 /* ---------------- FEATURED TEASER ---------------- */
 .feat{ padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); }
 .feat-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--s3); margin-bottom:var(--s5); }
-.feat-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.6vw,28px); }
+.feat-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.6vw,28px); align-items:start; }
 @media (max-width:880px){ .feat-row{ grid-template-columns:1fr; } }
-.proj-card{ position:relative; display:block; }
+.proj-card{ position:relative; display:block; align-self:start; }
 .proj-card .ph-tag{ display:none; }
 .proj-card .pf{ position:relative; aspect-ratio:4/5; overflow:hidden; }
 .proj-card .pf .ph{ position:absolute; inset:0; transition:transform 1.1s var(--e-out); }
@@ -520,7 +520,7 @@
 }
 </style>
 </head>
-<body data-page="home">
+<body data-page="home" data-cms-page="dashboard">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- loader -->
@@ -562,33 +562,33 @@
 <main id="main">
 
   <!-- ===== HERO ===== -->
-  <section class="hero" data-parallax-scope>
+  <section class="hero" data-parallax-scope data-cms-block="dashboard-hero" data-cms-edit-label="Hero banner">
       <div class="hero-stage">
       <div class="hero-grid blueprint" data-parallax="0.12"></div>
       <div class="hero-plate" data-parallax="0.26">
-        <img class="hero-backdrop" src="/assets/images/img-hero.jpg" alt="" fetchpriority="high" decoding="async">
+        <img class="hero-backdrop" data-cms-image="hero" src="/assets/images/img-hero.jpg" alt="" fetchpriority="high" decoding="async">
         <div class="hero-photo-overlay"></div>
         <div class="ph ticks">
-          <span class="ph-mark">PLATE 01 · ƒ/1.8</span>
-          <span class="ph-tag"><span class="a">◐ HERO IMAGE</span><span class="b">Luxury living room — Bangalore</span></span>
+          <span class="ph-mark" data-cms-field="plate_mark">PLATE 01 · ƒ/1.8</span>
+          <span class="ph-tag"><span class="a">◐ HERO IMAGE</span><span class="b" data-cms-field="hero_tag_b">Luxury living room — Bangalore</span></span>
         </div>
       </div>
       <div class="hero-veil"></div>
     </div>
-    <div class="hero-meta-tl cap">N 12.97° · E 77.59°<br>INTERIOR ARCHITECTURE</div>
+    <div class="hero-meta-tl cap" data-cms-field="meta_coords_html" data-cms-html="true">N 12.97° · E 77.59°<br>INTERIOR ARCHITECTURE</div>
     <div class="hero-inner">
-      <div data-reveal="mask"><div class="kicker">Vinayak Aluminium Interiors — Est. MMXXVI</div></div>
-      <h1 data-reveal="mask" style="margin-top:26px;"><span>We compose</span></h1>
-      <h1 data-reveal="mask"><span><em>atmosphere</em>, not rooms.</span></h1>
+      <div data-reveal="mask"><div class="kicker" data-cms-field="kicker">Vinayak Aluminium Interiors — Est. MMXXVI</div></div>
+      <h1 data-reveal="mask" style="margin-top:26px;"><span data-cms-field="h1_line1">We compose</span></h1>
+      <h1 data-reveal="mask"><span data-cms-field="h1_line2_html" data-cms-html="true"><em>atmosphere</em>, not rooms.</span></h1>
       <div class="hero-sub">
-        <p class="lede" data-reveal>An interior architecture studio shaping light, material and proportion across Bangalore, Hubli, Dharwad &amp; Hospet — from a single kitchen to a complete residence.</p>
+        <p class="lede" data-reveal data-cms-field="lede">An interior architecture studio shaping light, material and proportion across Bangalore, Hubli, Dharwad &amp; Hospet — from a single kitchen to a complete residence.</p>
         <div class="hero-cue cap" data-reveal>Scroll to enter <span class="ln"></span></div>
       </div>
       <div class="phead" style="margin-top:var(--s4);">
         <div class="ix-list" data-reveal>
-          <div><div class="a">Completed</div><div class="b">240+</div></div>
-          <div><div class="a">Cities</div><div class="b">04</div></div>
-          <div><div class="a">Since</div><div class="b">MMXXI</div></div>
+          <div><div class="a" data-cms-field="stat_completed_label">Completed</div><div class="b" data-cms-field="stat_completed_value">240+</div></div>
+          <div><div class="a" data-cms-field="stat_cities_label">Cities</div><div class="b" data-cms-field="stat_cities_value">04</div></div>
+          <div><div class="a" data-cms-field="stat_since_label">Since</div><div class="b" data-cms-field="stat_since_value">MMXXI</div></div>
         </div>
       </div>
     </div>
@@ -601,10 +601,10 @@
   </section>
 
   <!-- ===== MANIFESTO ===== -->
-  <section class="manifesto">
+  <section class="manifesto" data-cms-block="dashboard-manifesto" data-cms-edit-label="Manifesto">
     <div class="wrap">
-      <div class="kicker" data-reveal style="margin-bottom:40px;">01 — The Philosophy</div>
-      <p class="big" id="manifesto-text">
+      <div class="kicker" data-reveal style="margin-bottom:40px;" data-cms-field="kicker">01 — The Philosophy</div>
+      <p class="big" id="manifesto-text" data-cms-field="statement_html" data-cms-html="true">
         <span class="w">A</span> <span class="w">home</span> <span class="w">is</span> <span class="w">not</span> <span class="w">decorated.</span>
         <span class="w azure">It</span> <span class="w azure">is</span> <span class="w azure"><em>composed</em></span> <span class="w">—</span>
         <span class="w">light,</span> <span class="w">proportion</span> <span class="w">and</span> <span class="w">material</span>
@@ -612,8 +612,8 @@
         <span class="w">finally</span> <span class="w">sounds</span> <span class="w">like</span> <span class="w">you.</span>
       </p>
       <div class="manifesto-foot">
-        <p class="body" data-reveal>We treat every brief as a work of architecture in miniature — drawn, modelled and pressure-tested before a single wall is touched.</p>
-        <a class="link magnetic" data-mag="0.2" href="Services.html" data-reveal>The studio approach <span class="arw">→</span></a>
+        <p class="body" data-reveal data-cms-field="foot_body">We treat every brief as a work of architecture in miniature — drawn, modelled and pressure-tested before a single wall is touched.</p>
+        <a class="link magnetic" data-mag="0.2" href="Services.html" data-reveal><span data-cms-field="foot_link_text">The studio approach</span> <span class="arw">→</span></a>
       </div>
     </div>
   </section>
@@ -725,7 +725,7 @@
         </div>
         <a class="link magnetic" data-mag="0.2" href="Projects.html" data-reveal>All projects <span class="arw">→</span></a>
       </div>
-      <div class="feat-row" data-stagger>
+      <div class="feat-row" data-stagger data-cms-featured>
         <a class="proj-card" href="Projects.html" data-reveal>
           <div class="pf ticks"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-featured-penthouse.jpg" style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a">◐ PROJECT</span><span class="b">Penthouse 14</span></span></div></div>
           <div class="pmeta"><span class="pt">Penthouse Fourteen</span><span class="pn">01</span></div>
@@ -746,51 +746,51 @@
   </section>
 
   <!-- ===== MATERIALS TEASER ===== -->
-  <section class="mats">
+  <section class="mats" data-cms-block="dashboard-materials-teaser" data-cms-edit-label="Materials teaser">
     <div class="wrap">
       <div class="feat-head">
         <div>
-          <div class="kicker" data-reveal>04 — The Material Library</div>
-          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Touch the <em>palette</em>.</span></h2>
+          <div class="kicker" data-reveal data-cms-field="kicker">04 — The Material Library</div>
+          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-cms-field="h2_html" data-cms-html="true">Touch the <em>palette</em>.</span></h2>
         </div>
-        <a class="link magnetic" data-mag="0.2" href="Services.html#materials" data-reveal>Explore materials <span class="arw">→</span></a>
+        <a class="link magnetic" data-mag="0.2" href="Services.html#materials" data-reveal><span data-cms-field="link_text">Explore materials</span> <span class="arw">→</span></a>
       </div>
       <div class="mats-row" data-stagger>
-        <div class="mat" data-cur="Marble" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#2a2f38,#3b424d 40%,#262b33);"></div><div class="mlabel"><div class="mn">Marble</div><div class="mt">Carrara · Statuario</div></div></div>
-        <div class="mat" data-cur="Oak" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3a2c1d,#5a4226 45%,#2f2417);"></div><div class="mlabel"><div class="mn">Oak</div><div class="mt">Smoked · Rift</div></div></div>
-        <div class="mat" data-cur="Brass" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#6b552c,#c2a269 48%,#7d6433);"></div><div class="mlabel"><div class="mn">Brass</div><div class="mt">Antique · Brushed</div></div></div>
-        <div class="mat" data-cur="Stone" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#2c2e30,#4a4d50 45%,#282a2c);"></div><div class="mlabel"><div class="mn">Stone</div><div class="mt">Basalt · Travertine</div></div></div>
-        <div class="mat" data-cur="Linen" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3a3a36,#5e5d55 45%,#34342f);"></div><div class="mlabel"><div class="mn">Linen</div><div class="mt">Belgian · Raw</div></div></div>
+        <div class="mat" data-cur="Marble" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#2a2f38,#3b424d 40%,#262b33);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_1_name">Marble</div><div class="mt" data-cms-field="mat_1_subtitle">Carrara · Statuario</div></div></div>
+        <div class="mat" data-cur="Oak" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3a2c1d,#5a4226 45%,#2f2417);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_2_name">Oak</div><div class="mt" data-cms-field="mat_2_subtitle">Smoked · Rift</div></div></div>
+        <div class="mat" data-cur="Brass" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#6b552c,#c2a269 48%,#7d6433);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_3_name">Brass</div><div class="mt" data-cms-field="mat_3_subtitle">Antique · Brushed</div></div></div>
+        <div class="mat" data-cur="Stone" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#2c2e30,#4a4d50 45%,#282a2c);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_4_name">Stone</div><div class="mt" data-cms-field="mat_4_subtitle">Basalt · Travertine</div></div></div>
+        <div class="mat" data-cur="Linen" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3a3a36,#5e5d55 45%,#34342f);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_5_name">Linen</div><div class="mt" data-cms-field="mat_5_subtitle">Belgian · Raw</div></div></div>
       </div>
     </div>
   </section>
 
   <!-- ===== PROCESS MINI ===== -->
-  <section class="proc">
+  <section class="proc" data-cms-block="dashboard-process-mini" data-cms-edit-label="Process mini">
     <div class="wrap">
-      <div class="kicker brass" data-reveal>05 — How We Work</div>
-      <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Five movements, <span class="brass">one</span> home.</span></h2>
+      <div class="kicker brass" data-reveal data-cms-field="kicker">05 — How We Work</div>
+      <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-cms-field="h2_html" data-cms-html="true">Five movements, <span class="brass">one</span> home.</span></h2>
       <div class="proc-steps">
-        <div class="proc-step" data-reveal><div class="pn">01</div><div class="pttl">Concept</div><div class="pbd">We listen, then sketch the idea of the space before its shape.</div></div>
-        <div class="proc-step" data-reveal><div class="pn">02</div><div class="pttl">Design</div><div class="pbd">Drawings, layouts and material boards resolved to the millimetre.</div></div>
-        <div class="proc-step" data-reveal><div class="pn">03</div><div class="pttl">Visualise</div><div class="pbd">Photoreal renders let you walk the home before it is built.</div></div>
-        <div class="proc-step" data-reveal><div class="pn">04</div><div class="pttl">Execute</div><div class="pbd">Our craftsmen build to drawing, supervised end to end.</div></div>
-        <div class="proc-step" data-reveal><div class="pn">05</div><div class="pttl">Reveal</div><div class="pbd">We hand over a finished, styled, photograph-ready home.</div></div>
+        <div class="proc-step" data-reveal><div class="pn">01</div><div class="pttl" data-cms-field="step_1_title">Concept</div><div class="pbd" data-cms-field="step_1_body">We listen, then sketch the idea of the space before its shape.</div></div>
+        <div class="proc-step" data-reveal><div class="pn">02</div><div class="pttl" data-cms-field="step_2_title">Design</div><div class="pbd" data-cms-field="step_2_body">Drawings, layouts and material boards resolved to the millimetre.</div></div>
+        <div class="proc-step" data-reveal><div class="pn">03</div><div class="pttl" data-cms-field="step_3_title">Visualise</div><div class="pbd" data-cms-field="step_3_body">Photoreal renders let you walk the home before it is built.</div></div>
+        <div class="proc-step" data-reveal><div class="pn">04</div><div class="pttl" data-cms-field="step_4_title">Execute</div><div class="pbd" data-cms-field="step_4_body">Our craftsmen build to drawing, supervised end to end.</div></div>
+        <div class="proc-step" data-reveal><div class="pn">05</div><div class="pttl" data-cms-field="step_5_title">Reveal</div><div class="pbd" data-cms-field="step_5_body">We hand over a finished, styled, photograph-ready home.</div></div>
       </div>
-      <div style="margin-top:48px;"><a class="link magnetic" data-mag="0.2" href="Services.html#process" data-reveal>See the full process <span class="arw">→</span></a></div>
+      <div style="margin-top:48px;"><a class="link magnetic" data-mag="0.2" href="Services.html#process" data-reveal><span data-cms-field="link_text">See the full process</span> <span class="arw">→</span></a></div>
     </div>
   </section>
 
   <!-- ===== CTA ===== -->
-  <section class="cta">
+  <section class="cta" data-cms-block="dashboard-cta-band" data-cms-edit-label="CTA band">
     <div class="glow"></div>
     <div class="cta-inner wrap">
-      <div class="kicker" data-reveal style="justify-content:center;">Begin</div>
-      <h2 class="display" data-reveal="mask" style="margin-top:28px;"><span>Let's <em>compose</em><br>your space.</span></h2>
-      <p class="lede" data-reveal style="text-align:center;">A private consultation begins every Vinayak Interiors project. Tell us about your home — we'll bring the drawings.</p>
+      <div class="kicker" data-reveal style="justify-content:center;" data-cms-field="kicker">Begin</div>
+      <h2 class="display" data-reveal="mask" style="margin-top:28px;"><span data-cms-field="h2_html" data-cms-html="true">Let's <em>compose</em><br>your space.</span></h2>
+      <p class="lede" data-reveal style="text-align:center;" data-cms-field="lede">A private consultation begins every Vinayak Interiors project. Tell us about your home — we'll bring the drawings.</p>
       <div class="btns">
-        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html">Book a consultation <span class="arw">→</span></a>
-        <a class="btn brass magnetic" data-mag="0.3" href="Projects.html">View projects</a>
+        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html"><span data-cms-field="btn_primary_label">Book a consultation</span> <span class="arw">→</span></a>
+        <a class="btn brass magnetic" data-mag="0.3" href="Projects.html"><span data-cms-field="btn_secondary_label">View projects</span></a>
       </div>
     </div>
   </section>
@@ -827,19 +827,33 @@
 <!-- page choreography (defined before engine so the hook exists) -->
 <script>
 window.AURUM = window.AURUM || {};
+AURUM.initManifestoScroll = function () {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  var manifesto = document.getElementById("manifesto-text");
+  if (!manifesto) return;
+  var words = gsap.utils.toArray("#manifesto-text .w");
+  if (!words.length) return;
+  gsap.to(words, {
+    color: function (i, t) {
+      return t.classList.contains("azure") ? "#66C6F3" : "#ECEFF3";
+    },
+    stagger: 1,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#manifesto-text",
+      start: "top 75%",
+      end: "bottom 60%",
+      scrub: 0.6,
+    },
+  });
+};
 AURUM.onSmooth = function () {
-  // manifesto: light words up as you scroll through
-  if (window.gsap && window.ScrollTrigger) {
-    var words = gsap.utils.toArray("#manifesto-text .w");
-    gsap.to(words, {
-      color: function (i, t) { return t.classList.contains("azure") ? "#66C6F3" : "#ECEFF3"; },
-      stagger: 1, ease: "none",
-      scrollTrigger: { trigger: "#manifesto-text", start: "top 75%", end: "bottom 60%", scrub: 0.6 }
-    });
-    // loader logo draw
-  }
+  AURUM.initManifestoScroll();
 };
 </script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>
 

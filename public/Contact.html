@@ -195,10 +195,14 @@
 .cstep[data-step="1"] .cfield .ul { background: var(--azure); }
 .cstep[data-step="1"] .cfield.focus label { color: var(--azure-bright); }
 
-/* Step 2 — The empty room: possibility, cool blue-grey */
-.cstep[data-step="2"] .cq em { color: #8ecfee; }
-.cstep[data-step="2"] .copt.sel { border-color: var(--azure); background: rgba(44,154,212,0.1); }
-.cstep[data-step="2"] .copt.sel .on-name { color: var(--azure-bright); }
+/* Step 2 — city type-in with auto region detect */
+.city-detect{
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  color:var(--azure-bright); margin-top:10px; min-height:14px;
+}
+.city-detect.is-unknown{ color:var(--brass); }
+.cstep[data-step="2"] .cfield .ul { background: var(--azure); }
+.cstep[data-step="2"] .cfield.focus label { color: var(--azure-bright); }
 
 /* Step 3 — Material library: tactile, warm brass */
 .cstep[data-step="3"] .cq em { color: var(--brass-bright); }
@@ -294,7 +298,7 @@
 }
 </style>
 </head>
-<body data-page="contact">
+<body data-page="contact" data-cms-page="contact">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="atmos"></div>
@@ -320,11 +324,11 @@
 
 <main id="main">
 
-  <section class="phead">
+  <section class="phead" data-cms-block="contact-hero" data-cms-edit-label="Page header">
     <div class="wrap">
-      <div class="kicker" data-reveal>The Consultation</div>
-      <h1 data-reveal="mask" style="margin-top:24px;"><span>Begin a <em>conversation</em>.</span></h1>
-      <p class="lede" data-reveal style="margin-top:28px;">Every Vinayak Interiors home starts the same way — quietly, over a conversation. Tell us a little about your space and we'll bring the drawings to the table.</p>
+      <div class="kicker" data-reveal data-cms-field="kicker">The Consultation</div>
+      <h1 data-reveal="mask" style="margin-top:24px;"><span data-cms-field="h1_html" data-cms-html="true">Begin a <em>conversation</em>.</span></h1>
+      <p class="lede" data-reveal style="margin-top:28px;" data-cms-field="lede">Every Vinayak Interiors home starts the same way — quietly, over a conversation. Tell us a little about your space and we'll bring the drawings to the table.</p>
     </div>
   </section>
 
@@ -332,27 +336,28 @@
   <section class="consult">
     <div class="wrap">
       <div class="consult-shell" data-reveal>
-        <aside class="consult-aside">
+        <aside class="consult-aside" data-cms-block="contact-consult-aside" data-cms-edit-label="Consultation sidebar">
           <div class="ph lazy-bg" data-lazy-bg="assets/images/img-contact.jpg" style="position:absolute;inset:0;"><span class="ph-tag"><span class="a">◐ STUDIO</span><span class="b">Vinayak consultation room</span></span></div>
           <div class="consult-aside-in">
-            <div class="kicker">Your Brief</div>
+            <div class="kicker" data-cms-field="kicker">Your Brief</div>
             <div class="ca-steps" id="caSteps">
               <div class="ca-step active"><span class="dot"></span>Your name</div>
               <div class="ca-step"><span class="dot"></span>Where to reach you</div>
+              <div class="ca-step"><span class="dot"></span>Your city</div>
               <div class="ca-step"><span class="dot"></span>The space</div>
               <div class="ca-step"><span class="dot"></span>The feeling</div>
               <div class="ca-step"><span class="dot"></span>A few words</div>
             </div>
             <p class="ca-steps-hint">Completed steps are tappable</p>
           </div>
-          <div class="cap consult-aside-in" style="margin-top:auto;">No obligation · A designer replies within two working days</div>
+          <div class="cap consult-aside-in" style="margin-top:auto;" data-cms-field="aside_note">No obligation · A designer replies within two working days</div>
         </aside>
 
         <div class="consult-main">
           <p class="consult-hint" id="consultHint"><span class="consult-hint-icon" aria-hidden="true">→</span> Answer below · tap Continue when ready</p>
           <div class="consult-top">
-            <span class="consult-ix"><b id="cIx">01</b> — 05</span>
-            <div class="consult-track"><div class="consult-fill" id="cFill" style="width:20%;"></div></div>
+            <span class="consult-ix"><b id="cIx">01</b> — 06</span>
+            <div class="consult-track"><div class="consult-fill" id="cFill" style="width:16.67%;"></div></div>
           </div>
 
           <div class="cstage" id="cStage">
@@ -369,8 +374,20 @@
               <div class="cfield"><label>Email</label><input id="f_email" type="email" placeholder="you@residence.com" autocomplete="email" /><span class="ul"></span></div>
               <div class="cfield"><label>Phone</label><input id="f_phone" type="tel" placeholder="+91 ·····" autocomplete="tel" /><span class="ul"></span></div>
             </div>
-            <!-- 2 space -->
+            <!-- 2 city -->
             <div class="cstep" data-step="2">
+              <div class="cq">Where is your <em>project</em>?</div>
+              <div class="chint">Type your city in Karnataka — we auto-detect the region for our studio team.</div>
+              <div class="cfield city-input-wrap">
+                <label>City</label>
+                <input id="f_city" type="text" placeholder="e.g. Bagalkot, Dharwad, Bengaluru" autocomplete="address-level2" list="citySuggestions" />
+                <datalist id="citySuggestions"></datalist>
+                <span class="ul"></span>
+                <div class="city-detect" id="cityDetect" aria-live="polite"></div>
+              </div>
+            </div>
+            <!-- 3 space -->
+            <div class="cstep" data-step="3">
               <div class="cq">What are we <em>composing</em>?</div>
               <div class="chint">Choose the space closest to your project.</div>
               <p class="copt-hint">Tap an option to select</p>
@@ -382,8 +399,8 @@
                 <button class="copt" type="button" data-v="Living Room"><span class="on-name">Living Room</span><span class="on-d">Signature space</span></button>
               </div>
             </div>
-            <!-- 3 style -->
-            <div class="cstep" data-step="3">
+            <!-- 4 style -->
+            <div class="cstep" data-step="4">
               <div class="cq">Which <em>language</em> does it speak?</div>
               <div class="chint">The mood you're drawn to — we'll refine it together.</div>
               <p class="copt-hint">Tap an option to select</p>
@@ -395,14 +412,14 @@
                 <button class="copt" type="button" data-v="Contemporary"><span class="on-name">Contemporary</span><span class="on-d">Current · bold</span></button>
               </div>
             </div>
-            <!-- 4 message -->
-            <div class="cstep" data-step="4">
+            <!-- 5 message -->
+            <div class="cstep" data-step="5">
               <div class="cq">Anything you'd like us to <em>know</em>?</div>
               <div class="chint">Timeline, budget range, a feeling, a reference — all welcome.</div>
               <div class="cfield"><label>Your note (optional)</label><input id="f_msg" type="text" placeholder="Tell us about your home…" /><span class="ul"></span></div>
             </div>
             <!-- done -->
-            <div class="cstep" data-step="5">
+            <div class="cstep" data-step="6">
               <div class="cdone">
                 <span class="seal" data-logo></span>
                 <div class="kicker">Received</div>
@@ -424,12 +441,12 @@
   </section>
 
   <!-- LOCATIONS -->
-  <section class="locs" id="locations">
+  <section class="locs" id="locations" data-cms-block="contact-locations" data-cms-edit-label="Studios section">
     <div class="wrap">
-      <div class="kicker brass" data-reveal>The Studios</div>
-      <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Four cities, <em>one</em> standard.</span></h2>
-      <p class="locs-intro" data-reveal>Visit any studio in person — tap <strong style="color:var(--azure-bright);font-weight:400;">Get directions</strong> to open the route in Google Maps, or call the studio directly.</p>
-      <div class="locs-grid" data-stagger>
+      <div class="kicker brass" data-reveal data-cms-field="kicker">The Studios</div>
+      <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-cms-field="h2_html" data-cms-html="true">Four cities, <em>one</em> standard.</span></h2>
+      <p class="locs-intro" data-reveal data-cms-field="intro">Visit any studio in person — tap <strong style="color:var(--azure-bright);font-weight:400;">Get directions</strong> to open the route in Google Maps, or call the studio directly.</p>
+      <div class="locs-grid" data-stagger data-cms-studios>
 
         <article class="loc" data-reveal>
           <div class="loc-top"><span class="lno">01</span><h3 class="loc-city">Vijayapura</h3></div>
@@ -635,13 +652,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>
 <script>
 /* Consultation multi-step journey */
 (function () {
-  var step = 0, total = 5;
-  var data = { name:"", email:"", phone:"", space:"", style:"", msg:"" };
+  var step = 0, total = 6;
+  var data = { name:"", email:"", phone:"", city:"", region:"", space:"", style:"", msg:"" };
+  var cityCatalog = [];
   var stage = document.getElementById("cStage");
   var steps = stage.querySelectorAll(".cstep");
   var caSteps = document.querySelectorAll("#caSteps .ca-step");
@@ -680,6 +701,123 @@
   wireOpts("optSpace", "space");
   wireOpts("optStyle", "style");
 
+  var cityDetect = document.getElementById("cityDetect");
+  var cityInput = document.getElementById("f_city");
+  var citySuggestions = document.getElementById("citySuggestions");
+
+  function normalizeCityKey(s) {
+    return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  }
+
+  function findCatalogEntry(cityName) {
+    if (!cityName || !cityCatalog.length) return null;
+    var key = normalizeCityKey(cityName);
+    for (var i = 0; i < cityCatalog.length; i++) {
+      if (normalizeCityKey(cityCatalog[i].city) === key) return cityCatalog[i];
+    }
+    return null;
+  }
+
+  function resolveTypedCity(input) {
+    var q = String(input || "").trim();
+    if (!q || !cityCatalog.length) return null;
+    var exact = findCatalogEntry(q);
+    if (exact) return exact;
+    var key = normalizeCityKey(q);
+    if (key.length < 2) return null;
+    var matches = cityCatalog.filter(function (c) {
+      var cKey = normalizeCityKey(c.city);
+      var dKey = normalizeCityKey(c.district);
+      return cKey.indexOf(key) === 0 || dKey.indexOf(key) === 0;
+    });
+    if (matches.length === 1) return matches[0];
+    return null;
+  }
+
+  function updateCitySuggestions(query) {
+    if (!citySuggestions) return;
+    var key = normalizeCityKey(query);
+    if (!key || key.length < 2) {
+      citySuggestions.innerHTML = "";
+      return;
+    }
+    var matches = cityCatalog.filter(function (c) {
+      var cKey = normalizeCityKey(c.city);
+      var dKey = normalizeCityKey(c.district);
+      return cKey.indexOf(key) !== -1 || dKey.indexOf(key) !== -1;
+    }).slice(0, 12);
+    citySuggestions.innerHTML = matches.map(function (c) {
+      return '<option value="' + c.city + '"></option>';
+    }).join("");
+  }
+
+  function syncCityFromInput() {
+    var typed = cityInput ? cityInput.value.trim() : "";
+    data.city = "";
+    data.region = "";
+    data.regionLabel = "";
+    if (!typed) {
+      updateCityDetect();
+      return;
+    }
+    var match = resolveTypedCity(typed);
+    if (match) {
+      data.city = match.city;
+      data.region = match.region;
+      data.regionLabel = match.regionLabel;
+    }
+    updateCityDetect();
+  }
+
+  function updateCityDetect() {
+    if (!cityDetect) return;
+    var typed = cityInput ? cityInput.value.trim() : "";
+    if (!typed) {
+      cityDetect.textContent = "";
+      cityDetect.classList.remove("is-unknown");
+      return;
+    }
+    if (data.city && data.regionLabel) {
+      cityDetect.textContent = data.city + " · " + data.regionLabel;
+      cityDetect.classList.remove("is-unknown");
+      return;
+    }
+    cityDetect.textContent = "Couldn't find that city — try the district name (e.g. Bagalkot, Bengaluru)";
+    cityDetect.classList.add("is-unknown");
+  }
+
+  function loadCityCatalog() {
+    if (!window.VINAYAK) return;
+    VINAYAK.getKarnatakaLocations().then(function (res) {
+      if (res.success && res.data && res.data.all) {
+        cityCatalog = res.data.all;
+        syncCityFromInput();
+      }
+    }).catch(function () {
+      console.warn("Could not load Karnataka locations from API");
+    });
+  }
+
+  if (cityInput) {
+    cityInput.addEventListener("input", function () {
+      updateCitySuggestions(cityInput.value.trim());
+      syncCityFromInput();
+    });
+    cityInput.addEventListener("change", syncCityFromInput);
+  }
+
+  loadCityCatalog();
+
+  function trackEvent(eventType, extra) {
+    if (!window.VINAYAK) return;
+    VINAYAK.trackEvent(eventType, Object.assign({
+      city: data.city || null,
+      region: data.region || null,
+    }, extra || {}));
+  }
+
+  trackEvent("form_start");
+
   function render() {
     steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === step); });
     caSteps.forEach(function (c, i) {
@@ -695,6 +833,7 @@
     else nextLabel.textContent = "Continue";
     if (step >= total) { document.getElementById("cNav").style.display = "none"; }
     if (consultHint && step > 0) consultHint.classList.add("is-dismissed");
+    if (step === 2) syncCityFromInput();
   }
 
   function validate() {
@@ -706,8 +845,14 @@
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) return "A valid email, please";
       if (data.phone.replace(/\D/g, "").length < 7) return "A number we can reach you on";
     }
-    if (step === 2 && !data.space) return "Choose the space";
-    if (step === 3 && !data.style) return "Choose a direction";
+    if (step === 2) {
+      syncCityFromInput();
+      var typed = cityInput ? cityInput.value.trim() : "";
+      if (typed.length < 2) return "Please enter your city in Karnataka";
+      if (!data.city) return "We couldn't find that city — try the district name (e.g. Bagalkot, Bengaluru)";
+    }
+    if (step === 3 && !data.space) return "Choose the space";
+    if (step === 4 && !data.style) return "Choose a direction";
     return "";
   }
 
@@ -716,15 +861,39 @@
     if (e) { err.textContent = e; err.classList.add("show"); return; }
     if (step < total - 1) { step++; render(); }
     else {
-      // finish
       data.msg = document.getElementById("f_msg").value.trim();
-      step = total; // done screen
-      steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === 5); });
-      caSteps.forEach(function (c) { c.classList.add("done"); c.classList.remove("active"); });
-      fill.style.width = "100%"; ix.textContent = "05";
-      document.getElementById("doneName").textContent = data.name.split(" ")[0] || "there";
-      document.getElementById("doneLine").textContent = "Your " + (data.style ? data.style.toLowerCase() + " " : "") + (data.space || "project") + " brief is with the studio. A designer will reach out within two working days to arrange your private consultation.";
-      document.getElementById("cNav").style.display = "none";
+      next.disabled = true;
+      nextLabel.textContent = "Sending…";
+
+      VINAYAK.postContact({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          city: data.city,
+          space: data.space,
+          style: data.style,
+          message: data.msg,
+        })
+        .then(function (result) {
+          if (!result.ok || !result.data.success) throw new Error("submit failed");
+          trackEvent("form_submit");
+          step = total;
+          steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === 6); });
+          caSteps.forEach(function (c) { c.classList.add("done"); c.classList.remove("active"); });
+          fill.style.width = "100%"; ix.textContent = "06";
+          document.getElementById("doneName").textContent = data.name.split(" ")[0] || "there";
+          document.getElementById("doneLine").textContent =
+            "Your " + (data.style ? data.style.toLowerCase() + " " : "") +
+            (data.space || "project") + " brief from " + (data.city || "your city") +
+            " is with the studio. A designer will reach out within two working days.";
+          document.getElementById("cNav").style.display = "none";
+        })
+        .catch(function () {
+          err.textContent = "Could not send your brief. Please try again or call your nearest studio.";
+          err.classList.add("show");
+          next.disabled = false;
+          nextLabel.textContent = "Send brief";
+        });
     }
   });
   back.addEventListener("click", function () { if (step > 0) { step--; render(); } });

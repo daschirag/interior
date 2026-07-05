@@ -25,11 +25,12 @@
 .svc-no{ font-family:var(--mono); font-size:12px; color:var(--azure); letter-spacing:.1em; }
 .svc-name{ font-family:var(--serif); font-weight:300; font-size:clamp(26px,3.6vw,52px); line-height:1; letter-spacing:-0.01em; }
 .svc-name em{ font-style:italic; color:var(--azure-bright); }
-.svc-meta{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); text-align:right; }
-@media (max-width:680px){ .svc-row{ grid-template-columns:40px 1fr auto; } .svc-meta{ display:none; } }
+.svc-meta{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); text-align:right; white-space:nowrap; }
+.svc-name{ min-width:0; }
+@media (max-width:680px){ .svc-row{ grid-template-columns:40px 1fr auto; } .svc-meta{ display:none; } .svc-expand-specs{ grid-template-columns:1fr; } .svc-expand-features{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
 /* SERVICE ROW */
-.svc-row{ cursor:none; display:grid; grid-template-columns:64px 1fr auto auto; align-items:center; gap:var(--s3); padding:clamp(20px,2.6vw,38px) 0; border-bottom:1px solid var(--line); transition:padding .5s var(--e-out),background .5s; overflow:hidden; position:relative; user-select:none; }
+.svc-row{ cursor:none; display:grid; grid-template-columns:64px minmax(0,1fr) minmax(120px,auto) auto; align-items:center; gap:var(--s3); padding:clamp(20px,2.6vw,38px) 0; border-bottom:1px solid var(--line); transition:padding .5s var(--e-out),background .5s; overflow:hidden; position:relative; user-select:none; }
 .svc-row::before{ content:""; position:absolute; inset:0; background:var(--azure-glow); transform:translateY(101%); transition:transform .5s var(--e-out); z-index:0; }
 .svc-row:hover::before,.svc-row.open::before{ transform:translateY(0); }
 .svc-row > *{ position:relative; z-index:1; }
@@ -43,14 +44,14 @@
 
 /* SERVICE EXPAND */
 .svc-expand{ max-height:0; overflow:hidden; transition:max-height 0.85s cubic-bezier(0.16,1,0.3,1); position:relative; }
-.svc-expand.open{ max-height:600px; border-bottom:1px solid var(--line); transition:max-height 1.1s cubic-bezier(0.16,1,0.3,1); }
-.svc-expand-inner{ display:grid; grid-template-columns:1fr 1.2fr; min-height:420px; opacity:0; transform:translateY(18px); transition:opacity 0s,transform 0s; }
+.svc-expand.open{ max-height:980px; border-bottom:1px solid var(--line); transition:max-height 1.1s cubic-bezier(0.16,1,0.3,1); }
+.svc-expand-inner{ display:grid; grid-template-columns:1fr 1.2fr; min-height:440px; align-items:stretch; opacity:0; transform:translateY(18px); transition:opacity 0s,transform 0s; }
 .svc-expand.open .svc-expand-inner{ opacity:1; transform:translateY(0); transition:opacity 0.7s var(--e-out) 0.2s,transform 0.7s var(--e-out) 0.2s; }
 @media(max-width:880px){ .svc-expand-inner{ grid-template-columns:1fr; min-height:auto; } }
 .svc-expand-media{ position:relative; overflow:hidden; border-right:1px solid var(--line); min-height:380px; isolation:isolate; }
 .svc-expand-media .ph{ transition:transform 1.2s var(--e-out); position:absolute; inset:0; z-index:0; }
 .svc-expand.open .svc-expand-media .ph{ transform:scale(1.04); }
-.svc-expand-body{ padding:clamp(28px,3.5vw,52px); display:flex; flex-direction:column; justify-content:center; }
+.svc-expand-body{ padding:clamp(28px,3.5vw,52px); display:flex; flex-direction:column; justify-content:flex-start; min-height:100%; }
 .svc-expand-kicker{ font-family:var(--mono); font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--azure); margin-bottom:18px; opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.25s,transform 0.5s var(--e-out) 0.25s; }
 .svc-expand.open .svc-expand-kicker{ opacity:1; transform:translateY(0); }
 .svc-expand-title{ font-family:var(--serif); font-weight:300; font-size:clamp(28px,3vw,44px); line-height:1.04; letter-spacing:-0.01em; color:var(--ink); margin-bottom:18px; opacity:0; transform:translateY(14px); transition:opacity 0.6s var(--e-out) 0.32s,transform 0.6s var(--e-out) 0.32s; }
@@ -58,15 +59,16 @@
 .svc-expand.open .svc-expand-title{ opacity:1; transform:translateY(0); }
 .svc-expand-desc{ font-family:var(--serif); font-size:16px; line-height:1.6; color:var(--ink-soft); max-width:44ch; margin-bottom:24px; opacity:0; transform:translateY(12px); transition:opacity 0.6s var(--e-out) 0.4s,transform 0.6s var(--e-out) 0.4s; }
 .svc-expand.open .svc-expand-desc{ opacity:1; transform:translateY(0); }
-.svc-expand-specs{ display:flex; gap:clamp(16px,2vw,36px); flex-wrap:wrap; margin-bottom:20px; padding:18px 0; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.48s,transform 0.5s var(--e-out) 0.48s; }
+.svc-expand-specs{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,28px); width:100%; margin-bottom:20px; padding:18px 0; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.48s,transform 0.5s var(--e-out) 0.48s; }
 .svc-expand.open .svc-expand-specs{ opacity:1; transform:translateY(0); }
+.svc-spec{ min-width:0; }
 .ss-k{ font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:6px; }
-.ss-v{ font-family:var(--serif); font-size:21px; color:var(--ink); }
-.svc-expand-features{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.54s,transform 0.5s var(--e-out) 0.54s; }
+.ss-v{ font-family:var(--serif); font-size:clamp(17px,2vw,21px); line-height:1.2; color:var(--ink); word-break:break-word; }
+.svc-expand-features{ display:grid; grid-template-columns:repeat(auto-fill,minmax(138px,1fr)); gap:8px; width:100%; margin-bottom:28px; opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.54s,transform 0.5s var(--e-out) 0.54s; }
 .svc-expand.open .svc-expand-features{ opacity:1; transform:translateY(0); }
-.svc-expand-features span{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--line); padding:7px 12px; transition:border-color .3s,color .3s; }
+.svc-expand-features span{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--line); padding:7px 12px; transition:border-color .3s,color .3s; text-align:center; min-height:34px; display:flex; align-items:center; justify-content:center; }
 .svc-expand-features span:hover{ border-color:var(--azure); color:var(--azure-bright); }
-.svc-expand-cta{ display:flex; gap:14px; flex-wrap:wrap; opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.60s,transform 0.5s var(--e-out) 0.60s; }
+.svc-expand-cta{ display:flex; gap:14px; flex-wrap:wrap; margin-top:auto; padding-top:8px; opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--e-out) 0.60s,transform 0.5s var(--e-out) 0.60s; }
 .svc-expand.open .svc-expand-cta{ opacity:1; transform:translateY(0); }
 .svc-expand-cta .btn{ padding:14px 24px; font-size:11px; }
 .svc-expand::before{ content:""; position:absolute; top:0; left:0; height:1px; width:0; background:var(--azure); }
@@ -277,7 +279,7 @@
 }
 </style>
 </head>
-<body data-page="services">
+<body data-page="services" data-cms-page="services">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="atmos"></div>
@@ -303,23 +305,23 @@
 
 <main id="main">
 
-  <section class="phead">
+  <section class="phead" data-cms-block="services-hero" data-cms-edit-label="Page header">
     <div class="wrap">
-      <div class="kicker" data-reveal>The Studio</div>
-      <h1 data-reveal="mask" style="margin-top:26px;"><span>A house of <em>craft</em>.</span></h1>
+      <div class="kicker" data-reveal data-cms-field="kicker">The Studio</div>
+      <h1 data-reveal="mask" style="margin-top:26px;"><span data-cms-field="h1_html" data-cms-html="true">A house of <em>craft</em>.</span></h1>
       <div class="phead-row">
-        <p class="lede" data-reveal>We are an interior architecture studio — drawing, modelling and building complete environments. Thirteen disciplines, one standard of resolution.</p>
-        <a class="link magnetic" data-mag="0.2" href="Contact.html" data-reveal>Start a project <span class="arw">→</span></a>
+        <p class="lede" data-reveal data-cms-field="lede">We are an interior architecture studio — drawing, modelling and building complete environments. Thirteen disciplines, one standard of resolution.</p>
+        <a class="link magnetic" data-mag="0.2" href="Contact.html" data-reveal><span data-cms-field="link_text">Start a project</span> <span class="arw">→</span></a>
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
   <section class="svc" id="services">
-    <div class="wrap">
-      <div class="kicker brass" data-reveal>01 — What We Compose</div>
-      <p class="svc-hint" data-reveal><span class="svc-hint-icon" aria-hidden="true">+</span> Tap any discipline to explore</p>
-      <div class="svc-list" id="svcList">
+    <div class="wrap" data-cms-block="services-disciplines-intro" data-cms-edit-label="Disciplines intro">
+      <div class="kicker brass" data-reveal data-cms-field="kicker">01 — What We Compose</div>
+      <p class="svc-hint" data-reveal><span class="svc-hint-icon" aria-hidden="true">+</span> <span data-cms-field="hint_text">Tap any discipline to explore</span></p>
+      <div class="svc-list" id="svcList" data-cms-disciplines>
 
         <div class="svc-row" data-svc="0" tabindex="0">
           <span class="svc-no">01</span>
@@ -717,14 +719,14 @@
   </section>
 
   <!-- MATERIAL LIBRARY -->
-  <section class="matlib" id="materials">
+  <section class="matlib" id="materials" data-cms-block="services-materials" data-cms-edit-label="Material library">
     <div class="wrap">
       <div class="feat-head">
         <div>
-          <div class="kicker" data-reveal>02 — The Material Library</div>
-          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Every surface, <em>chosen</em>.</span></h2>
+          <div class="kicker" data-reveal data-cms-field="kicker">02 — The Material Library</div>
+          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-cms-field="h2_html" data-cms-html="true">Every surface, <em>chosen</em>.</span></h2>
         </div>
-        <p class="body" data-reveal>Move across each material — light catches it as it would in your home. The palette behind every Vinayak Interiors project.</p>
+        <p class="body" data-reveal data-cms-field="body">Move across each material — light catches it as it would in your home. The palette behind every Vinayak Interiors project.</p>
       </div>
       <div class="matlib-grid" id="matGrid" data-stagger>
         <div class="matcard" data-cur="Marble" data-reveal><span class="mno">M01</span><div class="fill" style="background:linear-gradient(135deg,#3a3f48,#5a606b 40%,#2c313a);"></div><div class="sheen"></div><div class="minfo"><div class="mn">Marble</div><div class="mt">Carrara · Statuario · Calacatta</div></div></div>
@@ -741,11 +743,11 @@
 
   <div style="height:1px;background:var(--line-soft);"></div>
   <!-- PROCESS -->
-  <section class="process" id="process">
+  <section class="process" id="process" data-cms-block="services-process" data-cms-edit-label="Process header">
     <div class="proc-pin" id="procPin">
       <div class="proc-left-head">
-        <div class="proc-eyebrow kicker brass">03 — The Process</div>
-        <h2 class="h2">From idea to <em>handover</em>.</h2>
+        <div class="proc-eyebrow kicker brass" data-cms-field="kicker">03 — The Process</div>
+        <h2 class="h2" data-cms-field="h2_html" data-cms-html="true">From idea to <em>handover</em>.</h2>
       </div>
       <div class="proc-right" id="procRight">
         <div class="proc-visual on" data-vis="0"><div class="ph ticks lazy-bg" data-lazy-bg="assets/images/img-proc-concept.jpg" style="position:absolute;inset:0;"></div><div class="proc-stepnum">01</div></div>
@@ -766,14 +768,14 @@
     </div>
   </section>
 
-  <section class="cta" style="border-top:1px solid var(--line-soft);">
+  <section class="cta" style="border-top:1px solid var(--line-soft);" data-cms-block="services-cta" data-cms-edit-label="CTA band">
     <div class="glow"></div>
     <div class="cta-inner wrap">
-      <div class="kicker" data-reveal style="justify-content:center;">Begin</div>
-      <h2 class="display" data-reveal="mask" style="margin-top:24px;"><span>Bring us your <em>space</em>.</span></h2>
+      <div class="kicker" data-reveal style="justify-content:center;" data-cms-field="kicker">Begin</div>
+      <h2 class="display" data-reveal="mask" style="margin-top:24px;"><span data-cms-field="h2_html" data-cms-html="true">Bring us your <em>space</em>.</span></h2>
       <div class="btns" style="display:flex; gap:16px; justify-content:center; margin-top:48px; flex-wrap:wrap;">
-        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html">Book a consultation <span class="arw">→</span></a>
-        <a class="btn magnetic" data-mag="0.3" href="Projects.html">View projects</a>
+        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html"><span data-cms-field="btn_primary_label">Book a consultation</span> <span class="arw">→</span></a>
+        <a class="btn magnetic" data-mag="0.3" href="Projects.html"><span data-cms-field="btn_secondary_label">View projects</span></a>
       </div>
     </div>
   </section>
@@ -891,6 +893,9 @@ AURUM.onSmooth = function () {
   });
 };
 </script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>
 <script>

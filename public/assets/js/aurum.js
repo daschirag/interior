@@ -92,23 +92,60 @@
   }
 
   /* ---------- Reveal-on-scroll (own IO) ---------- */
-  function initReveals() {
-    var els = document.querySelectorAll("[data-reveal]");
-    if (!els.length) return;
-    // stagger indices
-    document.querySelectorAll("[data-stagger]").forEach(function (g) {
+  AURUM._revealIO = null;
+
+  function createRevealObserver() {
+    if (!("IntersectionObserver" in window)) return null;
+    if (AURUM._revealIO) return AURUM._revealIO;
+    AURUM._revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("is-in");
+          AURUM._revealIO.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+    return AURUM._revealIO;
+  }
+
+  AURUM.refreshReveals = function (root) {
+    var scope = root && root.querySelectorAll ? root : document;
+    var staggerRoots = root && root.querySelectorAll
+      ? (root.matches && root.matches("[data-stagger]") ? [root] : scope.querySelectorAll("[data-stagger]"))
+      : document.querySelectorAll("[data-stagger]");
+
+    staggerRoots.forEach(function (g) {
       Array.prototype.forEach.call(g.children, function (c, i) {
         c.style.setProperty("--i", i);
         if (c.hasAttribute("data-reveal")) c.setAttribute("data-d", "1");
       });
     });
-    if (!("IntersectionObserver" in window)) { document.documentElement.classList.add("reveal-all"); return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
-    els.forEach(function (el) { io.observe(el); });
+
+    var els = scope.querySelectorAll
+      ? scope.querySelectorAll("[data-reveal]:not(.is-in)")
+      : document.querySelectorAll("[data-reveal]:not(.is-in)");
+    if (!els.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      document.documentElement.classList.add("reveal-all");
+      return;
+    }
+
+    var io = createRevealObserver();
+    els.forEach(function (el) {
+      io.observe(el);
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92 && r.bottom > 0) {
+        el.classList.add("is-in");
+        io.unobserve(el);
+      }
+    });
+  };
+
+  function initReveals() {
+    var els = document.querySelectorAll("[data-reveal]");
+    if (!els.length) return;
+    AURUM.refreshReveals();
   }
 
   /* ---------- Magnetic elements ---------- */
@@ -156,17 +193,25 @@
         }
       } catch (e) { /* fall back to native scroll */ }
     }
-    // generic parallax via ScrollTrigger
-    if (hasGsap && window.ScrollTrigger) {
-      document.querySelectorAll("[data-parallax]").forEach(function (el) {
-        var amt = parseFloat(el.getAttribute("data-parallax")) || 0.18;
-        gsap.fromTo(el, { yPercent: -amt * 50 }, {
-          yPercent: amt * 50, ease: "none",
-          scrollTrigger: { trigger: el.closest("[data-parallax-scope]") || el, start: "top bottom", end: "bottom top", scrub: true }
+    // Page scroll animations (parallax + per-page hooks) run after CMS hydration when needed
+    function setupScrollAnimations() {
+      if (hasGsap && window.ScrollTrigger) {
+        document.querySelectorAll("[data-parallax]").forEach(function (el) {
+          var amt = parseFloat(el.getAttribute("data-parallax")) || 0.18;
+          gsap.fromTo(el, { yPercent: -amt * 50 }, {
+            yPercent: amt * 50, ease: "none",
+            scrollTrigger: { trigger: el.closest("[data-parallax-scope]") || el, start: "top bottom", end: "bottom top", scrub: true }
+          });
         });
-      });
+      }
+      if (AURUM.onSmooth) try { AURUM.onSmooth(); } catch (e) {}
+      if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh(true);
     }
-    if (AURUM.onSmooth) try { AURUM.onSmooth(); } catch (e) {}
+    if (window.VINAYAK_WAIT_CMS && window.VINAYAK_CMS_READY) {
+      window.VINAYAK_CMS_READY.finally(setupScrollAnimations);
+    } else {
+      setupScrollAnimations();
+    }
   }
 
   /* ---------- Lazy backgrounds & deferred video ---------- */
@@ -195,6 +240,37 @@
     el.play().catch(function () {});
     el.classList.add("lazy-video--loaded");
   }
+  AURUM.refreshLazyMedia = function () {
+    var lazyBgs = document.querySelectorAll("[data-lazy-bg]:not([data-lazy-eager]):not([data-lazy-done])");
+    var lazyVideos = document.querySelectorAll("video[data-lazy-video]:not([data-lazy-done])");
+    if (!lazyBgs.length && !lazyVideos.length) return;
+    if (!("IntersectionObserver" in window)) {
+      lazyBgs.forEach(loadLazyBg);
+      lazyVideos.forEach(loadLazyVideo);
+      return;
+    }
+    if (lazyBgs.length) {
+      var bgIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { loadLazyBg(en.target); bgIo.unobserve(en.target); }
+        });
+      }, { rootMargin: "240px 0px", threshold: 0.01 });
+      lazyBgs.forEach(function (el) { bgIo.observe(el); });
+    }
+    if (lazyVideos.length) {
+      var vidIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { loadLazyVideo(en.target); vidIo.unobserve(en.target); }
+        });
+      }, { rootMargin: "320px 0px", threshold: 0.01 });
+      lazyVideos.forEach(function (el) { vidIo.observe(el); });
+    }
+    lazyBgs.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 280 && rect.bottom > -280) loadLazyBg(el);
+    });
+  };
+
   function initLazyMedia() {
     var bgEls = document.querySelectorAll("[data-lazy-bg]");
     bgEls.forEach(function (el) {

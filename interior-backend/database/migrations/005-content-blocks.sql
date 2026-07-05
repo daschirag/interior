@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS content_blocks (
+  id SERIAL PRIMARY KEY,
+  page VARCHAR(50) NOT NULL,
+  section_key VARCHAR(100) UNIQUE NOT NULL,
+  section_label VARCHAR(150) NOT NULL,
+  fields JSONB DEFAULT '{}',
+  images JSONB DEFAULT '[]',
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

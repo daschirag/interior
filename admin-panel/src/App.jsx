@@ -7,6 +7,7 @@ import Districts from "./pages/Districts";
 import Disciplines from "./pages/Disciplines";
 import SiteSettings from "./pages/siteSettings";
 import Uploads from "./pages/Uploads";
+import WebsiteEditor from "./pages/WebsiteEditor";
 
 function App() {
   return (
@@ -44,6 +45,11 @@ function App() {
       <Route
         path="/uploads"
         element={<Uploads />}
+      />
+
+      <Route
+        path="/website-editor"
+        element={<WebsiteEditor />}
       />
     </Routes>
   );

@@ -6,7 +6,7 @@ const generateToken = (user) => {
       id: user.id,
       email: user.email,
     },
-    "mysecretkey",
+    process.env.JWT_SECRET,
     {
       expiresIn: "1d",
     }

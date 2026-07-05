@@ -22,6 +22,11 @@ const createTable = async () => {
   `;
 
   await pool.query(query);
+
+  await pool.query(`
+    ALTER TABLE projects
+      ADD COLUMN IF NOT EXISTS project_type VARCHAR(255);
+  `);
 };
 
 const create = async (project) => {
@@ -64,6 +69,62 @@ const create = async (project) => {
   return result.rows[0];
 };
 
+const upsertBySlug = async (project) => {
+  const query = `
+    INSERT INTO projects (
+      title,
+      slug,
+      location,
+      year,
+      area_sqft,
+      project_type,
+      description,
+      material_tags,
+      images,
+      before_image_url,
+      after_image_url,
+      is_featured,
+      journey_order
+    )
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+    ON CONFLICT (slug) DO UPDATE SET
+      title = EXCLUDED.title,
+      location = EXCLUDED.location,
+      year = EXCLUDED.year,
+      area_sqft = EXCLUDED.area_sqft,
+      project_type = EXCLUDED.project_type,
+      description = EXCLUDED.description,
+      material_tags = EXCLUDED.material_tags,
+      images = EXCLUDED.images,
+      before_image_url = EXCLUDED.before_image_url,
+      after_image_url = EXCLUDED.after_image_url,
+      is_featured = EXCLUDED.is_featured,
+      journey_order = EXCLUDED.journey_order,
+      is_active = true
+    RETURNING *;
+  `;
+
+  const values = [
+    project.title,
+    project.slug,
+    project.location || null,
+    project.year || null,
+    project.area_sqft || null,
+    project.project_type || null,
+    project.description || null,
+    project.material_tags || [],
+    project.images || [],
+    project.before_image_url || null,
+    project.after_image_url || null,
+    project.is_featured || false,
+    project.journey_order || 0,
+  ];
+
+  const result = await pool.query(query, values);
+
+  return result.rows[0];
+};
+
 const update = async (id, project) => {
   // Get existing project
   const existing = await pool.query(
@@ -85,15 +146,16 @@ const update = async (id, project) => {
       location = $3,
       year = $4,
       area_sqft = $5,
-      description = $6,
-      material_tags = $7,
-      images = $8,
-      before_image_url = $9,
-      after_image_url = $10,
-      is_featured = $11,
-      journey_order = $12,
+      project_type = $6,
+      description = $7,
+      material_tags = $8,
+      images = $9,
+      before_image_url = $10,
+      after_image_url = $11,
+      is_featured = $12,
+      journey_order = $13,
       is_active = true
-    WHERE id = $13
+    WHERE id = $14
     RETURNING *;
   `;
 
@@ -103,6 +165,7 @@ const update = async (id, project) => {
     project.location ?? current.location,
     project.year ?? current.year,
     project.area_sqft ?? current.area_sqft,
+    project.project_type ?? current.project_type,
     project.description ?? current.description,
     project.material_tags ?? current.material_tags,
     project.images ?? current.images,
@@ -134,6 +197,7 @@ const remove = async (id) => {
 module.exports = {
   createTable,
   create,
+  upsertBySlug,
   update,
   remove,
 };

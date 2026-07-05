@@ -19,7 +19,8 @@ const authenticateToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(
       token,
-      "mysecretkey"
+      process.env.JWT_SECRET,
+      { algorithms: ["HS256"] }
     );
 
     req.user = decoded;

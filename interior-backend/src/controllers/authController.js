@@ -18,6 +18,8 @@ const initDatabase = async (req, res) => {
     console.log("CREATING DISTRICTS TABLE...");
 
     await District.createTable();
+    const ContentBlock = require("../models/contentBlockModel");
+    await ContentBlock.createTable();
 
     res.json({
       success: true,

@@ -219,7 +219,7 @@
 }
 </style>
 </head>
-<body data-page="projects">
+<body data-page="projects" data-cms-page="projects">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="atmos"></div>
@@ -247,16 +247,16 @@
 <main id="main">
 
   <!-- HEADER -->
-  <section class="phead">
+  <section class="phead" data-cms-block="projects-hero" data-cms-edit-label="Page header">
     <div class="wrap">
-      <div class="kicker" data-reveal>Selected Work — 2021 / 2026</div>
-      <h1 data-reveal="mask" style="margin-top:26px;"><span>The <em>portfolio</em>.</span></h1>
+      <div class="kicker" data-reveal data-cms-field="kicker">Selected Work — 2021 / 2026</div>
+      <h1 data-reveal="mask" style="margin-top:26px;"><span data-cms-field="h1_html" data-cms-html="true">The <em>portfolio</em>.</span></h1>
       <div class="phead-row">
-        <p class="lede" data-reveal>Each project is a composition — a brief resolved through light, proportion and material. Scroll through three recent homes, then pull the divider to watch one transform.</p>
+        <p class="lede" data-reveal data-cms-field="lede">Each project is a composition — a brief resolved through light, proportion and material. Scroll through three recent homes, then pull the divider to watch one transform.</p>
         <div class="ix-list" data-reveal>
-          <div><div class="a">Completed</div><div class="b">240+</div></div>
-          <div><div class="a">Cities</div><div class="b">04</div></div>
-          <div><div class="a">Since</div><div class="b">MMXXI</div></div>
+          <div><div class="a" data-cms-field="stat_completed_label">Completed</div><div class="b" data-cms-field="stat_completed_value">240+</div></div>
+          <div><div class="a" data-cms-field="stat_cities_label">Cities</div><div class="b" data-cms-field="stat_cities_value">04</div></div>
+          <div><div class="a" data-cms-field="stat_since_label">Since</div><div class="b" data-cms-field="stat_since_value">MMXXI</div></div>
         </div>
       </div>
     </div>
@@ -271,7 +271,7 @@
       <div class="hscroll-prompt" id="hPrompt"><span class="hscroll-prompt-ico">→</span> Scroll to explore the projects</div>
       <div class="hscroll-dots" id="hDots" aria-hidden="true"></div>
     </div>
-    <div class="htrack" id="htrack">
+    <div class="htrack" id="htrack" data-cms-journey>
       <!-- intro panel -->
       <div class="hpanel-intro">
         <div class="kicker brass">Project Journeys</div>
@@ -329,14 +329,14 @@
   <button type="button" class="hskip" id="hSkip" aria-label="Skip Project Journeys section">Skip section ↓</button>
 
   <!-- BEFORE / AFTER -->
-  <section class="ba-sec" id="transform">
+  <section class="ba-sec" id="transform" data-cms-block="projects-transformation" data-cms-edit-label="Before / after">
     <div class="wrap">
       <div class="ba-head">
         <div>
-          <div class="kicker" data-reveal>The Transformation</div>
-          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Before, and <em>after</em>.</span></h2>
+          <div class="kicker" data-reveal data-cms-field="kicker">The Transformation</div>
+          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-cms-field="h2_html" data-cms-html="true">Before, and <em>after</em>.</span></h2>
         </div>
-        <p class="body" data-reveal>Penthouse Fourteen — the living room, as found and as composed. Pull the divider.</p>
+        <p class="body" data-reveal data-cms-field="caption">Penthouse Fourteen — the living room, as found and as composed. Pull the divider.</p>
       </div>
       <div class="ba" id="ba">
         <div class="ba-layer ba-after"><div class="ph lazy-bg" id="baAfter" data-lazy-bg="assets/images/img-ba-after.jpg" style="background-size:cover;background-position:center;"></div></div>
@@ -471,6 +471,9 @@ AURUM.onSmooth = function () {
   setDot(0);
 };
 </script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>
 <script>
