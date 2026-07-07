@@ -32,6 +32,7 @@ function AnalyticsSection({ onDataRefresh, initialLeads = [] }) {
   const [trends, setTrends] = useState([]);
   const [leads, setLeads] = useState(initialLeads);
   const [loading, setLoading] = useState(true);
+  const [pdfExporting, setPdfExporting] = useState(false);
   const [lastUpdated, setLastUpdated] = useState("");
   const [selectedRegionLabel, setSelectedRegionLabel] = useState("");
 
@@ -227,14 +228,23 @@ function AnalyticsSection({ onDataRefresh, initialLeads = [] }) {
             <button
               type="button"
               className="ghost-btn ghost-btn--primary"
-              onClick={() =>
-                exportAnalyticsPDF(summary, leads, period, chartRefs, {
-                  selectedRegionLabel,
-                })
-              }
+              disabled={loading || pdfExporting}
+              onClick={async () => {
+                setPdfExporting(true);
+                try {
+                  await exportAnalyticsPDF(summary, leads, period, chartRefs, {
+                    selectedRegionLabel,
+                  });
+                } catch (err) {
+                  console.error("PDF export failed:", err);
+                  alert("Could not generate PDF. Please try again.");
+                } finally {
+                  setPdfExporting(false);
+                }
+              }}
             >
               <FiFileText />
-              PDF Report
+              {pdfExporting ? "Generating…" : "PDF Report"}
             </button>
           </div>
         </div>
