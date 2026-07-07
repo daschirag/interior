@@ -500,6 +500,27 @@
   line-height: 1.45;
 }
 
+.we-upload-warning {
+  margin: 8px 0 0;
+  color: #e8c97a;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.we-upload-progress {
+  margin-top: 8px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.we-upload-progress__bar {
+  height: 100%;
+  background: #c2a269;
+  transition: width 0.15s ease;
+}
+
 .we-entity-note {
   margin: 0 0 14px;
   padding: 10px 12px;

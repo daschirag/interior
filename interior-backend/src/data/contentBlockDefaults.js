@@ -31,8 +31,14 @@ const DASHBOARD_CONTENT_BLOCKS = [
       {
         key: "hero",
         url: "/assets/images/img-hero.jpg",
-        label: "Hero photo",
+        label: "Hero photo (desktop)",
         recommended: "1920x1080, landscape",
+      },
+      {
+        key: "hero-mobile",
+        url: "/assets/images/img-hero-mobile.jpg",
+        label: "Hero photo (mobile)",
+        recommended: "1080x1920, portrait",
       },
     ],
   },
@@ -129,6 +135,19 @@ const PROJECTS_CONTENT_BLOCKS = [
   },
   {
     page: "projects",
+    section_key: "projects-journey-intro",
+    section_label: "Projects — Journey intro",
+    fields: {
+      kicker: "Project Journeys",
+      h2_html:
+        'Three homes, <span class="brass">told</span> left to right.',
+      body:
+        "As you scroll, the gallery moves horizontally — each home a chapter. Keep going to reach the transformations.",
+    },
+    images: [],
+  },
+  {
+    page: "projects",
     section_key: "projects-transformation",
     section_label: "Projects — Before / after",
     fields: {
@@ -136,6 +155,31 @@ const PROJECTS_CONTENT_BLOCKS = [
       h2_html: "Before, and <em>after</em>.",
       caption:
         "Penthouse Fourteen — the living room, as found and as composed. Pull the divider.",
+    },
+    images: [
+      {
+        key: "ba-after",
+        url: "/assets/images/img-ba-after.jpg",
+        label: "After photo",
+        recommended: "1920x1080, landscape",
+      },
+      {
+        key: "ba-before",
+        url: "/assets/images/img-ba-before.jpg",
+        label: "Before photo",
+        recommended: "1920x1080, landscape",
+      },
+    ],
+  },
+  {
+    page: "projects",
+    section_key: "projects-cta",
+    section_label: "Projects — CTA band",
+    fields: {
+      kicker: "Your project next",
+      h2_html: 'Begin a <span class="brass">composition</span>.',
+      btn_primary_label: "Book a consultation",
+      btn_secondary_label: "Explore the studio",
     },
     images: [],
   },
@@ -180,12 +224,58 @@ const SERVICES_CONTENT_BLOCKS = [
   {
     page: "services",
     section_key: "services-process",
-    section_label: "Services — Process header",
+    section_label: "Services — Process",
     fields: {
       kicker: "03 — The Process",
       h2_html: "From idea to <em>handover</em>.",
+      step_1_name: "Enquiry",
+      step_1_body:
+        "You call us. We take approximate measurements over the phone and give you an initial quotation — no site visit needed for the first quote.",
+      step_2_name: "Site Visit",
+      step_2_body:
+        "If you're happy with the estimate, we visit your home, take exact measurements, and give you a final detailed quotation.",
+      step_3_name: "Booking & Discussion",
+      step_3_body:
+        "Once you confirm, we collect a booking amount. We then sit with you to discuss the full project — materials, finishes, layout — and show you samples.",
+      step_4_name: "Execution",
+      step_4_body:
+        "Our team begins work. A dedicated site supervisor visits regularly during working days to check quality and progress.",
+      step_5_name: "Handover & Check",
+      step_5_body:
+        "After completion, we re-measure the entire work, note any changes or adjustments, and inform you before final handover.",
     },
-    images: [],
+    images: [
+      {
+        key: "step-1",
+        url: "/assets/images/img-proc-concept.jpg",
+        label: "Step 1 — Enquiry photo",
+        recommended: "1200x900, landscape",
+      },
+      {
+        key: "step-2",
+        url: "/assets/images/img-proc-design.jpg",
+        label: "Step 2 — Site visit photo",
+        recommended: "1200x900, landscape",
+      },
+      {
+        key: "step-3",
+        url: "/assets/images/img-proc-visualise.jpg",
+        label: "Step 3 — Booking photo",
+        recommended: "1200x900, landscape",
+      },
+      {
+        key: "step-4",
+        url: "/assets/images/img-proc-execute.jpg",
+        label: "Step 4 — Execution photo",
+        recommended: "1200x900, landscape",
+      },
+      {
+        key: "step-5",
+        url: "/assets/images/img-proc-reveal.jpg",
+        label: "Step 5 — Handover photo",
+        recommended: "1200x900, landscape",
+      },
+    ],
   },
   {
     page: "services",
@@ -221,8 +311,17 @@ const CONTACT_CONTENT_BLOCKS = [
     fields: {
       kicker: "Your Brief",
       aside_note: "No obligation · A designer replies within two working days",
+      image_tag_a: "◐ STUDIO",
+      image_tag_b: "Vinayak consultation room",
     },
-    images: [],
+    images: [
+      {
+        key: "sidebar",
+        url: "/assets/images/img-contact.jpg",
+        label: "Consultation room photo",
+        recommended: "1200x1600, portrait",
+      },
+    ],
   },
   {
     page: "contact",
@@ -233,6 +332,54 @@ const CONTACT_CONTENT_BLOCKS = [
       h2_html: "Four cities, <em>one</em> standard.",
       intro:
         "Visit any studio in person — tap Get directions to open the route in Google Maps, or call the studio directly.",
+    },
+    images: [],
+  },
+  {
+    page: "contact",
+    section_key: "contact-follow",
+    section_label: "Contact — Follow & resources",
+    fields: {
+      kicker: "Follow & Resources",
+      h2_html: "Watch, follow &amp; <em>browse</em> our finishes.",
+      card_yt_title: "Watch our work on YouTube",
+      card_yt_desc:
+        "See completed interiors and walkthroughs from Vinayak Aluminium Interior, Dharwad.",
+      card_yt_cta: "Open video →",
+      card_fb_title: "All designs — follow on Facebook",
+      card_fb_desc:
+        "Browse our full design library and stay updated with new projects and finishes.",
+      card_fb_cta: "Visit Facebook →",
+      card_ig_title: "Follow us on Instagram",
+      card_ig_desc:
+        "Daily interiors, aluminium work and laminate selections from our Dharwad studio.",
+      card_ig_cta: "Open Instagram →",
+      card_flexi_title: "Flexibond laminate catalog",
+      card_flexi_desc:
+        "Full 3mm PVC laminate range — colours, textures and specs for wardrobes, kitchens and modular interiors.",
+      card_flexi_cta: "Open PDF catalog →",
+      card_materials_title: "Aluminium Hardware & Materials Catalog",
+      card_materials_desc:
+        "Complete technical specification — frames, hinges, handles, baskets, and fittings used across every build.",
+      card_materials_cta: "Open PDF catalog →",
+      card_iso_title: "ISO 9001:2015 Certified",
+      card_iso_desc:
+        "Certified for Quality Management Systems — every project follows documented, audited processes from measurement to handover.",
+      card_iso_cta: "VIEW CERTIFICATE →",
+    },
+    images: [],
+  },
+  {
+    page: "contact",
+    section_key: "contact-direct",
+    section_label: "Contact — Direct contact strip",
+    fields: {
+      email_label: "Email",
+      email: "vinayakainteriors308@gmail.com",
+      phone_label: "Telephone",
+      phone: "+91 80 4000 0000",
+      hours_label: "Hours",
+      hours: "Mon — Sat · 10–7",
     },
     images: [],
   },
@@ -250,8 +397,21 @@ const DEFAULTS_BY_SECTION_KEY = ALL_CONTENT_BLOCKS.reduce((acc, block) => {
   return acc;
 }, {});
 
+function cloneDefaultBlock(sectionKey) {
+  const block = DEFAULTS_BY_SECTION_KEY[sectionKey];
+  if (!block) return null;
+
+  return {
+    page: block.page,
+    section_key: block.section_key,
+    section_label: block.section_label,
+    fields: JSON.parse(JSON.stringify(block.fields || {})),
+    images: JSON.parse(JSON.stringify(block.images || [])),
+  };
+}
+
 function getDefaultBlock(sectionKey) {
-  return DEFAULTS_BY_SECTION_KEY[sectionKey] || null;
+  return cloneDefaultBlock(sectionKey);
 }
 
 module.exports = {
@@ -262,4 +422,5 @@ module.exports = {
   ALL_CONTENT_BLOCKS,
   DEFAULTS_BY_SECTION_KEY,
   getDefaultBlock,
+  cloneDefaultBlock,
 };

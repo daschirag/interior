@@ -10,7 +10,10 @@
 }
 
 .project-modal{
-    width:560px;
+    width:700px;
+    max-width:calc(100vw - 32px);
+    max-height:90vh;
+    overflow-y:auto;
     background:#1d232d;
     border:1px solid #2d3542;
     border-radius:14px;
@@ -19,11 +22,46 @@
 }
 
 .modal-title{
-    margin:0 0 28px;
+    margin:0 0 20px;
     color:#fff;
     font-family:Georgia,"Times New Roman",serif;
     font-size:38px;
     font-weight:400;
+}
+
+.pm-tabs{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    margin:0 -32px 0;
+    border-bottom:1px solid #2d3542;
+}
+
+.pm-tabs button{
+    padding:12px 10px;
+    border:none;
+    background:transparent;
+    color:#8d97a6;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+}
+
+.pm-tabs button.active{
+    color:#4d7cff;
+    border-bottom-color:#4d7cff;
+    background:rgba(77,124,255,.06);
+}
+
+.pm-body{
+    padding:24px 0 8px;
+    min-height:280px;
+}
+
+.pm-section .checkbox-row{
+    margin-bottom:0;
 }
 
 .project-modal .admin-input{
@@ -66,4 +104,56 @@
 
 .cancel-btn:hover{
     background:#3b4556;
+}
+
+.pm-section .we-images{
+    margin:0;
+}
+
+.pm-section .we-images h3{
+    margin-top:0;
+}
+
+.pm-images__empty{
+    margin:0 0 12px;
+    font-size:13px;
+    color:#8d97a6;
+}
+
+.pm-images__add{
+    border-style:dashed;
+}
+
+.pm-images__note{
+    margin:8px 0 0;
+    font-size:12px;
+    color:#8d97a6;
+    word-break:break-all;
+}
+
+.pm-images__clear{
+    margin-top:8px;
+    padding:0;
+    border:none;
+    background:none;
+    color:#8d97a6;
+    font-size:12px;
+    cursor:pointer;
+    text-decoration:underline;
+}
+
+.pm-images__clear:hover{
+    color:#d4dae3;
+}
+
+.studio-modal__hint{
+    margin:-8px 0 20px;
+    font-size:14px;
+    line-height:1.5;
+    color:#8d97a6;
+}
+
+.studio-modal__hint strong{
+    color:#d4dae3;
+    font-weight:500;
 }

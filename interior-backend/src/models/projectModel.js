@@ -125,6 +125,68 @@ const upsertBySlug = async (project) => {
   return result.rows[0];
 };
 
+const findById = async (id) => {
+  const result = await pool.query(
+    `
+    SELECT *
+    FROM projects
+    WHERE id = $1 AND is_active = true
+    `,
+    [id],
+  );
+
+  return result.rows[0] || null;
+};
+
+const applySnapshot = async (id, snapshot) => {
+  const existing = await findById(id);
+  if (!existing) {
+    throw new Error("Project not found");
+  }
+
+  const query = `
+    UPDATE projects
+    SET
+      title = $1,
+      slug = $2,
+      location = $3,
+      year = $4,
+      area_sqft = $5,
+      project_type = $6,
+      description = $7,
+      material_tags = $8,
+      images = $9,
+      before_image_url = $10,
+      after_image_url = $11,
+      is_featured = $12,
+      journey_order = $13,
+      is_active = $14
+    WHERE id = $15
+    RETURNING *;
+  `;
+
+  const values = [
+    snapshot.title ?? existing.title,
+    snapshot.slug ?? existing.slug,
+    snapshot.location ?? null,
+    snapshot.year ?? null,
+    snapshot.area_sqft ?? null,
+    snapshot.project_type ?? null,
+    snapshot.description ?? null,
+    snapshot.material_tags ?? [],
+    snapshot.images ?? [],
+    snapshot.before_image_url ?? null,
+    snapshot.after_image_url ?? null,
+    snapshot.is_featured ?? false,
+    snapshot.journey_order ?? 0,
+    snapshot.is_active !== false,
+    id,
+  ];
+
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
 const update = async (id, project) => {
   // Get existing project
   const existing = await pool.query(
@@ -198,6 +260,8 @@ module.exports = {
   createTable,
   create,
   upsertBySlug,
+  findById,
+  applySnapshot,
   update,
   remove,
 };

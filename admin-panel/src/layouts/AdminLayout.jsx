@@ -14,10 +14,13 @@ function AdminLayout({ children }) {
   const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Projects", path: "/projects" },
+    { name: "Before / After", path: "/before-after" },
+    { name: "Studio Locations", path: "/studios" },
     { name: "Districts", path: "/districts" },
     { name: "Disciplines", path: "/disciplines" },
     { name: "Site Settings", path: "/site-settings" },
     { name: "Uploads", path: "/uploads" },
+    { name: "Media Library", path: "/media-library" },
     { name: "Website Editor", path: "/website-editor" },
   ];
 

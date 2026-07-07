@@ -1,6 +1,6 @@
 const ContentBlock = require("../models/contentBlockModel");
 const ContentBlockHistory = require("../models/contentBlockHistoryModel");
-const { getDefaultBlock } = require("../data/contentBlockDefaults");
+const { cloneDefaultBlock } = require("../data/contentBlockDefaults");
 
 async function snapshotCurrentBlock(sectionKey, editedBy) {
   const existing = await ContentBlock.findBySectionKey(sectionKey);
@@ -173,7 +173,7 @@ const resetContentBlockToDefault = async (req, res) => {
   try {
     const sectionKey = req.params.sectionKey;
     const editedBy = req.user?.email || null;
-    const defaults = getDefaultBlock(sectionKey);
+    const defaults = cloneDefaultBlock(sectionKey);
 
     if (!defaults) {
       return res.status(404).json({

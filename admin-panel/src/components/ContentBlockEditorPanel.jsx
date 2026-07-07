@@ -104,7 +104,17 @@ function ContentBlockEditorPanel({
     setLoadingHistory(true);
     try {
       const res = await api.get(`/content-blocks/${sectionKey}/history`);
-      if (res.data?.success) setHistory(res.data.history || []);
+      if (res.data?.success) {
+        console.log(
+          "[History][content-block] raw edited_at from API:",
+          (res.data.history || []).map((entry) => ({
+            id: entry.id,
+            edited_at: entry.edited_at,
+            typeof: typeof entry.edited_at,
+          })),
+        );
+        setHistory(res.data.history || []);
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -139,8 +149,17 @@ function ContentBlockEditorPanel({
   };
 
   const applyBlockState = (block) => {
-    const nextFields = block.fields || {};
-    const nextImages = block.images || [];
+    const nextFields = block?.fields || {};
+    let nextImages = [];
+    if (Array.isArray(block?.images)) {
+      nextImages = JSON.parse(JSON.stringify(block.images));
+    } else if (typeof block?.images === "string" && block.images) {
+      try {
+        nextImages = JSON.parse(block.images);
+      } catch {
+        nextImages = [];
+      }
+    }
     setFields(nextFields);
     setImages(nextImages);
     setSavedFields(nextFields);
@@ -158,14 +177,19 @@ function ContentBlockEditorPanel({
         images,
       });
       if (!res.data?.success) throw new Error("Save failed");
-      setSavedFields(fields);
-      setSavedImages(images);
+      const nextFields = { ...(res.data.block.fields || fields) };
+      const nextImages = JSON.parse(JSON.stringify(res.data.block.images || images));
+      setSavedFields(nextFields);
+      setSavedImages(nextImages);
+      setFields(nextFields);
+      setImages(nextImages);
+      pushPreview(nextFields, nextImages);
       setStatus("saved");
       onSaved?.({
         sectionKey,
         sectionLabel,
-        fields,
-        images,
+        fields: nextFields,
+        images: nextImages,
       });
       if (activeTab === "history") loadHistory();
     } catch (error) {
@@ -201,13 +225,13 @@ function ContentBlockEditorPanel({
         `/content-blocks/${sectionKey}/restore/${historyId}`,
       );
       if (!res.data?.success) throw new Error("Restore failed");
-      applyBlockState(res.data.block);
+      const { nextFields, nextImages } = applyBlockState(res.data.block);
       setStatus("restored");
       onSaved?.({
         sectionKey,
         sectionLabel,
-        fields: res.data.block.fields || {},
-        images: res.data.block.images || [],
+        fields: nextFields,
+        images: nextImages,
         silent: true,
       });
       loadHistory();
@@ -230,13 +254,13 @@ function ContentBlockEditorPanel({
         `/content-blocks/${sectionKey}/reset-to-default`,
       );
       if (!res.data?.success) throw new Error("Reset failed");
-      applyBlockState(res.data.block);
+      const { nextFields, nextImages } = applyBlockState(res.data.block);
       setStatus("reset");
       onSaved?.({
         sectionKey,
         sectionLabel,
-        fields: res.data.block.fields || {},
-        images: res.data.block.images || [],
+        fields: nextFields,
+        images: nextImages,
         silent: true,
       });
       loadHistory();
@@ -335,7 +359,8 @@ function ContentBlockEditorPanel({
                         />
                       )}
                       <CompactImageUploader
-                        label="Replace image"
+                        label={img.url ? "Replace image" : "Add image"}
+                        recommended={img.recommended}
                         onUpload={(url) => updateImage(index, { url })}
                       />
                       {img.recommended && (
@@ -357,7 +382,12 @@ function ContentBlockEditorPanel({
             ) : history.length === 0 ? (
               <p className="we-muted">No saved versions yet. Save a change to create history.</p>
             ) : (
-              history.map((entry) => (
+              history.map((entry) => {
+                console.log(
+                  "[History][content-block] formatting edited_at:",
+                  entry.edited_at,
+                );
+                return (
                 <div key={entry.id} className="we-history-item">
                   <div>
                     <strong>{formatIndiaDateTime(entry.edited_at)}</strong>
@@ -373,7 +403,8 @@ function ContentBlockEditorPanel({
                     Restore
                   </button>
                 </div>
-              ))
+                );
+              })
             )}
 
             <button

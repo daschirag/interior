@@ -7,7 +7,10 @@ import Districts from "./pages/Districts";
 import Disciplines from "./pages/Disciplines";
 import SiteSettings from "./pages/siteSettings";
 import Uploads from "./pages/Uploads";
+import MediaLibrary from "./pages/MediaLibrary";
 import WebsiteEditor from "./pages/WebsiteEditor";
+import BeforeAfterEditor from "./pages/BeforeAfterEditor";
+import Studios from "./pages/Studios";
 
 function App() {
   return (
@@ -28,6 +31,16 @@ function App() {
       />
 
       <Route
+        path="/before-after"
+        element={<BeforeAfterEditor />}
+      />
+
+      <Route
+        path="/studios"
+        element={<Studios />}
+      />
+
+      <Route
         path="/districts"
         element={<Districts />}
       />
@@ -45,6 +58,11 @@ function App() {
       <Route
         path="/uploads"
         element={<Uploads />}
+      />
+
+      <Route
+        path="/media-library"
+        element={<MediaLibrary />}
       />
 
       <Route

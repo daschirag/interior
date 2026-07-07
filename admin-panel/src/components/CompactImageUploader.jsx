@@ -1,42 +1,44 @@
 import { useRef, useState } from "react";
-import api from "../services/api";
+import { getDimensionWarning, readImageDimensions } from "../utils/imageDimensionCheck";
+import { imageKitErrorMessage, uploadToImageKit } from "../utils/imagekitUpload";
 
-function CompactImageUploader({ onUpload, label }) {
+function CompactImageUploader({ onUpload, label, recommended }) {
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [dimensionWarning, setDimensionWarning] = useState("");
   const fileInputRef = useRef(null);
 
   const handleFile = async (file) => {
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      setError("Image is too large. Maximum size is 5 MB.");
+    if (file.size > 10 * 1024 * 1024) {
+      setError("Image is too large. Maximum size is 10 MB.");
       return;
+    }
+
+    setError("");
+    setDimensionWarning("");
+    setProgress(0);
+
+    try {
+      const dimensions = await readImageDimensions(file);
+      const warning = getDimensionWarning(dimensions, recommended);
+      if (warning) setDimensionWarning(warning);
+    } catch {
+      // Non-blocking — upload can proceed without dimension check.
     }
 
     try {
       setUploading(true);
-      setError("");
-      const formData = new FormData();
-      formData.append("image", file);
-      const response = await api.post("/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const url = await uploadToImageKit(file, {
+        onProgress: setProgress,
       });
-
-      if (!response.data?.imageUrl) {
-        throw new Error(response.data?.message || "Upload failed — no image URL returned.");
-      }
-
-      onUpload(response.data.imageUrl);
+      onUpload(url);
+      setProgress(100);
     } catch (err) {
       console.error(err);
-      const data = err.response?.data;
-      const message =
-        data?.message ||
-        data?.cloudinaryError?.message ||
-        err.message ||
-        "Upload failed.";
+      const message = imageKitErrorMessage(err);
       setError(message);
-      alert(message);
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -58,8 +60,16 @@ function CompactImageUploader({ onUpload, label }) {
         onClick={() => fileInputRef.current?.click()}
         disabled={uploading}
       >
-        {uploading ? "Uploading…" : label || "Upload image"}
+        {uploading ? `Uploading… ${progress}%` : label || "Upload image"}
       </button>
+      {uploading && (
+        <div className="we-upload-progress" aria-hidden="true">
+          <div className="we-upload-progress__bar" style={{ width: `${progress}%` }} />
+        </div>
+      )}
+      {dimensionWarning && (
+        <p className="we-upload-warning">{dimensionWarning}</p>
+      )}
       {error && <p className="we-upload-error">{error}</p>}
     </div>
   );

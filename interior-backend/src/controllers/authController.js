@@ -3,6 +3,7 @@ const Project = require("../models/projectModel");
 const SiteSettings = require("../models/siteSettingsModel");
 const User = require("../models/userModel");
 const District = require("../models/districtModel");
+const Studio = require("../models/studioModel");
 
 const {
   registerUser,
@@ -18,8 +19,11 @@ const initDatabase = async (req, res) => {
     console.log("CREATING DISTRICTS TABLE...");
 
     await District.createTable();
+    await Studio.createTable();
     const ContentBlock = require("../models/contentBlockModel");
     await ContentBlock.createTable();
+    const EntityHistory = require("../models/entityHistoryModel");
+    await EntityHistory.createTable();
 
     res.json({
       success: true,

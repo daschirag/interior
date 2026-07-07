@@ -65,6 +65,68 @@ const create = async (discipline) => {
   return result.rows[0];
 };
 
+const findById = async (id) => {
+  const result = await pool.query(
+    `
+    SELECT *
+    FROM disciplines
+    WHERE id = $1 AND is_active = true
+    `,
+    [id],
+  );
+
+  return result.rows[0] || null;
+};
+
+const applySnapshot = async (id, snapshot) => {
+  const existing = await findById(id);
+  if (!existing) {
+    throw new Error("Discipline not found");
+  }
+
+  const query = `
+    UPDATE disciplines
+    SET
+      slug = $1,
+      title = $2,
+      display_order = $3,
+      subtitle = $4,
+      headline = $5,
+      description = $6,
+      budget_range = $7,
+      timeline = $8,
+      scope = $9,
+      tags = $10,
+      image_url = $11,
+      cta_projects_link = $12,
+      cta_consult_link = $13,
+      is_active = $14
+    WHERE id = $15
+    RETURNING *;
+  `;
+
+  const values = [
+    snapshot.slug ?? existing.slug,
+    snapshot.title ?? existing.title,
+    snapshot.display_order ?? 0,
+    snapshot.subtitle ?? null,
+    snapshot.headline ?? null,
+    snapshot.description ?? null,
+    snapshot.budget_range ?? null,
+    snapshot.timeline ?? null,
+    snapshot.scope ?? null,
+    snapshot.tags ?? [],
+    snapshot.image_url ?? null,
+    snapshot.cta_projects_link ?? null,
+    snapshot.cta_consult_link ?? null,
+    snapshot.is_active !== false,
+    id,
+  ];
+
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
 const update = async (id, discipline) => {
   const query = `
     UPDATE disciplines
@@ -181,7 +243,9 @@ const remove = async (id) => {
 module.exports = {
   createTable,
   create,
-  upsertBySlug,
+  findById,
+  applySnapshot,
   update,
+  upsertBySlug,
   remove,
 };

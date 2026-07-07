@@ -337,7 +337,7 @@
     <div class="wrap">
       <div class="consult-shell" data-reveal>
         <aside class="consult-aside" data-cms-block="contact-consult-aside" data-cms-edit-label="Consultation sidebar">
-          <div class="ph lazy-bg" data-lazy-bg="assets/images/img-contact.jpg" style="position:absolute;inset:0;"><span class="ph-tag"><span class="a">◐ STUDIO</span><span class="b">Vinayak consultation room</span></span></div>
+          <div class="ph lazy-bg" data-cms-image="sidebar" data-lazy-bg="assets/images/img-contact.jpg" style="position:absolute;inset:0;"><span class="ph-tag"><span class="a" data-cms-field="image_tag_a">◐ STUDIO</span><span class="b" data-cms-field="image_tag_b">Vinayak consultation room</span></span></div>
           <div class="consult-aside-in">
             <div class="kicker" data-cms-field="kicker">Your Brief</div>
             <div class="ca-steps" id="caSteps">
@@ -455,7 +455,6 @@
             <p class="loc-addr">Hubli-Bagalkot Road, Opp. Ayurgram Hospital, Amruth Nagar, Vijayapura — 586101</p>
             <ul class="loc-meta">
               <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5:30pm</span></li>
-              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 16°50' / E 75°43'</span></li>
             </ul>
           </div>
           <div class="loc-actions">
@@ -478,7 +477,6 @@
             <p class="loc-addr">2nd Cross, Maratha Colony, Near Ganesh Temple, Shinde Avenue, Dharwad — 580001</p>
             <ul class="loc-meta">
               <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5pm</span></li>
-              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 15°27'57.1" / E 75°00'37.6"</span></li>
             </ul>
           </div>
           <div class="loc-actions">
@@ -501,7 +499,6 @@
             <p class="loc-addr">SP Sambha Complex, Bidar Colony, Near Hanuman Temple, Kalaburagi — 585102</p>
             <ul class="loc-meta">
               <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5:30pm</span></li>
-              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 17°19'14.1" / E 76°48'09.9"</span></li>
             </ul>
           </div>
           <div class="loc-actions">
@@ -524,7 +521,6 @@
             <p class="loc-addr">First Floor, Above Ramdev Mobile Shop, Near Ganesh Travels Office, Station Road, Hospet — 583201</p>
             <ul class="loc-meta">
               <li><span class="lm-k">Hours</span><span class="lm-v">Mon–Sat · 10am to 5pm</span></li>
-              <li><span class="lm-k">Coordinates</span><span class="lm-v">N 15°16' / E 76°23'</span></li>
             </ul>
           </div>
           <div class="loc-actions">
@@ -545,11 +541,11 @@
   </section>
 
   <!-- FOLLOW & RESOURCES -->
-  <section class="follow" id="follow">
+  <section class="follow" id="follow" data-cms-block="contact-follow" data-cms-edit-label="Follow &amp; resources">
     <div class="wrap">
       <div class="follow-head">
-        <div class="kicker brass" data-reveal>Follow &amp; Resources</div>
-        <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Watch, follow &amp; <em>browse</em> our finishes.</span></h2>
+        <div class="kicker brass" data-reveal data-cms-field="kicker">Follow &amp; Resources</div>
+        <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-cms-field="h2_html" data-cms-html="true">Watch, follow &amp; <em>browse</em> our finishes.</span></h2>
       </div>
       <div class="follow-grid" data-stagger>
         <a class="follow-card follow-card--yt" href="https://youtu.be/ZTSmjmOTvj0" target="_blank" rel="noopener noreferrer" data-reveal>
@@ -558,10 +554,10 @@
             <span class="fc-tag">YouTube</span>
           </div>
           <div class="fc-body">
-            <h3 class="fc-title">Watch our work on YouTube</h3>
-            <p class="fc-desc">See completed interiors and walkthroughs from Vinayak Aluminium Interior, Dharwad.</p>
+            <h3 class="fc-title" data-cms-field="card_yt_title">Watch our work on YouTube</h3>
+            <p class="fc-desc" data-cms-field="card_yt_desc">See completed interiors and walkthroughs from Vinayak Aluminium Interior, Dharwad.</p>
           </div>
-          <span class="fc-arw">Open video →</span>
+          <span class="fc-arw" data-cms-field="card_yt_cta">Open video →</span>
         </a>
         <a class="follow-card follow-card--fb" href="https://www.facebook.com/profile.php?id=100090776470039" target="_blank" rel="noopener noreferrer" data-reveal>
           <div class="fc-head">
@@ -569,10 +565,10 @@
             <span class="fc-tag">Facebook</span>
           </div>
           <div class="fc-body">
-            <h3 class="fc-title">All designs — follow on Facebook</h3>
-            <p class="fc-desc">Browse our full design library and stay updated with new projects and finishes.</p>
+            <h3 class="fc-title" data-cms-field="card_fb_title">All designs — follow on Facebook</h3>
+            <p class="fc-desc" data-cms-field="card_fb_desc">Browse our full design library and stay updated with new projects and finishes.</p>
           </div>
-          <span class="fc-arw">Visit Facebook →</span>
+          <span class="fc-arw" data-cms-field="card_fb_cta">Visit Facebook →</span>
         </a>
         <a class="follow-card follow-card--ig" href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" target="_blank" rel="noopener noreferrer" data-reveal>
           <div class="fc-head">
@@ -580,10 +576,10 @@
             <span class="fc-tag">Instagram</span>
           </div>
           <div class="fc-body">
-            <h3 class="fc-title">Follow us on Instagram</h3>
-            <p class="fc-desc">Daily interiors, aluminium work and laminate selections from our Dharwad studio.</p>
+            <h3 class="fc-title" data-cms-field="card_ig_title">Follow us on Instagram</h3>
+            <p class="fc-desc" data-cms-field="card_ig_desc">Daily interiors, aluminium work and laminate selections from our Dharwad studio.</p>
           </div>
-          <span class="fc-arw">Open Instagram →</span>
+          <span class="fc-arw" data-cms-field="card_ig_cta">Open Instagram →</span>
         </a>
         <a class="follow-card follow-card--pdf" href="assets/catalogs/flexibond-laminate-catalog.pdf" target="_blank" rel="noopener noreferrer" data-reveal>
           <div class="fc-head">
@@ -591,10 +587,10 @@
             <span class="fc-tag">Material catalog</span>
           </div>
           <div class="fc-body">
-            <h3 class="fc-title">Flexibond laminate catalog</h3>
-            <p class="fc-desc">Full 3mm PVC laminate range — colours, textures and specs for wardrobes, kitchens and modular interiors.</p>
+            <h3 class="fc-title" data-cms-field="card_flexi_title">Flexibond laminate catalog</h3>
+            <p class="fc-desc" data-cms-field="card_flexi_desc">Full 3mm PVC laminate range — colours, textures and specs for wardrobes, kitchens and modular interiors.</p>
           </div>
-          <span class="fc-arw">Open PDF catalog →</span>
+          <span class="fc-arw" data-cms-field="card_flexi_cta">Open PDF catalog →</span>
         </a>
         <a class="follow-card follow-card--pdf" href="assets/catalogs/vinayaka-materials-catalog.pdf" target="_blank" rel="noopener noreferrer" data-reveal>
           <div class="fc-head">
@@ -602,10 +598,10 @@
             <span class="fc-tag">Material catalog</span>
           </div>
           <div class="fc-body">
-            <h3 class="fc-title">Aluminium Hardware &amp; Materials Catalog</h3>
-            <p class="fc-desc">Complete technical specification — frames, hinges, handles, baskets, and fittings used across every build.</p>
+            <h3 class="fc-title" data-cms-field="card_materials_title">Aluminium Hardware &amp; Materials Catalog</h3>
+            <p class="fc-desc" data-cms-field="card_materials_desc">Complete technical specification — frames, hinges, handles, baskets, and fittings used across every build.</p>
           </div>
-          <span class="fc-arw">Open PDF catalog →</span>
+          <span class="fc-arw" data-cms-field="card_materials_cta">Open PDF catalog →</span>
         </a>
         <a class="follow-card follow-card--pdf" href="assets/catalogs/vinayaka-iso-certificate.pdf" target="_blank" rel="noopener noreferrer" data-reveal>
           <div class="fc-head">
@@ -613,20 +609,20 @@
             <span class="fc-tag">Certification</span>
           </div>
           <div class="fc-body">
-            <h3 class="fc-title">ISO 9001:2015 Certified</h3>
-            <p class="fc-desc">Certified for Quality Management Systems — every project follows documented, audited processes from measurement to handover.</p>
+            <h3 class="fc-title" data-cms-field="card_iso_title">ISO 9001:2015 Certified</h3>
+            <p class="fc-desc" data-cms-field="card_iso_desc">Certified for Quality Management Systems — every project follows documented, audited processes from measurement to handover.</p>
           </div>
-          <span class="fc-arw">VIEW CERTIFICATE →</span>
+          <span class="fc-arw" data-cms-field="card_iso_cta">VIEW CERTIFICATE →</span>
         </a>
       </div>
     </div>
   </section>
 
   <!-- DIRECT -->
-  <section class="direct">
-    <div><div class="dlabel">Email</div><div class="dval"><a href="mailto:vinayakainteriors308@gmail.com">vinayakainteriors308@gmail.com</a></div></div>
-    <div><div class="dlabel">Telephone</div><div class="dval"><a href="tel:+918040000000">+91 80 4000 0000</a></div></div>
-    <div><div class="dlabel">Hours</div><div class="dval">Mon — Sat · 10–7</div></div>
+  <section class="direct" data-cms-block="contact-direct" data-cms-edit-label="Direct contact strip">
+    <div><div class="dlabel" data-cms-field="email_label">Email</div><div class="dval"><a href="mailto:vinayakainteriors308@gmail.com" data-cms-field="email" data-cms-href-prefix="mailto:">vinayakainteriors308@gmail.com</a></div></div>
+    <div><div class="dlabel" data-cms-field="phone_label">Telephone</div><div class="dval"><a href="tel:+918040000000" data-cms-field="phone" data-cms-href-prefix="tel:">+91 80 4000 0000</a></div></div>
+    <div><div class="dlabel" data-cms-field="hours_label">Hours</div><div class="dval" data-cms-field="hours">Mon — Sat · 10–7</div></div>
   </section>
 
   <footer class="foot">
@@ -652,9 +648,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/morphdom@2.7.1/dist/morphdom-umd.min.js"></script>
 <script>window.VINAYAK_API = "https://vinayak-interiors-api.onrender.com/api";</script>
 <script src="assets/js/api.js"></script>
+<script src="assets/js/cms-supabase-config.js"></script>
 <script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-live-updates.js"></script>
 <script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>

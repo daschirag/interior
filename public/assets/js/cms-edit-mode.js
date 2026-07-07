@@ -434,6 +434,18 @@
         var nextHtml = fields[key];
         if (normalizeHtml(el.innerHTML) === normalizeHtml(nextHtml)) return;
         el.innerHTML = nextHtml;
+      } else if (el.tagName === "A") {
+        if (el.textContent !== String(fields[key])) {
+          el.textContent = fields[key];
+        }
+        var prefix = el.getAttribute("data-cms-href-prefix") || "";
+        if (prefix === "mailto:") {
+          el.href = "mailto:" + String(fields[key]).trim();
+        } else if (prefix === "tel:") {
+          el.href = "tel:" + String(fields[key]).replace(/[^\d+]/g, "");
+        } else if (prefix) {
+          el.href = prefix + String(fields[key]);
+        }
       } else {
         if (el.textContent === String(fields[key])) return;
         el.textContent = fields[key];
@@ -548,10 +560,14 @@
       window.VINAYAK_CMS_BLOCKS[data.sectionKey] = {
         section_key: data.sectionKey,
         section_label: data.sectionLabel || data.sectionKey,
+        fields: JSON.parse(JSON.stringify(data.fields || {})),
+        images: JSON.parse(JSON.stringify(data.images || [])),
+      };
+      applyPreviewUpdate({
+        sectionKey: data.sectionKey,
         fields: data.fields || {},
         images: data.images || [],
-      };
-      applyPreviewUpdate(data);
+      });
       return;
     }
 

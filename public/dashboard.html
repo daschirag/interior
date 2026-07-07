@@ -568,7 +568,7 @@
       <div class="hero-plate" data-parallax="0.26">
         <img class="hero-backdrop" data-cms-image="hero" src="/assets/images/img-hero.jpg" alt="" fetchpriority="high" decoding="async">
         <div class="hero-photo-overlay"></div>
-        <div class="ph ticks">
+        <div class="ph ticks" data-cms-image="hero-mobile">
           <span class="ph-mark" data-cms-field="plate_mark">PLATE 01 · ƒ/1.8</span>
           <span class="ph-tag"><span class="a">◐ HERO IMAGE</span><span class="b" data-cms-field="hero_tag_b">Luxury living room — Bangalore</span></span>
         </div>
@@ -851,9 +851,13 @@ AURUM.onSmooth = function () {
   AURUM.initManifestoScroll();
 };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/morphdom@2.7.1/dist/morphdom-umd.min.js"></script>
 <script>window.VINAYAK_API = "https://vinayak-interiors-api.onrender.com/api";</script>
 <script src="assets/js/api.js"></script>
+<script src="assets/js/cms-supabase-config.js"></script>
 <script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-live-updates.js"></script>
 <script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>

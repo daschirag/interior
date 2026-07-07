@@ -1,40 +1,35 @@
 import { useRef, useState } from "react";
-import api from "../services/api";
+import { imageKitErrorMessage, uploadToImageKit } from "../utils/imagekitUpload";
 
 function ImageUploader({ onUpload }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState("");
 
   const fileInputRef = useRef();
 
   const handleUpload = async () => {
     if (!selectedFile) {
-      alert("Please choose an image.");
+      setError("Please choose an image.");
       return;
     }
 
     try {
       setUploading(true);
+      setError("");
+      setProgress(0);
 
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-
-      const response = await api.post("/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const url = await uploadToImageKit(selectedFile, {
+        onProgress: setProgress,
       });
 
-      onUpload(response.data.imageUrl);
-
-      alert("Image uploaded successfully!");
-    } catch (error) {
-      console.error(error);
-
-      alert(
-        error.response?.data?.message ||
-          "Upload failed."
-      );
+      onUpload(url);
+      setSelectedFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (err) {
+      console.error(err);
+      setError(imageKitErrorMessage(err));
     } finally {
       setUploading(false);
     }
@@ -68,7 +63,7 @@ function ImageUploader({ onUpload }) {
             marginBottom: "30px",
           }}
         >
-          Upload images to Cloudinary
+          Uploads go directly to ImageKit (not through the API server)
         </p>
 
         <input
@@ -76,9 +71,10 @@ function ImageUploader({ onUpload }) {
           type="file"
           accept="image/*"
           style={{ display: "none" }}
-          onChange={(e) =>
-            setSelectedFile(e.target.files[0])
-          }
+          onChange={(e) => {
+            setSelectedFile(e.target.files[0] || null);
+            setError("");
+          }}
         />
 
         <button
@@ -119,10 +115,14 @@ function ImageUploader({ onUpload }) {
           onClick={handleUpload}
           disabled={uploading}
         >
-          {uploading
-            ? "Uploading..."
-            : "Upload Image"}
+          {uploading ? `Uploading… ${progress}%` : "Upload Image"}
         </button>
+
+        {error && (
+          <p style={{ color: "#f5a8a8", marginTop: "16px", fontSize: "14px" }}>
+            {error}
+          </p>
+        )}
       </div>
     </>
   );

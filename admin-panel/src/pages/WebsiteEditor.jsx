@@ -97,6 +97,21 @@ function WebsiteEditor() {
         fields: payload.fields,
         images: payload.images,
       });
+      setSelection((prev) => {
+        if (
+          !prev ||
+          prev.kind !== "block" ||
+          prev.sectionKey !== payload.sectionKey
+        ) {
+          return prev;
+        }
+        return {
+          ...prev,
+          sectionLabel: payload.sectionLabel || prev.sectionLabel,
+          fields: payload.fields || {},
+          images: payload.images || [],
+        };
+      });
       if (!payload.silent) {
         setToast("Saved — live for all visitors");
       }
@@ -163,7 +178,22 @@ function WebsiteEditor() {
         id: payload.id,
         discipline: payload.discipline,
       });
-      setToast("Saved — discipline updated on Services page");
+      setSelection((prev) => {
+        if (
+          !prev ||
+          prev.kind !== "discipline" ||
+          String(prev.id) !== String(payload.id)
+        ) {
+          return prev;
+        }
+        return {
+          ...prev,
+          title: payload.discipline?.title || prev.title,
+        };
+      });
+      if (!payload.silent) {
+        setToast("Saved — discipline updated on Services page");
+      }
       setEditorDirty(false);
       loadPageCatalog();
     },
@@ -177,7 +207,22 @@ function WebsiteEditor() {
         id: payload.id,
         project: payload.project,
       });
-      setToast("Saved — project updated on Projects page");
+      setSelection((prev) => {
+        if (
+          !prev ||
+          prev.kind !== "project" ||
+          String(prev.id) !== String(payload.id)
+        ) {
+          return prev;
+        }
+        return {
+          ...prev,
+          title: payload.project?.title || prev.title,
+        };
+      });
+      if (!payload.silent) {
+        setToast("Saved — project updated on Projects page");
+      }
       setEditorDirty(false);
       loadPageCatalog();
     },

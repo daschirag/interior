@@ -1,4 +1,13 @@
-const { Pool } = require("pg");
+const { Pool, types } = require("pg");
+
+// TIMESTAMP WITHOUT TIME ZONE: Supabase/Postgres session is UTC and stores UTC wall
+// clock. node-pg defaults to interpreting these as the Node process local timezone,
+// which shifts the instant by 5:30 on IST machines before JSON serialization.
+const TIMESTAMP_OID = 1114;
+types.setTypeParser(TIMESTAMP_OID, (stringValue) => {
+  if (!stringValue) return null;
+  return new Date(`${stringValue.trim().replace(" ", "T")}Z`);
+});
 
 const ssl = { rejectUnauthorized: false };
 

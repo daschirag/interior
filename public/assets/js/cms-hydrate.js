@@ -128,7 +128,9 @@
           var typeLabel = p.project_type || projectTypeLabel(p);
           var sub = typeLabel + (loc ? " · " + loc : "");
           return (
-            '<a class="proj-card" href="Projects.html" data-reveal>' +
+            '<a class="proj-card" href="Projects.html" data-reveal data-project-id="' +
+            esc(String(p.id)) +
+            '">' +
             '<div class="pf ticks"><div class="ph lazy-bg" data-lazy-bg="' + esc(cover) + '" style="background-size:cover;background-position:center;">' +
             '<span class="ph-tag"><span class="a">◐ PROJECT</span><span class="b">' + esc(p.title) + "</span></span></div></div>" +
             '<div class="pmeta"><span class="pt">' + esc(p.title) + '</span><span class="pn">' + padNo(i + 1) + "</span></div>" +
@@ -139,6 +141,50 @@
         if (window.AURUM && AURUM.refreshLazyMedia) AURUM.refreshLazyMedia();
       })
       .catch(function () {});
+  }
+
+  function buildJourneyPanelHtml(p, i, total) {
+    var tags = (p.material_tags || [])
+      .map(function (t) {
+        return "<span>" + esc(t) + "</span>";
+      })
+      .join("");
+
+    return (
+      '<article class="hpanel" data-cms-project="" data-project-id="' +
+      esc(String(p.id)) +
+      '" data-cms-edit-label="' +
+      esc(p.title || "Project") +
+      '">' +
+      '<div class="hpanel-media"><div class="ph ticks lazy-bg" data-lazy-bg="' +
+      esc(projectCover(p)) +
+      '" style="position:absolute;inset:0;"></div></div>' +
+      '<div class="hpanel-body">' +
+      '<div class="hpanel-no">' +
+      padNo(i + 1) +
+      " / " +
+      padNo(total) +
+      "</div>" +
+      '<h3 class="hpanel-ttl">' +
+      titleWithEm(p.title) +
+      "</h3>" +
+      '<div class="hpanel-meta">' +
+      '<div><div class="a">Area</div><div class="b">' +
+      esc(projectTypeLabel(p)) +
+      "</div></div>" +
+      '<div><div class="a">City</div><div class="b">' +
+      esc(p.location || "—") +
+      "</div></div>" +
+      '<div><div class="a">Year</div><div class="b">' +
+      esc(p.year || "—") +
+      "</div></div></div>" +
+      '<p class="hpanel-desc">' +
+      esc(p.description || "") +
+      "</p>" +
+      '<div class="hpanel-tags">' +
+      tags +
+      "</div></div></article>"
+    );
   }
 
   function hydrateJourney() {
@@ -154,7 +200,7 @@
         });
 
         var intro = track.querySelector(".hpanel-intro");
-        if (intro) {
+        if (intro && !intro.getAttribute("data-cms-block")) {
           var h2 = intro.querySelector(".h2");
           if (h2) {
             var n = projects.length;
@@ -168,63 +214,55 @@
         }
 
         projects.forEach(function (p, i) {
-          var tags = (p.material_tags || [])
-            .map(function (t) {
-              return "<span>" + esc(t) + "</span>";
-            })
-            .join("");
-          var article = document.createElement("article");
-          article.className = "hpanel";
-          article.setAttribute("data-cms-project", "");
-          article.setAttribute("data-project-id", String(p.id));
-          article.setAttribute("data-cms-edit-label", p.title || "Project");
           window.VINAYAK_CMS_PROJECTS = window.VINAYAK_CMS_PROJECTS || {};
           window.VINAYAK_CMS_PROJECTS[p.id] = p;
-          article.innerHTML =
-            '<div class="hpanel-media"><div class="ph ticks lazy-bg" data-lazy-bg="' +
-            esc(projectCover(p)) +
-            '" style="position:absolute;inset:0;"></div></div>' +
-            '<div class="hpanel-body">' +
-            '<div class="hpanel-no">' +
-            padNo(i + 1) +
-            " / " +
-            padNo(projects.length) +
-            "</div>" +
-            '<h3 class="hpanel-ttl">' +
-            titleWithEm(p.title) +
-            "</h3>" +
-            '<div class="hpanel-meta">' +
-            '<div><div class="a">Area</div><div class="b">' +
-            esc(projectTypeLabel(p)) +
-            "</div></div>" +
-            '<div><div class="a">City</div><div class="b">' +
-            esc(p.location || "—") +
-            "</div></div>" +
-            '<div><div class="a">Year</div><div class="b">' +
-            esc(p.year || "—") +
-            "</div></div></div>" +
-            '<p class="hpanel-desc">' +
-            esc(p.description || "") +
-            "</p>" +
-            '<div class="hpanel-tags">' +
-            tags +
-            "</div></div>";
-          track.appendChild(article);
+          var wrap = document.createElement("div");
+          wrap.innerHTML = buildJourneyPanelHtml(p, i, projects.length);
+          track.appendChild(wrap.firstElementChild);
         });
 
         var baProject = projects.find(function (p) {
           return p.before_image_url && p.after_image_url;
         });
-        if (baProject) {
-          var baCaption = document.querySelector("[data-cms-ba-caption]");
-          if (baCaption) {
+
+        var transformBlock =
+          window.VINAYAK_CMS_BLOCKS &&
+          window.VINAYAK_CMS_BLOCKS["projects-transformation"];
+        var blockImages = (transformBlock && transformBlock.images) || [];
+        var blockAfter = blockImages.find(function (i) {
+          return i.key === "ba-after" && i.url;
+        });
+        var blockBefore = blockImages.find(function (i) {
+          return i.key === "ba-before" && i.url;
+        });
+
+        if (baProject || blockAfter || blockBefore) {
+          var baCaption = document.querySelector(
+            '[data-cms-block="projects-transformation"] [data-cms-field="caption"]',
+          );
+          if (baCaption && baProject && !baCaption.textContent.trim()) {
             baCaption.textContent =
-              baProject.title + " — the living room, as found and as composed. Pull the divider.";
+              baProject.title +
+              " — the living room, as found and as composed. Pull the divider.";
           }
           var baAfter = document.getElementById("baAfter");
           var baBeforeInner = document.getElementById("baBeforeInner");
-          if (baAfter) baAfter.setAttribute("data-lazy-bg", assetUrl(baProject.after_image_url));
-          if (baBeforeInner) baBeforeInner.setAttribute("data-lazy-bg", assetUrl(baProject.before_image_url));
+          if (baAfter) {
+            var afterUrl = blockAfter
+              ? assetUrl(blockAfter.url)
+              : baProject
+                ? assetUrl(baProject.after_image_url)
+                : null;
+            if (afterUrl) baAfter.setAttribute("data-lazy-bg", afterUrl);
+          }
+          if (baBeforeInner) {
+            var beforeUrl = blockBefore
+              ? assetUrl(blockBefore.url)
+              : baProject
+                ? assetUrl(baProject.before_image_url)
+                : null;
+            if (beforeUrl) baBeforeInner.setAttribute("data-lazy-bg", beforeUrl);
+          }
         }
       })
       .catch(function () {});
@@ -236,6 +274,8 @@
     var expands = document.querySelectorAll("#svcList .svc-expand");
     var svcHint = document.querySelector(".svc-hint");
     rows.forEach(function (row) {
+      if (row.dataset.svcWired) return;
+      row.dataset.svcWired = "1";
       row.addEventListener("click", function () {
         var id = row.getAttribute("data-svc");
         var panel = document.querySelector('.svc-expand[data-for="' + id + '"]');
@@ -269,6 +309,87 @@
     });
   }
 
+  function buildDisciplineItemHtml(d, i) {
+    var meta = d.subtitle || d.budget_range || "";
+    var kicker = d.subtitle || "";
+    var headline = d.headline || titleWithEm(d.title);
+    var bodyCopy = d.description || "";
+    var scopeLabel = d.scope || "";
+    var features = (d.tags || [])
+      .map(function (t) {
+        return "<span>" + esc(t) + "</span>";
+      })
+      .join("");
+    var projectsLink = d.cta_projects_link || "Projects.html";
+    var consultLink = d.cta_consult_link || "Contact.html";
+    var img = assetUrl(d.image_url) || "assets/images/img-svc-1bhk.jpg";
+    var id = String(i);
+
+    return (
+      '<div class="svc-item" data-cms-discipline data-discipline-id="' +
+      d.id +
+      '" data-cms-edit-label="' +
+      esc(d.title) +
+      '">' +
+      '<div class="svc-row" data-svc="' +
+      id +
+      '" tabindex="0">' +
+      '<span class="svc-no">' +
+      padNo(i + 1) +
+      "</span>" +
+      '<span class="svc-name">' +
+      titleWithEm(d.title) +
+      "</span>" +
+      '<span class="svc-meta">' +
+      esc(meta) +
+      '</span><span class="svc-indicator"><span class="ind-line"></span><span class="ind-arrow" aria-hidden="true">+</span></span></div>' +
+      '<div class="svc-expand" data-for="' +
+      id +
+      '"><div class="svc-expand-inner">' +
+      '<div class="svc-expand-media"><div class="ph ticks lazy-bg" data-lazy-bg="' +
+      esc(img) +
+      '" style="position:absolute;inset:0;"></div><div class="svc-expand-media-overlay"></div></div>' +
+      '<div class="svc-expand-body">' +
+      '<div class="svc-expand-kicker">' +
+      esc(kicker) +
+      "</div>" +
+      '<h3 class="svc-expand-title">' +
+      headline +
+      "</h3>" +
+      '<p class="svc-expand-desc">' +
+      esc(bodyCopy) +
+      "</p>" +
+      '<div class="svc-expand-specs">' +
+      (d.budget_range
+        ? '<div class="svc-spec"><div class="ss-k">Budget Range</div><div class="ss-v">' +
+          esc(d.budget_range) +
+          "</div></div>"
+        : "") +
+      (d.timeline
+        ? '<div class="svc-spec"><div class="ss-k">Timeline</div><div class="ss-v">' +
+          esc(d.timeline) +
+          "</div></div>"
+        : "") +
+      (scopeLabel
+        ? '<div class="svc-spec"><div class="ss-k">Scope</div><div class="ss-v">' +
+          esc(scopeLabel) +
+          "</div></div>"
+        : "") +
+      "</div>" +
+      '<div class="svc-expand-features">' +
+      features +
+      "</div>" +
+      '<div class="svc-expand-cta">' +
+      '<a class="btn solid svc-view-projects" href="' +
+      esc(projectsLink) +
+      '">View Projects <span class="arw">&#8594;</span></a>' +
+      '<a class="btn" href="' +
+      esc(consultLink) +
+      '">Book Consultation <span class="arw">&#8594;</span></a>' +
+      "</div></div></div></div></div>"
+    );
+  }
+
   function hydrateDisciplines() {
     var list = document.querySelector("[data-cms-disciplines]");
     if (!list) return Promise.resolve();
@@ -282,83 +403,7 @@
 
         disciplines.forEach(function (d, i) {
           window.VINAYAK_CMS_DISCIPLINES[d.id] = d;
-          var id = String(i);
-          var meta = d.subtitle || d.budget_range || "";
-          var kicker = d.subtitle || "";
-          var headline = d.headline || titleWithEm(d.title);
-          var bodyCopy = d.description || "";
-          var scopeLabel = d.scope || "";
-          var features = (d.tags || [])
-            .map(function (t) {
-              return "<span>" + esc(t) + "</span>";
-            })
-            .join("");
-          var projectsLink = d.cta_projects_link || "Projects.html";
-          var consultLink = d.cta_consult_link || "Contact.html";
-          var img = assetUrl(d.image_url) || "assets/images/img-svc-1bhk.jpg";
-
-          html +=
-            '<div class="svc-item" data-cms-discipline data-discipline-id="' +
-            d.id +
-            '" data-cms-edit-label="' +
-            esc(d.title) +
-            '">' +
-            '<div class="svc-row" data-svc="' +
-            id +
-            '" tabindex="0">' +
-            '<span class="svc-no">' +
-            padNo(i + 1) +
-            "</span>" +
-            '<span class="svc-name">' +
-            titleWithEm(d.title) +
-            "</span>" +
-            '<span class="svc-meta">' +
-            esc(meta) +
-            '</span><span class="svc-indicator"><span class="ind-line"></span><span class="ind-arrow" aria-hidden="true">+</span></span></div>' +
-            '<div class="svc-expand" data-for="' +
-            id +
-            '"><div class="svc-expand-inner">' +
-            '<div class="svc-expand-media"><div class="ph ticks lazy-bg" data-lazy-bg="' +
-            esc(img) +
-            '" style="position:absolute;inset:0;"></div><div class="svc-expand-media-overlay"></div></div>' +
-            '<div class="svc-expand-body">' +
-            '<div class="svc-expand-kicker">' +
-            esc(kicker) +
-            "</div>" +
-            '<h3 class="svc-expand-title">' +
-            headline +
-            "</h3>" +
-            '<p class="svc-expand-desc">' +
-            esc(bodyCopy) +
-            "</p>" +
-            '<div class="svc-expand-specs">' +
-            (d.budget_range
-              ? '<div class="svc-spec"><div class="ss-k">Budget Range</div><div class="ss-v">' +
-                esc(d.budget_range) +
-                "</div></div>"
-              : "") +
-            (d.timeline
-              ? '<div class="svc-spec"><div class="ss-k">Timeline</div><div class="ss-v">' +
-                esc(d.timeline) +
-                "</div></div>"
-              : "") +
-            (scopeLabel
-              ? '<div class="svc-spec"><div class="ss-k">Scope</div><div class="ss-v">' +
-                esc(scopeLabel) +
-                "</div></div>"
-              : "") +
-            "</div>" +
-            '<div class="svc-expand-features">' +
-            features +
-            "</div>" +
-            '<div class="svc-expand-cta">' +
-            '<a class="btn solid svc-view-projects" href="' +
-            esc(projectsLink) +
-            '">View Projects <span class="arw">&#8594;</span></a>' +
-            '<a class="btn" href="' +
-            esc(consultLink) +
-            '">Book Consultation <span class="arw">&#8594;</span></a>' +
-            "</div></div></div></div></div>";
+          html += buildDisciplineItemHtml(d, i);
         });
 
         list.innerHTML = html;
@@ -372,13 +417,14 @@
     var brand = loc.brand || "Vinayak Aluminium Interiors";
     var addr = loc.address || "";
     var hours = loc.hours || loc.business_hours || "";
-    var coords = loc.coordinates || "";
     var maps = loc.maps_url || loc.google_maps_url || loc.maps || "#";
     var phone = loc.phone || "";
     var phoneLabel = loc.phone_display || phone;
 
     return (
-      '<article class="loc">' +
+      '<article class="loc" data-studio-id="' +
+      esc(String(loc.id || "")) +
+      '">' +
       '<div class="loc-top"><span class="lno">' +
       padNo(index + 1) +
       '</span><h3 class="loc-city">' +
@@ -391,9 +437,6 @@
       '</p><ul class="loc-meta">' +
       (hours
         ? '<li><span class="lm-k">Hours</span><span class="lm-v">' + esc(hours) + "</span></li>"
-        : "") +
-      (coords
-        ? '<li><span class="lm-k">Coordinates</span><span class="lm-v">' + esc(coords) + "</span></li>"
         : "") +
       '</ul></div><div class="loc-actions">' +
       '<a class="loc-btn loc-btn--maps" href="' +
@@ -433,11 +476,13 @@
       .trim();
   }
 
-  function applyContentBlock(block) {
+  function applyContentBlock(block, optionalRoot) {
     if (!block || !block.section_key) return;
-    var root = document.querySelector(
-      '[data-cms-block="' + block.section_key + '"]',
-    );
+    var root =
+      optionalRoot ||
+      document.querySelector(
+        '[data-cms-block="' + block.section_key + '"]',
+      );
     if (!root) return;
 
     var fields = block.fields || {};
@@ -448,6 +493,22 @@
         var nextHtml = fields[key];
         if (normalizeHtml(el.innerHTML) === normalizeHtml(nextHtml)) return;
         el.innerHTML = nextHtml;
+      } else if (el.tagName === "A") {
+        if (el.textContent !== String(fields[key])) {
+          el.textContent = fields[key];
+        }
+        var hrefField = el.getAttribute("data-cms-href-field");
+        if (hrefField === key || !hrefField) {
+          var prefix = el.getAttribute("data-cms-href-prefix") || "";
+          if (prefix === "mailto:") {
+            el.href = "mailto:" + String(fields[key]).trim();
+          } else if (prefix === "tel:") {
+            el.href =
+              "tel:" + String(fields[key]).replace(/[^\d+]/g, "");
+          } else if (prefix) {
+            el.href = prefix + String(fields[key]);
+          }
+        }
       } else {
         if (el.textContent === String(fields[key])) return;
         el.textContent = fields[key];
@@ -483,7 +544,13 @@
         if (!res.success || !res.blocks || !res.blocks.length) return;
         window.VINAYAK_CMS_BLOCKS = window.VINAYAK_CMS_BLOCKS || {};
         res.blocks.forEach(function (block) {
-          window.VINAYAK_CMS_BLOCKS[block.section_key] = block;
+          window.VINAYAK_CMS_BLOCKS[block.section_key] = {
+            section_key: block.section_key,
+            section_label: block.section_label,
+            page: block.page,
+            fields: JSON.parse(JSON.stringify(block.fields || {})),
+            images: JSON.parse(JSON.stringify(block.images || [])),
+          };
           applyContentBlock(block);
         });
       })
@@ -567,11 +634,16 @@
     tasks.push(settingsTask);
     tasks.push(hydrateStudios());
     tasks.push(hydrateFeatured());
-    tasks.push(hydrateJourney());
     tasks.push(hydrateDisciplines());
-    tasks.push(hydrateContentBlocks());
 
-    return Promise.all(tasks).then(function () {
+    return Promise.all(tasks)
+      .then(function () {
+        return hydrateContentBlocks();
+      })
+      .then(function () {
+        return hydrateJourney();
+      })
+      .then(function () {
       if (window.AURUM && AURUM.refreshLazyMedia) AURUM.refreshLazyMedia();
       if (window.ScrollTrigger) window.ScrollTrigger.refresh(true);
       window.dispatchEvent(new Event("vinayak:cms-ready"));
@@ -584,5 +656,20 @@
     disciplines: hydrateDisciplines,
     journey: hydrateJourney,
     contentBlocks: hydrateContentBlocks,
+  };
+
+  window.VINAYAK_CMS_APPLY = {
+    applyContentBlock: applyContentBlock,
+    contentPageSlug: contentPageSlug,
+    assetUrl: assetUrl,
+    esc: esc,
+    projectCover: projectCover,
+    projectTypeLabel: projectTypeLabel,
+    padNo: padNo,
+    titleWithEm: titleWithEm,
+    renderStudio: renderStudio,
+    buildJourneyPanelHtml: buildJourneyPanelHtml,
+    buildDisciplineItemHtml: buildDisciplineItemHtml,
+    wireDisciplineAccordion: wireDisciplineAccordion,
   };
 })();

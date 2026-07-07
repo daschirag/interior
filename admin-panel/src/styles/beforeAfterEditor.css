@@ -1,0 +1,18 @@
+.ba-editor{
+    max-width:720px;
+}
+
+.ba-editor .we-panel{
+    border:1px solid #2d3542;
+    border-radius:14px;
+    background:#1d232d;
+    min-height:480px;
+}
+
+.ba-editor .we-panel__close{
+    display:none;
+}
+
+.ba-editor .we-panel__key{
+    display:none;
+}

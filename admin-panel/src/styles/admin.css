@@ -138,3 +138,25 @@
 .delete-btn:hover{
     background:#c82333;
 }
+
+.studios-verify{
+    margin:-24px 0 16px;
+    font-size:14px;
+    color:#8d97a6;
+}
+
+.studios-verify a{
+    color:#4d7cff;
+    text-decoration:none;
+}
+
+.studios-verify a:hover{
+    text-decoration:underline;
+}
+
+.studios-table__addr{
+    max-width:320px;
+    font-size:13px;
+    color:#b8c0cc;
+    line-height:1.4;
+}

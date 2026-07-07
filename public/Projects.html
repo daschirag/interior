@@ -273,10 +273,10 @@
     </div>
     <div class="htrack" id="htrack" data-cms-journey>
       <!-- intro panel -->
-      <div class="hpanel-intro">
-        <div class="kicker brass">Project Journeys</div>
-        <h2 class="h2" style="margin-top:22px; max-width:14ch;">Three homes, <span class="brass">told</span> left to right.</h2>
-        <p class="body" style="margin-top:24px;">As you scroll, the gallery moves horizontally — each home a chapter. Keep going to reach the transformations.</p>
+      <div class="hpanel-intro" data-cms-block="projects-journey-intro" data-cms-edit-label="Journey intro">
+        <div class="kicker brass" data-cms-field="kicker">Project Journeys</div>
+        <h2 class="h2" data-cms-field="h2_html" data-cms-html="true" style="margin-top:22px; max-width:14ch;">Three homes, <span class="brass">told</span> left to right.</h2>
+        <p class="body" data-cms-field="body" style="margin-top:24px;">As you scroll, the gallery moves horizontally — each home a chapter. Keep going to reach the transformations.</p>
       </div>
       <!-- panel 1 -->
       <article class="hpanel">
@@ -339,8 +339,8 @@
         <p class="body" data-reveal data-cms-field="caption">Penthouse Fourteen — the living room, as found and as composed. Pull the divider.</p>
       </div>
       <div class="ba" id="ba">
-        <div class="ba-layer ba-after"><div class="ph lazy-bg" id="baAfter" data-lazy-bg="assets/images/img-ba-after.jpg" style="background-size:cover;background-position:center;"></div></div>
-        <div class="ba-layer ba-before" id="baBefore"><div class="ph ph-inner lazy-bg" id="baBeforeInner" data-lazy-bg="assets/images/img-ba-before.jpg" style="background-size:cover;background-position:center;filter:grayscale(0.6) brightness(0.75);"></div></div>
+        <div class="ba-layer ba-after"><div class="ph lazy-bg" id="baAfter" data-cms-image="ba-after" data-lazy-bg="assets/images/img-ba-after.jpg" style="background-size:cover;background-position:center;"></div></div>
+        <div class="ba-layer ba-before" id="baBefore"><div class="ph ph-inner lazy-bg" id="baBeforeInner" data-cms-image="ba-before" data-lazy-bg="assets/images/img-ba-before.jpg" style="background-size:cover;background-position:center;filter:grayscale(0.6) brightness(0.75);"></div></div>
         <span class="ba-tag before">Before</span>
         <span class="ba-tag after">After</span>
         <div class="ba-handle" id="baHandle"><div class="ba-knob">⇄</div></div>
@@ -350,13 +350,13 @@
   </section>
 
   <!-- CTA -->
-  <section class="cta" style="border-top:1px solid var(--line-soft);">
+  <section class="cta" style="border-top:1px solid var(--line-soft);" data-cms-block="projects-cta" data-cms-edit-label="CTA band">
     <div class="cta-inner wrap">
-      <div class="kicker brass" data-reveal style="justify-content:center;">Your project next</div>
-      <h2 class="display" data-reveal="mask" style="margin-top:24px;"><span>Begin a <span class="brass">composition</span>.</span></h2>
+      <div class="kicker brass" data-reveal style="justify-content:center;" data-cms-field="kicker">Your project next</div>
+      <h2 class="display" data-reveal="mask" style="margin-top:24px;"><span data-cms-field="h2_html" data-cms-html="true">Begin a <span class="brass">composition</span>.</span></h2>
       <div class="btns" style="display:flex; gap:16px; justify-content:center; margin-top:48px; flex-wrap:wrap;">
-        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html">Book a consultation <span class="arw">→</span></a>
-        <a class="btn magnetic" data-mag="0.3" href="Services.html">Explore the studio</a>
+        <a class="btn solid magnetic" data-mag="0.3" href="Contact.html"><span data-cms-field="btn_primary_label">Book a consultation</span> <span class="arw">→</span></a>
+        <a class="btn magnetic" data-mag="0.3" href="Services.html"><span data-cms-field="btn_secondary_label">Explore the studio</span></a>
       </div>
     </div>
   </section>
@@ -471,9 +471,13 @@ AURUM.onSmooth = function () {
   setDot(0);
 };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/morphdom@2.7.1/dist/morphdom-umd.min.js"></script>
 <script>window.VINAYAK_API = "https://vinayak-interiors-api.onrender.com/api";</script>
 <script src="assets/js/api.js"></script>
+<script src="assets/js/cms-supabase-config.js"></script>
 <script src="assets/js/cms-hydrate.js"></script>
+<script src="assets/js/cms-live-updates.js"></script>
 <script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>

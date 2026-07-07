@@ -42,11 +42,6 @@ function parseStudiosFromContactHtml(html) {
         /<span class="lm-k">Hours<\/span><span class="lm-v">([\s\S]*?)<\/span>/,
       ) || [])[1],
     );
-    const coordinates = decodeHtml(
-      (block.match(
-        /<span class="lm-k">Coordinates<\/span><span class="lm-v">([\s\S]*?)<\/span>/,
-      ) || [])[1],
-    );
     const mapsUrl = (block.match(/loc-btn--maps" href="([^"]+)"/) || [])[1] || null;
     const phone = (block.match(/loc-btn--call" href="tel:([^"]+)"/) || [])[1] || null;
     const phoneDisplay = decodeHtml(
@@ -60,7 +55,6 @@ function parseStudiosFromContactHtml(html) {
       brand,
       address,
       hours,
-      coordinates,
       maps_url: mapsUrl,
       phone,
       phone_display: phoneDisplay,
