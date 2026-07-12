@@ -15,6 +15,7 @@ const locationRoutes = require("./routes/locationRoutes");
 const contentBlockRoutes = require("./routes/contentBlockRoutes");
 const studioRoutes = require("./routes/studioRoutes");
 const mediaLibraryRoutes = require("./routes/mediaLibraryRoutes");
+const chatbotRoutes = require("./routes/chatbotRoutes");
 
 const app = express();
 
@@ -55,5 +56,6 @@ app.use("/api/locations", locationRoutes);
 app.use("/api/content-blocks", contentBlockRoutes);
 app.use("/api/studios", studioRoutes);
 app.use("/api/media-library", mediaLibraryRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 
 module.exports = app;

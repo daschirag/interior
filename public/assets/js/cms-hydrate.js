@@ -17,6 +17,14 @@
       .replace(/"/g, "&quot;");
   }
 
+  function tt(key, fallback) {
+    if (window.VINAYAK_I18N && typeof window.VINAYAK_I18N.t === "function") {
+      var v = window.VINAYAK_I18N.t(key);
+      if (v && v !== key) return v;
+    }
+    return fallback || key;
+  }
+
   function assetUrl(url) {
     if (!url) return "";
     if (/^(https?:|data:|\/)/.test(url)) return url;
@@ -50,7 +58,13 @@
 
     document.querySelectorAll(".foot-col").forEach(function (col) {
       var h = col.querySelector("h4");
-      if (!h || h.textContent.trim() !== "Connect") return;
+      if (
+        !h ||
+        (h.getAttribute("data-i18n-key") !== "footer.connect" &&
+          h.textContent.trim() !== "Connect")
+      ) {
+        return;
+      }
 
       col.querySelectorAll("a").forEach(function (a) {
         var href = a.getAttribute("href") || "";
@@ -88,7 +102,13 @@
       var studiosCol = null;
       document.querySelectorAll(".foot-col").forEach(function (col) {
         var h = col.querySelector("h4");
-        if (h && h.textContent.trim() === "Studios") studiosCol = col;
+        if (
+          h &&
+          (h.getAttribute("data-i18n-key") === "footer.studios" ||
+            h.textContent.trim() === "Studios")
+        ) {
+          studiosCol = col;
+        }
       });
       if (studiosCol) {
         var links = studiosCol.querySelectorAll("a");
@@ -324,6 +344,11 @@
     var consultLink = d.cta_consult_link || "Contact.html";
     var img = assetUrl(d.image_url) || "assets/images/img-svc-1bhk.jpg";
     var id = String(i);
+    var labelBudget = tt("studio.budget", "Budget Range");
+    var labelTimeline = tt("studio.timeline", "Timeline");
+    var labelScope = tt("studio.scope", "Scope");
+    var labelProjects = tt("studio.view_projects", "View Projects");
+    var labelConsult = tt("studio.book_consult", "Book Consultation");
 
     return (
       '<div class="svc-item" data-cms-discipline data-discipline-id="' +
@@ -361,17 +386,23 @@
       "</p>" +
       '<div class="svc-expand-specs">' +
       (d.budget_range
-        ? '<div class="svc-spec"><div class="ss-k">Budget Range</div><div class="ss-v">' +
+        ? '<div class="svc-spec"><div class="ss-k">' +
+          esc(labelBudget) +
+          '</div><div class="ss-v">' +
           esc(d.budget_range) +
           "</div></div>"
         : "") +
       (d.timeline
-        ? '<div class="svc-spec"><div class="ss-k">Timeline</div><div class="ss-v">' +
+        ? '<div class="svc-spec"><div class="ss-k">' +
+          esc(labelTimeline) +
+          '</div><div class="ss-v">' +
           esc(d.timeline) +
           "</div></div>"
         : "") +
       (scopeLabel
-        ? '<div class="svc-spec"><div class="ss-k">Scope</div><div class="ss-v">' +
+        ? '<div class="svc-spec"><div class="ss-k">' +
+          esc(labelScope) +
+          '</div><div class="ss-v">' +
           esc(scopeLabel) +
           "</div></div>"
         : "") +
@@ -382,10 +413,14 @@
       '<div class="svc-expand-cta">' +
       '<a class="btn solid svc-view-projects" href="' +
       esc(projectsLink) +
-      '">View Projects <span class="arw">&#8594;</span></a>' +
+      '">' +
+      esc(labelProjects) +
+      ' <span class="arw">&#8594;</span></a>' +
       '<a class="btn" href="' +
       esc(consultLink) +
-      '">Book Consultation <span class="arw">&#8594;</span></a>' +
+      '">' +
+      esc(labelConsult) +
+      ' <span class="arw">&#8594;</span></a>' +
       "</div></div></div></div></div>"
     );
   }
@@ -448,15 +483,35 @@
       '<span class="loc-btn-label">Get directions</span>' +
       '<span class="loc-btn-hint">Opens in Google Maps · turn-by-turn route</span></a>' +
       (phone
-        ? '<a class="loc-btn loc-btn--call" href="tel:' +
-          esc(phone.replace(/\s/g, "")) +
-          '" aria-label="Call ' +
-          esc(city) +
-          ' studio">' +
-          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>' +
-          '<span class="loc-btn-label">Call ' +
-          esc(phoneLabel) +
-          "</span></a>"
+        ? (function () {
+            var digits = String(phone).replace(/\D/g, "");
+            if (digits.length === 10) digits = "91" + digits;
+            var waText = encodeURIComponent(
+              "Hi, I'm interested in interior design services at your " +
+                city +
+                " studio",
+            );
+            return (
+              '<a class="loc-btn loc-btn--call" href="tel:' +
+              esc(phone.replace(/\s/g, "")) +
+              '" aria-label="Call ' +
+              esc(city) +
+              ' studio">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>' +
+              '<span class="loc-btn-label">Call ' +
+              esc(phoneLabel) +
+              "</span></a>" +
+              '<a class="loc-btn loc-btn--wa" href="https://wa.me/' +
+              esc(digits) +
+              "?text=" +
+              waText +
+              '" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ' +
+              esc(city) +
+              ' studio">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.28-.14-1.64-.81-1.9-.9-.25-.1-.44-.14-.62.14-.18.27-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.17-.43-2.23-1.37-.82-.73-1.38-1.64-1.54-1.92-.16-.27-.02-.42.12-.56.13-.13.28-.32.42-.49.14-.16.18-.27.28-.45.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.85-2.04-.22-.53-.45-.46-.62-.47h-.53c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.3s.98 2.67 1.12 2.85c.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.11-.25-.18-.53-.32zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.59.94.96-3.5-.22-.36a9.45 9.45 0 0 1-1.45-5.04 9.5 9.5 0 0 1 9.5-9.48c2.54 0 4.93.99 6.73 2.79a9.46 9.46 0 0 1 2.78 6.72 9.5 9.5 0 0 1-9.53 9.45zm8.14-17.6A11.2 11.2 0 0 0 12.03 0C5.43 0 .07 5.35.07 11.94c0 2.1.55 4.15 1.6 5.96L0 24l6.26-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.6 0 11.96-5.36 11.96-11.95 0-3.19-1.24-6.19-3.5-8.45z"/></svg>' +
+              '<span class="loc-btn-label">WhatsApp</span></a>'
+            );
+          })()
         : "") +
       "</div></article>"
     );
@@ -579,7 +634,11 @@
         }
         document.querySelectorAll(".foot-col").forEach(function (col) {
           var h = col.querySelector("h4");
-          if (h && h.textContent.trim() === "Studios") {
+          if (
+            h &&
+            (h.getAttribute("data-i18n-key") === "footer.studios" ||
+              h.textContent.trim() === "Studios")
+          ) {
             var links = col.querySelectorAll("a");
             res.studios.forEach(function (loc, i) {
               if (links[i]) links[i].textContent = loc.city;
@@ -650,12 +709,39 @@
     });
   }
 
-  window.VINAYAK_CMS_READY = hydrateAll();
+  function rehydrateForLang() {
+    return Promise.all([
+      hydrateStudios(),
+      hydrateFeatured(),
+      hydrateDisciplines(),
+      hydrateContentBlocks().then(function () {
+        return hydrateJourney();
+      }),
+    ]).then(function () {
+      if (window.AURUM && AURUM.refreshLazyMedia) AURUM.refreshLazyMedia();
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh(true);
+      if (window.VINAYAK_I18N && VINAYAK_I18N.apply) VINAYAK_I18N.apply();
+      window.dispatchEvent(new Event("vinayak:cms-ready"));
+    });
+  }
+
+  window.VINAYAK_CMS_READY = (
+    window.VINAYAK_I18N && VINAYAK_I18N.init
+      ? VINAYAK_I18N.init()
+      : Promise.resolve()
+  ).then(function () {
+    return hydrateAll();
+  });
+
+  window.addEventListener("vinayak:langchange", function () {
+    rehydrateForLang();
+  });
 
   window.VINAYAK_CMS_REFRESH = {
     disciplines: hydrateDisciplines,
     journey: hydrateJourney,
     contentBlocks: hydrateContentBlocks,
+    all: rehydrateForLang,
   };
 
   window.VINAYAK_CMS_APPLY = {

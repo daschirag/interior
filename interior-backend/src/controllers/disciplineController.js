@@ -3,6 +3,7 @@ const Discipline = require("../models/disciplineModel");
 const EntityHistory = require("../models/entityHistoryModel");
 const { getDefaultDisciplineBySlug } = require("../data/disciplineDefaults");
 const { disciplineToSnapshot } = require("../utils/entitySnapshot");
+const { parseLang, resolveDiscipline } = require("../utils/i18nResolve");
 
 async function snapshotDiscipline(id, editedBy) {
   const existing = await Discipline.findById(id);
@@ -18,6 +19,7 @@ async function snapshotDiscipline(id, editedBy) {
 
 const getDisciplines = async (req, res) => {
   try {
+    const lang = parseLang(req.query.lang);
     const result = await pool.query(`
       SELECT *
       FROM disciplines
@@ -27,7 +29,8 @@ const getDisciplines = async (req, res) => {
 
     res.json({
       success: true,
-      disciplines: result.rows,
+      lang,
+      disciplines: result.rows.map((row) => resolveDiscipline(row, lang)),
     });
   } catch (error) {
     res.status(500).json({

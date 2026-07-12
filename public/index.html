@@ -4,11 +4,58 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vinayak Interiors — The Threshold</title>
+<meta name="description" content="Welcome to Vinayak Aluminium Interiors. Cross the threshold into our Karnataka atelier — homes composed through light, material and proportion since 2014." />
+<link rel="canonical" href="/index.html" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.vinayakainteriors.com/index.html#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Entrance",
+      "item": "https://www.vinayakainteriors.com/index.html"
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Sans+Kannada:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&family=Noto+Serif+Kannada:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/world.css" />
 <style>
+/* Language switcher — Threshold chrome only (does not affect stage/GSAP) */
+.lang-switch{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  pointer-events:auto;
+}
+.lang-switch button{
+  background:transparent; border:0; padding:6px 2px; cursor:pointer;
+  color:var(--ink-dim); transition:color .3s; line-height:1.5;
+  text-transform:none; letter-spacing:0.04em;
+}
+.lang-switch button:hover{ color:var(--ink); }
+.lang-switch button.is-active{ color:var(--azure-bright); }
+.lang-switch .lang-sep{ color:var(--ink-faint); opacity:.55; user-select:none; }
+.lang-switch button[data-lang-switch="kn"]{ font-family:"Noto Sans Kannada", var(--sans); font-size:9.5px; letter-spacing:0; }
+.lang-switch button[data-lang-switch="hi"]{ font-family:"Noto Sans Devanagari", var(--sans); font-size:10px; letter-spacing:0; }
+
+/* Longer Indic CTAs on Threshold enter button */
+html[lang="kn"] #enterSite,
+html[lang="hi"] #enterSite{
+  white-space:normal;
+  text-align:center;
+  line-height:1.45;
+  max-width:100%;
+}
+html[lang="kn"] #enterSite [data-i18n-key],
+html[lang="hi"] #enterSite [data-i18n-key]{
+  display:inline;
+}
+
 /* ============================================================
    MOBILE & TABLET RESPONSIVE — index.html (auth)
    ============================================================ */
@@ -107,9 +154,9 @@
   <div class="flash" id="flash"></div>
 </div>
 
-<!-- whisper words across the journey -->
-<div class="whispers" id="whispers">
-  <span class="whisper" data-at="0.46">Welcome to<br><em>Vinayak Aluminium Interiors</em>.<span class="sub">Vinayak Interiors</span></span>
+<!-- whisper words across the journey — crawler/SEO: English static; skip i18n swaps -->
+<div class="whispers" id="whispers" data-i18n-skip>
+  <span class="whisper" data-at="0.46">Welcome to<br><em>Vinayak Aluminium Interiors</em>.<span class="sub">Studios Across Karnataka</span></span>
 </div>
 
 <!-- ================= FLOATING GLASS PANEL (enter) ================= -->
@@ -120,11 +167,11 @@
     <div class="pbody" id="pbody">
       <div class="view">
         <svg class="seal"><use href="#logo"/></svg>
-        <div class="eyebrow">Vinayak Interiors Awaits</div>
+        <div class="eyebrow" data-i18n-key="index.eyebrow">Vinayak Interiors Awaits</div>
         <h2 class="p-title">Step <em>inside</em>.</h2>
-        <p class="p-lede">You have crossed the threshold. The studio is prepared for you.</p>
+        <p class="p-lede">Interior architecture and aluminium fit-out across Bengaluru, Vijayapura, Dharwad, Kalaburagi &amp; Hospet — since 2014.</p>
         <div class="cta-row">
-          <a class="btn solid" id="enterSite" href="dashboard.html">Enter Vinayak Interiors <span class="arw">→</span></a>
+          <a class="btn solid" id="enterSite" href="dashboard.html"><span data-i18n-key="index.enter">Enter Vinayak Interiors</span> <span class="arw">→</span></a>
         </div>
       </div>
     </div>
@@ -138,20 +185,26 @@
       <svg class="mark"><use href="#logo"/></svg>
       <span class="word">VINAYAK <b>INTERIORS</b></span>
     </a>
-    <div style="display:flex; align-items:flex-start; gap:clamp(20px,3vw,48px)">
-      </div>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang-switch="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" data-lang-switch="kn" aria-pressed="false">ಕನ್ನಡ</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" data-lang-switch="hi" aria-pressed="false">हिंदी</button>
+    </div>
   </div>
 
-  <div class="hero lift" id="hero">
+  <!-- Hero / H1 / sub / corner: English in source for crawlers; visitor i18n skipped -->
+  <div class="hero lift" id="hero" data-i18n-skip>
     <div class="ey rw"><span>The Threshold</span></div>
     <h1><span class="rw"><span style="animation-delay:.18s">Step into</span></span><span class="rw"><span style="animation-delay:.34s">the <em>atelier</em></span></span></h1>
-    <div class="sub rw"><span style="animation-delay:.5s">welcome to vinayak aluminium interiors</span></div>
+    <div class="sub rw"><span style="animation-delay:.5s">interior design studio · karnataka · est. 2014</span></div>
   </div>
 
-  <div class="corner bl">VINAYAK INTERIORS &middot; ALUMINIUM</div>
+  <div class="corner bl" data-i18n-skip>VINAYAK INTERIORS &middot; ALUMINIUM &middot; KARNATAKA</div>
 
   <div class="cue" id="cue">
-    <span>Scroll to enter</span>
+    <span data-i18n-key="index.scroll">Scroll to enter</span>
     <div class="rail"></div>
   </div>
 </div>
@@ -169,7 +222,12 @@
 <div class="cur-ring" id="curRing"></div>
 <div class="cur-dot"  id="curDot"></div>
 
-<script>window.VINAYAK_API = "https://vinayak-interiors-api.onrender.com/api";</script>
+<script>
+window.VINAYAK_API = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+  ? "http://localhost:5000/api"
+  : "https://vinayak-interiors-api.onrender.com/api";
+</script>
+<script src="assets/js/i18n.js"></script>
 <script src="assets/js/api.js"></script>
 <script src="assets/js/cms-hydrate.js"></script>
 <script src="assets/js/engine.js"></script>

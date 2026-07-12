@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chat widget preview — Vinayak Interiors</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/aurum.css" />
+<link rel="stylesheet" href="assets/css/chatbot.css" />
+<style>
+  body{ min-height:100svh; background:
+    radial-gradient(80% 60% at 70% 20%, rgba(44,154,212,0.12), transparent 55%),
+    var(--bg); }
+  .preview-wrap{ max-width:720px; margin:0 auto; padding:48px var(--gut) 120px; }
+  .preview-wrap h1{ font-family:var(--serif); font-weight:300; font-size:clamp(32px,5vw,48px); margin:12px 0 8px; }
+  .preview-wrap .lede{ color:var(--ink-soft); max-width:48ch; margin-bottom:28px; }
+  .preview-note{
+    border:1px solid var(--line); padding:16px 18px; margin-bottom:20px;
+    font-size:14px; color:var(--ink-soft); line-height:1.55;
+  }
+  .preview-note strong{ color:var(--brass-bright); font-weight:400; }
+  .preview-states{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:720px){ .preview-states{ grid-template-columns:1fr; } }
+  .preview-card{
+    border:1px solid var(--line); background:var(--bg-1); padding:18px;
+    min-height:280px; position:relative; overflow:hidden;
+  }
+  .preview-card h2{
+    font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--azure); margin:0 0 14px;
+  }
+  .fake-hero{
+    height:120px; margin-bottom:12px;
+    background:linear-gradient(135deg, #1a2430, #0c1016);
+    border:1px solid var(--line-soft);
+    display:flex; align-items:flex-end; padding:12px;
+    font-family:var(--serif); font-size:18px; color:var(--ink-soft);
+  }
+  .stage{ position:relative; height:220px; background:var(--bg-2); border:1px solid var(--line-soft); }
+  .stage .vx-chat{ position:absolute; right:14px; bottom:14px; }
+  .stage--open .vx-chat{ bottom:10px; right:10px; }
+  .stage--open{ height:520px; }
+</style>
+</head>
+<body>
+  <div class="preview-wrap">
+    <p class="kicker brass">Design review · not linked from nav</p>
+    <h1>Chat widget preview</h1>
+    <p class="lede">Closed and open states using azure/brass — not a third-party green bubble. Confirm before we mount on dashboard / Projects / Services / Contact.</p>
+    <div class="preview-note">
+      <strong>Placement reminder:</strong> index.html never loads this. dashboard.html fades in after hero (IntersectionObserver). Other content pages show immediately. Live FAB below also works against local/Render API if <code>VINAYAK_API</code> is set.
+    </div>
+
+    <div class="preview-states">
+      <div class="preview-card">
+        <h2>01 — Closed</h2>
+        <div class="fake-hero">Content browsing…</div>
+        <div class="stage" id="stage-closed"></div>
+      </div>
+      <div class="preview-card">
+        <h2>02 — Open</h2>
+        <div class="fake-hero">Panel anchored bottom-right</div>
+        <div class="stage stage--open" id="stage-open"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  var CHAT = '<svg class="vx-icon-chat" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7z" opacity=".85"/></svg>';
+  var CLOSE = '<svg class="vx-icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>';
+  var SEND = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>';
+
+  function panelHtml(open) {
+    return (
+      '<div class="vx-chat' + (open ? ' is-open' : '') + '" style="pointer-events:none">' +
+      '<div class="vx-chat-panel" style="pointer-events:none">' +
+      '<div class="vx-chat-head"><div class="vx-chat-head-copy"><p class="vx-chat-kicker">Studio assistant</p><p class="vx-chat-title">Ask Vinayak</p></div><span class="vx-chat-status">Online</span></div>' +
+      '<div class="vx-chat-log">' +
+      '<div class="vx-bubble vx-bubble--bot">Hi! Ask me about our services, pricing, or process.</div>' +
+      (open
+        ? '<div class="vx-bubble vx-bubble--user">How much for a 2 BHK?</div><div class="vx-bubble vx-bubble--bot">For 2 BHK Interiors, our published budget range is ₹2.5L – ₹3L…</div>'
+        : '') +
+      '</div>' +
+      '<form class="vx-chat-compose"><textarea rows="1" placeholder="Ask about services, pricing…" disabled></textarea><button type="button" class="vx-chat-send" tabindex="-1">' + SEND + '</button></form>' +
+      '</div>' +
+      '<button type="button" class="vx-chat-fab" tabindex="-1">' + CHAT + CLOSE + '</button>' +
+      '</div>'
+    );
+  }
+
+  document.getElementById("stage-closed").innerHTML = panelHtml(false);
+  document.getElementById("stage-open").innerHTML = panelHtml(true);
+})();
+</script>
+</body>
+</html>

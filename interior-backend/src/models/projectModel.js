@@ -27,6 +27,14 @@ const createTable = async () => {
     ALTER TABLE projects
       ADD COLUMN IF NOT EXISTS project_type VARCHAR(255);
   `);
+
+  await pool.query(`
+    ALTER TABLE projects
+      ADD COLUMN IF NOT EXISTS title_kn TEXT,
+      ADD COLUMN IF NOT EXISTS description_kn TEXT,
+      ADD COLUMN IF NOT EXISTS title_hi TEXT,
+      ADD COLUMN IF NOT EXISTS description_hi TEXT;
+  `);
 };
 
 const create = async (project) => {

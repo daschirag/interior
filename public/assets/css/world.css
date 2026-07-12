@@ -26,6 +26,15 @@
   --e-soft: cubic-bezier(0.33,0,0.1,1);
 }
 
+html[lang="kn"]{
+  --serif: "Noto Serif Kannada", "Cormorant Garamond", Georgia, serif;
+  --sans:  "Noto Sans Kannada", "Jost", "Helvetica Neue", Arial, sans-serif;
+}
+html[lang="hi"]{
+  --serif: "Noto Serif Devanagari", "Cormorant Garamond", Georgia, serif;
+  --sans:  "Noto Sans Devanagari", "Jost", "Helvetica Neue", Arial, sans-serif;
+}
+
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 html{ background:var(--bg); }
 body{

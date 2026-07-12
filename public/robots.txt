@@ -1,0 +1,12 @@
+# Vinayak Aluminium Interiors — public site
+# Allow all crawlers; point them to the sitemap.
+
+User-agent: *
+Allow: /
+
+# Disallow admin / analytics leftovers if ever served from this host
+Disallow: /admin-analytics.html
+Disallow: /admin-analytics.js
+
+# Absolute sitemap URL — update SITE_ORIGIN if you attach a custom domain
+Sitemap: https://www.vinayakainteriors.com/sitemap.xml

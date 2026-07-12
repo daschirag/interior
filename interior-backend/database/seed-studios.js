@@ -70,8 +70,8 @@ async function main() {
   const html = fs.readFileSync(CONTACT_HTML, "utf8");
   const studios = parseStudiosFromContactHtml(html);
 
-  if (studios.length !== 4) {
-    console.error("Expected 4 studios from Contact.html, got", studios.length);
+  if (studios.length !== 5) {
+    console.error("Expected 5 studios from Contact.html, got", studios.length);
     process.exit(1);
   }
 

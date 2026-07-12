@@ -27,6 +27,26 @@ const createTable = async () => {
       ADD COLUMN IF NOT EXISTS headline TEXT,
       ADD COLUMN IF NOT EXISTS description TEXT;
   `);
+
+  await pool.query(`
+    ALTER TABLE disciplines
+      ADD COLUMN IF NOT EXISTS title_kn TEXT,
+      ADD COLUMN IF NOT EXISTS scope_kn TEXT,
+      ADD COLUMN IF NOT EXISTS title_hi TEXT,
+      ADD COLUMN IF NOT EXISTS scope_hi TEXT;
+  `);
+
+  await pool.query(`
+    ALTER TABLE disciplines
+      ADD COLUMN IF NOT EXISTS subtitle_kn TEXT,
+      ADD COLUMN IF NOT EXISTS subtitle_hi TEXT,
+      ADD COLUMN IF NOT EXISTS headline_kn TEXT,
+      ADD COLUMN IF NOT EXISTS headline_hi TEXT,
+      ADD COLUMN IF NOT EXISTS description_kn TEXT,
+      ADD COLUMN IF NOT EXISTS description_hi TEXT,
+      ADD COLUMN IF NOT EXISTS tags_kn TEXT[],
+      ADD COLUMN IF NOT EXISTS tags_hi TEXT[];
+  `);
 };
 
 const create = async (discipline) => {

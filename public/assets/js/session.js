@@ -49,9 +49,11 @@
         btn.type = "button";
         btn.className = "nav-logout";
         btn.id = "navReplay";
+        btn.setAttribute("data-i18n-key", "nav.replay");
         btn.textContent = "Replay entrance";
         btn.addEventListener("click", function () { AURUM.auth.goEntrance(); });
         links.appendChild(btn);
+        if (window.VINAYAK_I18N && VINAYAK_I18N.apply) VINAYAK_I18N.apply();
       }
 
       var sheet = document.querySelector(".nav-sheet");
@@ -59,6 +61,7 @@
         var lo = document.createElement("a");
         lo.href = "#";
         lo.id = "navReplaySheet";
+        lo.setAttribute("data-i18n-key", "nav.replay");
         lo.textContent = "Replay entrance";
         lo.addEventListener("click", function (e) {
           e.preventDefault();
@@ -66,6 +69,7 @@
           AURUM.auth.goEntrance();
         });
         sheet.appendChild(lo);
+        if (window.VINAYAK_I18N && VINAYAK_I18N.apply) VINAYAK_I18N.apply();
       }
     }
   };

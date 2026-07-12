@@ -178,6 +178,328 @@ html.has-js .torch{ opacity:1; }
 .nav-cta:hover{ color:#06222f; border-color:var(--azure); }
 .nav-cta:hover::before{ transform:translateX(0); }
 
+.lang-switch{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+}
+.lang-switch button{
+  background:transparent; border:0; padding:4px 2px; cursor:pointer;
+  color:var(--ink-dim); transition:color .3s;
+}
+.lang-switch button:hover{ color:var(--ink); }
+.lang-switch button.is-active{ color:var(--azure-bright); }
+.lang-switch .lang-sep{ color:var(--ink-faint); opacity:.55; user-select:none; }
+.nav-sheet .lang-switch{ margin-top:18px; gap:10px; }
+.nav-sheet .lang-switch button{ font-size:12px; letter-spacing:.12em; color:var(--ink-soft); }
+.nav-sheet .lang-switch button.is-active{ color:var(--azure-bright); }
+
+/* Language switcher: keep EN / kn / hi optically equal */
+.lang-switch button{
+  text-transform:none;
+  letter-spacing:0.04em;
+  line-height:1.2;
+  font-size:10px;
+  font-weight:400;
+}
+.lang-switch button[data-lang-switch="kn"]{
+  font-family:"Noto Sans Kannada", var(--sans);
+  font-size:9.5px;
+  letter-spacing:0;
+}
+.lang-switch button[data-lang-switch="hi"]{
+  font-family:"Noto Sans Devanagari", var(--sans);
+  font-size:10px;
+  letter-spacing:0;
+}
+
+/* ---------- Indic languages: match English optical size ---------- */
+html[lang="kn"]{
+  --serif: "Noto Serif Kannada", "Cormorant Garamond", Georgia, serif;
+  --sans:  "Noto Sans Kannada", "Jost", "Helvetica Neue", Arial, sans-serif;
+}
+html[lang="hi"]{
+  --serif: "Noto Serif Devanagari", "Cormorant Garamond", Georgia, serif;
+  --sans:  "Noto Sans Devanagari", "Jost", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Wide Latin tracking breaks Indic scripts — normalize UI chrome */
+html[lang="kn"] .nav-link,
+html[lang="hi"] .nav-link,
+html[lang="kn"] .nav-cta,
+html[lang="hi"] .nav-cta,
+html[lang="kn"] .nav-logout,
+html[lang="hi"] .nav-logout,
+html[lang="kn"] .kicker,
+html[lang="hi"] .kicker,
+html[lang="kn"] .cap,
+html[lang="hi"] .cap,
+html[lang="kn"] .foot-col h4,
+html[lang="hi"] .foot-col h4,
+html[lang="kn"] .phead .ix-list div .a,
+html[lang="hi"] .phead .ix-list div .a{
+  text-transform:none;
+  letter-spacing:0.01em;
+}
+
+/* Room for matras / vowel marks above the headline (shirorekha) */
+html[lang="kn"] .nav-link,
+html[lang="hi"] .nav-link{
+  font-size:13px;
+  letter-spacing:0;
+  font-weight:400;
+  line-height:1.75;
+  padding:10px 0 8px;
+  overflow:visible;
+}
+html[lang="kn"] .nav-cta,
+html[lang="hi"] .nav-cta{
+  font-size:11px;
+  letter-spacing:0.02em;
+  font-weight:500;
+  line-height:1.65;
+  padding:12px 16px 11px;
+  overflow:hidden; /* keep hover wipe */
+  max-width:min(46vw, 260px);
+}
+html[lang="kn"] .nav-cta span[data-i18n-key],
+html[lang="hi"] .nav-cta span[data-i18n-key]{
+  line-height:1.65;
+  padding-top:0.15em;
+  display:inline-block;
+  white-space:normal;
+  text-align:center;
+}
+html[lang="kn"] .nav-logout,
+html[lang="hi"] .nav-logout{
+  line-height:1.7;
+  padding-top:10px;
+  padding-bottom:8px;
+}
+html[lang="kn"] .lang-switch button,
+html[lang="hi"] .lang-switch button{
+  line-height:1.6;
+  padding:6px 2px;
+}
+
+/* Kicker dash was vertically centered through tall Indic glyphs (= strike-through) */
+html[lang="kn"] .kicker,
+html[lang="hi"] .kicker{
+  font-family:var(--sans);
+  font-size:12px;
+  letter-spacing:0.02em;
+  line-height:1.8;
+  align-items:baseline;
+  padding-top:0.2em;
+  overflow:visible;
+}
+html[lang="kn"] .kicker::before,
+html[lang="hi"] .kicker::before{
+  position:relative;
+  top:-0.55em; /* sit beside the head-line, not through the glyph body */
+  flex:none;
+}
+
+html[lang="kn"] .lede,
+html[lang="hi"] .lede,
+html[lang="kn"] .body,
+html[lang="hi"] .body,
+html[lang="kn"] .foot-col a,
+html[lang="hi"] .foot-col a{
+  letter-spacing:0;
+  line-height:1.75;
+}
+html[lang="kn"] .h1,
+html[lang="hi"] .h1,
+html[lang="kn"] .h2,
+html[lang="hi"] .h2{
+  letter-spacing:0;
+  line-height:1.35;
+}
+html[lang="kn"] .phead .ix-list div .a,
+html[lang="hi"] .phead .ix-list div .a{
+  line-height:1.6;
+  padding-top:0.15em;
+  overflow:visible;
+}
+html[lang="kn"] .cap,
+html[lang="hi"] .cap{
+  line-height:1.65;
+  overflow:visible;
+}
+
+/* Buttons, cards, forms, lists — Latin tracking breaks Indic */
+html[lang="kn"] .btn,
+html[lang="hi"] .btn,
+html[lang="kn"] .text-link,
+html[lang="hi"] .text-link,
+html[lang="kn"] .follow-card .fc-tag,
+html[lang="hi"] .follow-card .fc-tag,
+html[lang="kn"] .follow-card .fc-arw,
+html[lang="hi"] .follow-card .fc-arw,
+html[lang="kn"] .loc-btn-label,
+html[lang="hi"] .loc-btn-label,
+html[lang="kn"] .ph .ph-tag .a,
+html[lang="hi"] .ph .ph-tag .a,
+html[lang="kn"] .ph .ph-tag .b,
+html[lang="hi"] .ph .ph-tag .b,
+html[lang="kn"] .ph .ph-mark,
+html[lang="hi"] .ph .ph-mark{
+  text-transform:none;
+  letter-spacing:0.02em;
+  line-height:1.55;
+}
+html[lang="kn"] .btn,
+html[lang="hi"] .btn{
+  font-size:11.5px;
+  letter-spacing:0.04em;
+  line-height:1.6;
+  padding-top:18px;
+  padding-bottom:17px;
+  white-space:normal;
+  text-align:center;
+}
+html[lang="kn"] .follow-card .fc-title,
+html[lang="hi"] .follow-card .fc-title{
+  letter-spacing:0;
+  line-height:1.35;
+}
+html[lang="kn"] .follow-card .fc-desc,
+html[lang="hi"] .follow-card .fc-desc{
+  letter-spacing:0;
+  line-height:1.65;
+}
+html[lang="kn"] .loc-btn-label,
+html[lang="hi"] .loc-btn-label{
+  font-size:11px;
+  line-height:1.5;
+}
+html[lang="kn"] .ca-step,
+html[lang="hi"] .ca-step,
+html[lang="kn"] .ca-steps-hint,
+html[lang="hi"] .ca-steps-hint,
+html[lang="kn"] .consult-hint,
+html[lang="hi"] .consult-hint,
+html[lang="kn"] .cfield label,
+html[lang="hi"] .cfield label,
+html[lang="kn"] .cq,
+html[lang="hi"] .cq,
+html[lang="kn"] .chint,
+html[lang="hi"] .chint,
+html[lang="kn"] .copt-hint,
+html[lang="hi"] .copt-hint,
+html[lang="kn"] .copt .on-name,
+html[lang="hi"] .copt .on-name,
+html[lang="kn"] .copt .on-d,
+html[lang="hi"] .copt .on-d,
+html[lang="kn"] .cback,
+html[lang="hi"] .cback,
+html[lang="kn"] .cerr,
+html[lang="hi"] .cerr,
+html[lang="kn"] .city-detect,
+html[lang="hi"] .city-detect{
+  letter-spacing:0;
+  text-transform:none;
+  line-height:1.55;
+}
+html[lang="kn"] .cq,
+html[lang="hi"] .cq{
+  line-height:1.4;
+}
+html[lang="kn"] .cfield input,
+html[lang="hi"] .cfield input,
+html[lang="kn"] .cfield textarea,
+html[lang="hi"] .cfield textarea{
+  letter-spacing:0;
+  line-height:1.5;
+}
+html[lang="kn"] .svc-name,
+html[lang="hi"] .svc-name,
+html[lang="kn"] .svc-meta,
+html[lang="hi"] .svc-meta,
+html[lang="kn"] .svc-hint,
+html[lang="hi"] .svc-hint,
+html[lang="kn"] .svc-scope,
+html[lang="hi"] .svc-scope{
+  letter-spacing:0;
+  text-transform:none;
+  line-height:1.45;
+}
+html[lang="kn"] .svc-meta,
+html[lang="hi"] .svc-meta{
+  font-size:11px;
+  line-height:1.55;
+}
+html[lang="kn"] .proj-card .pt,
+html[lang="hi"] .proj-card .pt,
+html[lang="kn"] .proj-card .pl,
+html[lang="hi"] .proj-card .pl,
+html[lang="kn"] .proj-card .pn,
+html[lang="hi"] .proj-card .pn,
+html[lang="kn"] .hpanel-ttl,
+html[lang="hi"] .hpanel-ttl,
+html[lang="kn"] .mat-name,
+html[lang="hi"] .mat-name,
+html[lang="kn"] .mat-sub,
+html[lang="hi"] .mat-sub,
+html[lang="kn"] .pttl,
+html[lang="hi"] .pttl,
+html[lang="kn"] .pbd,
+html[lang="hi"] .pbd,
+html[lang="kn"] .pi-name,
+html[lang="hi"] .pi-name,
+html[lang="kn"] .pi-body,
+html[lang="hi"] .pi-body,
+html[lang="kn"] .pmeta .pt,
+html[lang="hi"] .pmeta .pt,
+html[lang="kn"] .loc-meta,
+html[lang="hi"] .loc-meta,
+html[lang="kn"] .loc-city,
+html[lang="hi"] .loc-city,
+html[lang="kn"] .manifesto-foot,
+html[lang="hi"] .manifesto-foot,
+html[lang="kn"] .cta-band .lede,
+html[lang="hi"] .cta-band .lede,
+html[lang="kn"] .locs-intro,
+html[lang="hi"] .locs-intro{
+  letter-spacing:0;
+  line-height:1.55;
+}
+html[lang="kn"] .nav-sheet a,
+html[lang="hi"] .nav-sheet a{
+  letter-spacing:0;
+  line-height:1.35;
+}
+html[lang="kn"] .vx-chat-kicker,
+html[lang="hi"] .vx-chat-kicker,
+html[lang="kn"] .vx-chat-title,
+html[lang="hi"] .vx-chat-title,
+html[lang="kn"] .vx-chat-status,
+html[lang="hi"] .vx-chat-status,
+html[lang="kn"] .vx-chat-status-hint,
+html[lang="hi"] .vx-chat-status-hint,
+html[lang="kn"] .vx-lead-label,
+html[lang="hi"] .vx-lead-label,
+html[lang="kn"] .vx-lead-btn,
+html[lang="hi"] .vx-lead-btn,
+html[lang="kn"] .vx-bubble,
+html[lang="hi"] .vx-bubble,
+html[lang="kn"] .vx-chat-compose textarea,
+html[lang="hi"] .vx-chat-compose textarea{
+  letter-spacing:0;
+  line-height:1.5;
+  text-transform:none;
+}
+
+/* Reveal masks only padded for Latin descenders — add top room for Indic matras */
+html[lang="kn"].has-js [data-reveal="mask"],
+html[lang="hi"].has-js [data-reveal="mask"]{
+  overflow:hidden;
+  padding-top:0.38em;
+  padding-bottom:0.22em;
+  margin-top:-0.18em;
+  margin-bottom:-0.1em;
+}
+
 .nav-logout{
   font-family:var(--sans); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
   color:var(--ink-dim); padding:11px 0 11px 12px; margin-left:4px;
@@ -379,6 +701,7 @@ html.has-js .torch{ opacity:1; }
 .follow-card--yt:hover::before{ background:linear-gradient(90deg, transparent, rgba(255,77,77,0.85), transparent); }
 .follow-card--fb:hover::before{ background:linear-gradient(90deg, transparent, rgba(107,156,255,0.85), transparent); }
 .follow-card--ig:hover::before{ background:linear-gradient(90deg, transparent, rgba(232,180,207,0.85), transparent); }
+.follow-card--wa:hover::before{ background:linear-gradient(90deg, transparent, rgba(37,211,102,0.85), transparent); }
 .follow-card--pdf:hover::before{ background:linear-gradient(90deg, transparent, var(--brass-bright), transparent); }
 .follow-card .fc-head{ display:flex; align-items:center; gap:14px; margin-bottom:clamp(14px,2vw,20px); }
 .follow-card .fc-icon{
@@ -395,6 +718,7 @@ html.has-js .torch{ opacity:1; }
 .follow-card--yt:hover .fc-icon{ color:#ff6b6b; border-color:rgba(255,107,107,0.35); background:rgba(255,77,77,0.08); }
 .follow-card--fb:hover .fc-icon{ color:#7aabff; border-color:rgba(122,171,255,0.35); background:rgba(107,156,255,0.08); }
 .follow-card--ig:hover .fc-icon{ color:#e8b4cf; border-color:rgba(232,180,207,0.35); background:rgba(232,180,207,0.08); }
+.follow-card--wa:hover .fc-icon{ color:#7EE2A8; border-color:rgba(37,211,102,0.4); background:rgba(37,211,102,0.1); }
 .follow-card--pdf:hover .fc-icon{ color:var(--brass-bright); border-color:rgba(194,162,105,0.35); background:rgba(194,162,105,0.08); }
 .follow-card .fc-tag{ font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--azure); margin-bottom:0; }
 .follow-card .fc-body{ flex:1; display:flex; flex-direction:column; }
@@ -422,6 +746,24 @@ html.has-js .torch{ opacity:1; }
 .follow-card--pdf .fc-tag{ color:var(--brass); }
 .follow-card--pdf .fc-arw{ color:var(--brass-bright); }
 .follow-card--ig .fc-tag{ color:#e8b4cf; }
+.follow-card--wa .fc-tag{ color:#7EE2A8; }
+.follow-card--wa .fc-arw{ color:#7EE2A8; }
+
+/* Studio card WhatsApp action (Contact locations) */
+.loc-btn--wa{
+  grid-template-rows:1fr;
+  min-height:44px;
+  border-color:rgba(37,211,102,0.28);
+  color:#7EE2A8;
+  background:linear-gradient(135deg, rgba(37,211,102,0.1), rgba(37,211,102,0.04));
+}
+.loc-btn--wa .loc-btn-label{ grid-column:2; }
+.loc-btn--wa:hover{
+  border-color:#25D366;
+  color:#04220f;
+  background:#25D366;
+}
+.loc-btn--wa:hover svg{ opacity:1; }
 @media (max-width:1024px){
   .follow-grid{ gap:12px; }
   .follow-card{ padding:22px 20px; }

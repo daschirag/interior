@@ -3,6 +3,7 @@ const Project = require("../models/projectModel");
 const EntityHistory = require("../models/entityHistoryModel");
 const { getDefaultProjectBySlug } = require("../data/projectDefaults");
 const { projectToSnapshot } = require("../utils/entitySnapshot");
+const { parseLang, resolveProject } = require("../utils/i18nResolve");
 
 async function snapshotProject(id, editedBy) {
   const existing = await Project.findById(id);
@@ -18,6 +19,7 @@ async function snapshotProject(id, editedBy) {
 
 const getProjects = async (req, res) => {
   try {
+    const lang = parseLang(req.query.lang);
     let query = `
       SELECT *
       FROM projects
@@ -38,7 +40,8 @@ const getProjects = async (req, res) => {
 
     res.json({
       success: true,
-      projects: result.rows,
+      lang,
+      projects: result.rows.map((row) => resolveProject(row, lang)),
     });
   } catch (error) {
     res.status(500).json({

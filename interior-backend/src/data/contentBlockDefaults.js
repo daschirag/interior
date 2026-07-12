@@ -12,19 +12,19 @@ const DASHBOARD_CONTENT_BLOCKS = [
     section_key: "dashboard-hero",
     section_label: "Dashboard — Hero banner",
     fields: {
-      kicker: "Vinayak Aluminium Interiors — Est. MMXXVI",
+      kicker: "Vinayak Aluminium Interiors — Est. MMXIV",
       h1_line1: "We compose",
       h1_line2_html: "<em>atmosphere</em>, not rooms.",
       lede:
-        "An interior architecture studio shaping light, material and proportion across Bangalore, Hubli, Dharwad & Hospet — from a single kitchen to a complete residence.",
-      meta_coords_html: "N 12.97° · E 77.59°<br>INTERIOR ARCHITECTURE",
+        "An interior architecture studio shaping light, material and proportion across Vijayapura, Dharwad, Kalaburagi & Hospet — from a single kitchen to a complete residence.",
+      meta_coords_html: "KARNATAKA<br>INTERIOR ARCHITECTURE",
       stat_completed_label: "Completed",
       stat_completed_value: "240+",
       stat_cities_label: "Cities",
       stat_cities_value: "04",
       stat_since_label: "Since",
-      stat_since_value: "MMXXI",
-      hero_tag_b: "Luxury living room — Bangalore",
+      stat_since_value: "MMXIV",
+      hero_tag_b: "Luxury living room — Karnataka",
       plate_mark: "PLATE 01 · ƒ/1.8",
     },
     images: [
@@ -109,6 +109,7 @@ const DASHBOARD_CONTENT_BLOCKS = [
         "A private consultation begins every Vinayak Interiors project. Tell us about your home — we'll bring the drawings.",
       btn_primary_label: "Book a consultation",
       btn_secondary_label: "View projects",
+      reach_label: "Or reach us directly",
     },
     images: [],
   },
@@ -129,7 +130,7 @@ const PROJECTS_CONTENT_BLOCKS = [
       stat_cities_label: "Cities",
       stat_cities_value: "04",
       stat_since_label: "Since",
-      stat_since_value: "MMXXI",
+      stat_since_value: "MMXIV",
     },
     images: [],
   },
@@ -354,6 +355,10 @@ const CONTACT_CONTENT_BLOCKS = [
       card_ig_desc:
         "Daily interiors, aluminium work and laminate selections from our Dharwad studio.",
       card_ig_cta: "Open Instagram →",
+      card_wa_title: "Message us on WhatsApp",
+      card_wa_desc:
+        "Start a conversation with our Dharwad studio — or use The Studios section above for your nearest city line.",
+      card_wa_cta: "Open WhatsApp →",
       card_flexi_title: "Flexibond laminate catalog",
       card_flexi_desc:
         "Full 3mm PVC laminate range — colours, textures and specs for wardrobes, kitchens and modular interiors.",

@@ -14,6 +14,12 @@ const createTable = async () => {
   `;
 
   await pool.query(query);
+
+  await pool.query(`
+    ALTER TABLE content_blocks
+      ADD COLUMN IF NOT EXISTS fields_kn JSONB DEFAULT '{}',
+      ADD COLUMN IF NOT EXISTS fields_hi JSONB DEFAULT '{}';
+  `);
 };
 
 const findAll = async (page) => {

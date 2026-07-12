@@ -1,6 +1,7 @@
 const ContentBlock = require("../models/contentBlockModel");
 const ContentBlockHistory = require("../models/contentBlockHistoryModel");
 const { cloneDefaultBlock } = require("../data/contentBlockDefaults");
+const { parseLang, resolveContentBlock } = require("../utils/i18nResolve");
 
 async function snapshotCurrentBlock(sectionKey, editedBy) {
   const existing = await ContentBlock.findBySectionKey(sectionKey);
@@ -17,11 +18,13 @@ async function snapshotCurrentBlock(sectionKey, editedBy) {
 const getContentBlocks = async (req, res) => {
   try {
     const { page } = req.query;
+    const lang = parseLang(req.query.lang);
     const blocks = await ContentBlock.findAll(page || null);
 
     res.json({
       success: true,
-      blocks,
+      lang,
+      blocks: blocks.map((block) => resolveContentBlock(block, lang)),
     });
   } catch (error) {
     console.error(error);
@@ -34,6 +37,7 @@ const getContentBlocks = async (req, res) => {
 
 const getContentBlock = async (req, res) => {
   try {
+    const lang = parseLang(req.query.lang);
     const block = await ContentBlock.findBySectionKey(req.params.sectionKey);
 
     if (!block) {
@@ -45,7 +49,8 @@ const getContentBlock = async (req, res) => {
 
     res.json({
       success: true,
-      block,
+      lang,
+      block: resolveContentBlock(block, lang),
     });
   } catch (error) {
     console.error(error);

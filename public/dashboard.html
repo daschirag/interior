@@ -4,10 +4,63 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vinayak Interiors — Interior Architecture</title>
+<meta name="description" content="Vinayak Aluminium Interiors — interior architecture across Karnataka. Explore our philosophy, materials, process and compositions. Est. 2014 · four studios." />
+<link rel="canonical" href="/dashboard.html" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.vinayakainteriors.com/#organization",
+      "name": "Vinayak Aluminium Interiors",
+      "alternateName": "Vinayak Interiors",
+      "url": "https://www.vinayakainteriors.com/dashboard.html",
+      "email": "vinayakainteriors308@gmail.com",
+      "foundingDate": "2014",
+      "description": "Interior architecture studio composing light, material and proportion across Karnataka — from a single kitchen to a complete residence.",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Karnataka"
+      },
+      "sameAs": [
+        "https://youtu.be/ZTSmjmOTvj0",
+        "https://www.facebook.com/profile.php?id=100090776470039",
+        "https://www.instagram.com/vinayaka_aluminum_interior_dwr/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "vinayakainteriors308@gmail.com",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Kannada"]
+      },
+      "location": [
+        { "@id": "https://www.vinayakainteriors.com/Contact.html#studio-vijayapura" },
+        { "@id": "https://www.vinayakainteriors.com/Contact.html#studio-dharwad" },
+        { "@id": "https://www.vinayakainteriors.com/Contact.html#studio-kalaburagi" },
+        { "@id": "https://www.vinayakainteriors.com/Contact.html#studio-hospet" }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.vinayakainteriors.com/dashboard.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.vinayakainteriors.com/dashboard.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <script>document.documentElement.className = "has-js";</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Sans+Kannada:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&family=Noto+Serif+Kannada:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/aurum.css" />
 <link rel="preload" as="image" href="/assets/images/img-hero.jpg" fetchpriority="high" />
 <style>
@@ -66,10 +119,90 @@
 .hero .hero-inner { padding-top:60px; }
 .hero .kicker { margin-bottom:16px; }
 .hero h1{ font-family:var(--serif); font-weight:300; font-size:clamp(42px,7.2vw,112px); line-height:1.0; letter-spacing:-0.025em; }
+.hero h1.hero-title{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  margin-top:26px;
+}
+.hero h1.hero-title .hero-title-line{
+  display:block;
+}
 .hero h1 em{ font-style:italic; color:var(--azure-bright); }
 .hero h1 .brass{ font-style:italic; color:var(--brass-bright); }
 .hero-sub{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:var(--s4); margin-top:var(--s4); }
 .hero-sub .lede{ max-width:42ch; }
+
+/* Kannada: taller glyphs — shrink type, open leading to match EN visual mass */
+html[lang="kn"] .hero h1{
+  font-size:clamp(30px, 5.1vw, 78px);
+  line-height:1.38;
+  letter-spacing:0;
+  font-weight:400;
+  overflow:visible;
+}
+html[lang="kn"] .hero h1.hero-title{ gap:0.18em; margin-top:18px; }
+html[lang="kn"] .hero h1.hero-title .hero-title-line{
+  padding-top:0.12em;
+  line-height:1.38;
+}
+html[lang="kn"] .hero .kicker{ margin-bottom:18px; font-size:11.5px; }
+html[lang="kn"] .hero-sub{ margin-top:1.6rem; }
+html[lang="kn"] .hero-sub .lede{
+  font-size:clamp(15px, 1.45vw, 20px);
+  line-height:1.8;
+  max-width:36ch;
+}
+html[lang="kn"] .phead .ix-list div .a{
+  font-family:var(--sans);
+  font-size:11px;
+  letter-spacing:0;
+  line-height:1.55;
+  padding-top:0.2em;
+}
+html[lang="kn"] .hero-cue{
+  font-family:var(--sans);
+  letter-spacing:0;
+  font-size:11px;
+  text-transform:none;
+  line-height:1.65;
+}
+
+/* Hindi: Devanagari reads smaller in Latin fonts — bump size, protect matras */
+html[lang="hi"] .hero h1{
+  font-size:clamp(38px, 6.6vw, 100px);
+  line-height:1.32;
+  letter-spacing:0;
+  font-weight:400;
+  overflow:visible;
+}
+html[lang="hi"] .hero h1.hero-title{ gap:0.14em; margin-top:22px; }
+html[lang="hi"] .hero h1.hero-title .hero-title-line{
+  padding-top:0.1em;
+  line-height:1.32;
+}
+html[lang="hi"] .hero .kicker{ margin-bottom:16px; font-size:12px; }
+html[lang="hi"] .hero-sub{ margin-top:1.75rem; }
+html[lang="hi"] .hero-sub .lede{
+  font-size:clamp(16px, 1.6vw, 22px);
+  line-height:1.78;
+  max-width:38ch;
+}
+html[lang="hi"] .phead .ix-list div .a{
+  font-family:var(--sans);
+  font-size:11px;
+  letter-spacing:0;
+  line-height:1.55;
+  padding-top:0.2em;
+}
+html[lang="hi"] .hero-cue{
+  font-family:var(--sans);
+  letter-spacing:0;
+  font-size:11px;
+  text-transform:none;
+  line-height:1.65;
+}
+
 .phead .ix-list{ display:flex; gap:var(--s4); flex-wrap:wrap; }
 .phead .ix-list div .a{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); }
 .phead .ix-list div .b{ font-family:var(--serif); font-size:30px; color:var(--ink); }
@@ -212,6 +345,75 @@
 .cta-inner{ position:relative; z-index:2; }
 .cta .lede{ margin:var(--s3) auto 0; }
 .cta .btns{ display:flex; gap:16px; justify-content:center; margin-top:var(--s5); flex-wrap:wrap; }
+.cta-reach{
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  margin-top:var(--s4);
+}
+.cta-reach-label{
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.cta-reach-icons{ display:flex; align-items:center; gap:14px; }
+.cta-reach-btn{
+  display:flex; align-items:center; justify-content:center;
+  width:48px; height:48px;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  background:rgba(255,255,255,0.02);
+  transition:border-color .4s, color .4s, background .4s, transform .4s var(--e-out);
+}
+.cta-reach-btn svg{ width:20px; height:20px; fill:currentColor; }
+.cta-reach-btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--line-strong);
+  color:var(--ink);
+}
+.cta-reach-btn--mail:hover{
+  color:var(--azure-bright);
+  border-color:rgba(44,154,212,0.4);
+  background:rgba(44,154,212,0.08);
+}
+.cta-reach-btn--wa:hover{
+  color:#7EE2A8;
+  border-color:rgba(37,211,102,0.4);
+  background:rgba(37,211,102,0.1);
+}
+
+/* Ask Vinayak — section linking to Chat.html */
+.ask-teaser{
+  padding:var(--s7) var(--gut);
+  border-top:1px solid var(--line-soft);
+  background:
+    radial-gradient(60% 80% at 80% 40%, rgba(44,154,212,0.1), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, #0c1016 100%);
+}
+.ask-teaser-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr);
+  gap:clamp(24px,4vw,64px);
+  align-items:end;
+}
+@media (max-width:880px){
+  .ask-teaser-inner{ grid-template-columns:1fr; gap:28px; }
+}
+.ask-teaser .h2{ margin-top:18px; max-width:14ch; }
+.ask-teaser .lede{ margin-top:16px; max-width:42ch; color:var(--ink-soft); }
+.ask-teaser-panel{
+  border:1px solid var(--line);
+  background:linear-gradient(165deg, var(--bg-2), var(--bg-1));
+  padding:clamp(22px,3vw,32px);
+}
+.ask-teaser-panel p{
+  font-family:var(--serif);
+  font-size:18px;
+  font-weight:300;
+  line-height:1.45;
+  color:var(--ink-soft);
+  margin:0 0 22px;
+}
+.ask-teaser-panel p em{ color:var(--azure-bright); font-style:italic; }
 
 /* ============================================================
    DASHBOARD — DISTINCT SECTION PERSONALITIES
@@ -543,20 +745,36 @@
     <span class="wm">VINAYAK <b>INTERIORS</b></span>
   </a>
   <nav class="nav-links">
-    <a class="nav-link" data-for="home" href="index.html">Home</a>
-    <a class="nav-link" data-for="projects" href="Projects.html">Projects</a>
-    <a class="nav-link" data-for="services" href="Services.html">Studio</a>
-    <a class="nav-link" data-for="contact" href="Contact.html">Contact</a>
-    <a class="nav-cta magnetic" data-mag="0.25" href="index.html">Enter Studio <span class="arw">→</span></a>
+    <a class="nav-link" data-for="home" href="index.html" data-i18n-key="nav.home">Home</a>
+    <a class="nav-link" data-for="projects" href="Projects.html" data-i18n-key="nav.projects">Projects</a>
+    <a class="nav-link" data-for="services" href="Services.html" data-i18n-key="nav.studio">Studio</a>
+    <a class="nav-link" data-for="contact" href="Contact.html" data-i18n-key="nav.contact">Contact</a>
+    <a class="nav-link" href="Chat.html" data-i18n-key="nav.ask">Ask</a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang-switch="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" data-lang-switch="kn" aria-pressed="false">ಕನ್ನಡ</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" data-lang-switch="hi" aria-pressed="false">हिंदी</button>
+    </div>
+    <a class="nav-cta magnetic" data-mag="0.25" href="index.html"><span data-i18n-key="nav.enter">Enter Studio</span> <span class="arw">→</span></a>
   </nav>
-  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="nav-burger" aria-label="Menu" data-i18n-key="nav.menu" data-i18n-attr="aria-label"><span></span><span></span><span></span></button>
 </header>
 <div class="nav-sheet">
-  <a href="index.html" data-nav="home">Home</a>
-  <a href="Projects.html" data-nav="projects"><em>Projects</em></a>
-  <a href="Services.html" data-nav="studio">Studio</a>
-  <a href="Contact.html" data-nav="contact"><em>Contact</em></a>
-  <a href="index.html" data-nav="entrance">Enter Studio</a>
+  <a href="index.html" data-nav="home" data-i18n-key="nav.home">Home</a>
+  <a href="Projects.html" data-nav="projects"><em data-i18n-key="nav.projects">Projects</em></a>
+  <a href="Services.html" data-nav="studio" data-i18n-key="nav.studio">Studio</a>
+  <a href="Contact.html" data-nav="contact"><em data-i18n-key="nav.contact">Contact</em></a>
+  <a href="Chat.html" data-nav="ask" data-i18n-key="nav.ask_full">Ask Vinayak</a>
+  <a href="index.html" data-nav="entrance" data-i18n-key="nav.enter">Enter Studio</a>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button type="button" data-lang-switch="en" aria-pressed="true">EN</button>
+    <span class="lang-sep" aria-hidden="true">/</span>
+    <button type="button" data-lang-switch="kn" aria-pressed="false">ಕನ್ನಡ</button>
+    <span class="lang-sep" aria-hidden="true">/</span>
+    <button type="button" data-lang-switch="hi" aria-pressed="false">हिंदी</button>
+  </div>
 </div>
 
 <main id="main">
@@ -566,29 +784,31 @@
       <div class="hero-stage">
       <div class="hero-grid blueprint" data-parallax="0.12"></div>
       <div class="hero-plate" data-parallax="0.26">
-        <img class="hero-backdrop" data-cms-image="hero" src="/assets/images/img-hero.jpg" alt="" fetchpriority="high" decoding="async">
+        <img class="hero-backdrop" data-cms-image="hero" src="/assets/images/img-hero.jpg" alt="Luxury living room with floor-to-ceiling windows and city skyline view at dusk — Vinayak Aluminium Interiors" fetchpriority="high" decoding="async">
         <div class="hero-photo-overlay"></div>
         <div class="ph ticks" data-cms-image="hero-mobile">
           <span class="ph-mark" data-cms-field="plate_mark">PLATE 01 · ƒ/1.8</span>
-          <span class="ph-tag"><span class="a">◐ HERO IMAGE</span><span class="b" data-cms-field="hero_tag_b">Luxury living room — Bangalore</span></span>
+          <span class="ph-tag"><span class="a">◐ HERO IMAGE</span><span class="b" data-cms-field="hero_tag_b">Luxury living room — Karnataka</span></span>
         </div>
       </div>
       <div class="hero-veil"></div>
     </div>
-    <div class="hero-meta-tl cap" data-cms-field="meta_coords_html" data-cms-html="true">N 12.97° · E 77.59°<br>INTERIOR ARCHITECTURE</div>
+    <div class="hero-meta-tl cap" data-cms-field="meta_coords_html" data-cms-html="true">KARNATAKA<br>INTERIOR ARCHITECTURE</div>
     <div class="hero-inner">
-      <div data-reveal="mask"><div class="kicker" data-cms-field="kicker">Vinayak Aluminium Interiors — Est. MMXXVI</div></div>
-      <h1 data-reveal="mask" style="margin-top:26px;"><span data-cms-field="h1_line1">We compose</span></h1>
-      <h1 data-reveal="mask"><span data-cms-field="h1_line2_html" data-cms-html="true"><em>atmosphere</em>, not rooms.</span></h1>
+      <div data-reveal="mask"><div class="kicker" data-cms-field="kicker">Vinayak Aluminium Interiors — Est. MMXIV</div></div>
+      <h1 class="hero-title" data-reveal="mask">
+        <span class="hero-title-line" data-cms-field="h1_line1">We compose</span>
+        <span class="hero-title-line" data-cms-field="h1_line2_html" data-cms-html="true"><em>atmosphere</em>, not rooms.</span>
+      </h1>
       <div class="hero-sub">
-        <p class="lede" data-reveal data-cms-field="lede">An interior architecture studio shaping light, material and proportion across Bangalore, Hubli, Dharwad &amp; Hospet — from a single kitchen to a complete residence.</p>
-        <div class="hero-cue cap" data-reveal>Scroll to enter <span class="ln"></span></div>
+        <p class="lede" data-reveal data-cms-field="lede">An interior architecture studio shaping light, material and proportion across Vijayapura, Dharwad, Kalaburagi &amp; Hospet — from a single kitchen to a complete residence.</p>
+        <div class="hero-cue cap" data-reveal><span data-i18n-key="hero.scroll">Scroll to enter</span> <span class="ln"></span></div>
       </div>
       <div class="phead" style="margin-top:var(--s4);">
         <div class="ix-list" data-reveal>
           <div><div class="a" data-cms-field="stat_completed_label">Completed</div><div class="b" data-cms-field="stat_completed_value">240+</div></div>
           <div><div class="a" data-cms-field="stat_cities_label">Cities</div><div class="b" data-cms-field="stat_cities_value">04</div></div>
-          <div><div class="a" data-cms-field="stat_since_label">Since</div><div class="b" data-cms-field="stat_since_value">MMXXI</div></div>
+          <div><div class="a" data-cms-field="stat_since_label">Since</div><div class="b" data-cms-field="stat_since_value">MMXIV</div></div>
         </div>
       </div>
     </div>
@@ -638,7 +858,7 @@
       </div>
     </div>
     <div class="studio-walk-meta">
-      <span class="studio-walk-tag cap">VINAYAK INTERIORS · BANGALORE</span>
+      <span class="studio-walk-tag cap">VINAYAK INTERIORS · KARNATAKA</span>
       <span class="studio-walk-plate cap">PLATE 00 · ƒ/1.8 · NATURAL LIGHT</span>
     </div>
   </section>
@@ -781,6 +1001,21 @@
     </div>
   </section>
 
+  <!-- ===== ASK VINAYAK ===== -->
+  <section class="ask-teaser" id="ask" aria-label="Studio assistant">
+    <div class="ask-teaser-inner">
+      <div>
+        <div class="kicker brass" data-reveal>Studio assistant</div>
+        <h2 class="h2" data-reveal="mask" style="margin-top:18px;"><span>Ask <em>Vinayak</em></span></h2>
+        <p class="lede" data-reveal>Questions about services, budgets, studios, or our process — answered from our real site content, with links to the right page.</p>
+      </div>
+      <div class="ask-teaser-panel" data-reveal>
+        <p>“How much for a 2 BHK?” · “Where is Dharwad?” · “Show me your <em>projects</em>.”</p>
+        <a class="btn solid magnetic" data-mag="0.3" href="Chat.html">Open the assistant <span class="arw">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CTA ===== -->
   <section class="cta" data-cms-block="dashboard-cta-band" data-cms-edit-label="CTA band">
     <div class="glow"></div>
@@ -791,6 +1026,17 @@
       <div class="btns">
         <a class="btn solid magnetic" data-mag="0.3" href="Contact.html"><span data-cms-field="btn_primary_label">Book a consultation</span> <span class="arw">→</span></a>
         <a class="btn brass magnetic" data-mag="0.3" href="Projects.html"><span data-cms-field="btn_secondary_label">View projects</span></a>
+      </div>
+      <div class="cta-reach" data-reveal>
+        <span class="cta-reach-label" data-cms-field="reach_label">Or reach us directly</span>
+        <div class="cta-reach-icons">
+          <a class="cta-reach-btn cta-reach-btn--mail magnetic" data-mag="0.2" href="mailto:vinayakainteriors308@gmail.com" aria-label="Email Vinayak Aluminium Interiors">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a class="cta-reach-btn cta-reach-btn--wa magnetic" data-mag="0.2" href="https://wa.me/919380348113?text=Hi%2C%20I%27m%20interested%20in%20interior%20design%20services%20with%20Vinayak%20Aluminium%20Interiors" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Vinayak Aluminium Interiors (Dharwad)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.28-.14-1.64-.81-1.9-.9-.25-.1-.44-.14-.62.14-.18.27-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.17-.43-2.23-1.37-.82-.73-1.38-1.64-1.54-1.92-.16-.27-.02-.42.12-.56.13-.13.28-.32.42-.49.14-.16.18-.27.28-.45.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.85-2.04-.22-.53-.45-.46-.62-.47h-.53c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.3s.98 2.67 1.12 2.85c.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.11-.25-.18-.53-.32zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.59.94.96-3.5-.22-.36a9.45 9.45 0 0 1-1.45-5.04 9.5 9.5 0 0 1 9.5-9.48c2.54 0 4.93.99 6.73 2.79a9.46 9.46 0 0 1 2.78 6.72 9.5 9.5 0 0 1-9.53 9.45zm8.14-17.6A11.2 11.2 0 0 0 12.03 0C5.43 0 .07 5.35.07 11.94c0 2.1.55 4.15 1.6 5.96L0 24l6.26-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.6 0 11.96-5.36 11.96-11.95 0-3.19-1.24-6.19-3.5-8.45z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -806,13 +1052,13 @@
           <p class="body" style="font-size:14px; max-width:30ch;">Interior architecture &amp; bespoke fit-out across Karnataka.</p>
           <a href="assets/catalogs/vinayaka-iso-certificate.pdf" target="_blank" rel="noopener noreferrer" class="foot-iso">ISO 9001:2015 Certified — Quality Management Systems ↗</a>
         </div>
-        <div class="foot-col"><h4>Pages</h4><a href="index.html">Home</a><a href="Projects.html">Projects</a><a href="Services.html">Studio</a><a href="Contact.html">Contact</a></div>
-        <div class="foot-col"><h4>Studios</h4><a href="Contact.html">Bangalore</a><a href="Contact.html">Hubli</a><a href="Contact.html">Dharwad</a><a href="Contact.html">Hospet</a></div>
-        <div class="foot-col"><h4>Connect</h4><a href="mailto:hello@aurumatelier.in">hello@aurumatelier.in</a><a href="Contact.html">+91 80 4000 0000</a><div class="foot-soc-row"><a href="https://youtu.be/ZTSmjmOTvj0" class="foot-soc foot-soc-yt" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.12-2.12C19.5 5 12 5 12 5s-7.5 0-8.88.38A3 3 0 0 0 1 7.5 13 13 0 0 0 1 12a13 13 0 0 0 .12 4.5 3 3 0 0 0 2.12 2.12C4.5 19 12 19 12 19s7.5 0 8.88-.38a3 3 0 0 0 2.12-2.12A13 13 0 0 0 23 12a13 13 0 0 0-.12-4.5zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a><a href="https://www.facebook.com/profile.php?id=100090776470039" class="foot-soc foot-soc-fb" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.9V12h2.22V9.8c0-2.2 1.3-3.41 3.3-3.41.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.67-1.43 1.36V12h2.43l-.39 2.47h-2.04v8.38A12 12 0 0 0 24 12z"/></svg></a><a href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" class="foot-soc foot-soc-ig" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg class="soc-icon soc-icon-ig" viewBox="0 0 24 24" aria-hidden="true" fill="none"><defs><linearGradient id="foot-ig-grad" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="url(#foot-ig-grad)"/></svg></a></div><a href="Contact.html#follow">Catalog &amp; resources ↗</a></div>
+        <div class="foot-col"><h4 data-i18n-key="footer.pages">Pages</h4><a href="index.html" data-i18n-key="nav.home">Home</a><a href="Projects.html" data-i18n-key="nav.projects">Projects</a><a href="Services.html" data-i18n-key="nav.studio">Studio</a><a href="Contact.html" data-i18n-key="nav.contact">Contact</a></div>
+        <div class="foot-col"><h4 data-i18n-key="footer.studios">Studios</h4><a href="Contact.html#locations">Vijayapura</a><a href="Contact.html#locations">Dharwad</a><a href="Contact.html#locations">Kalaburagi</a><a href="Contact.html#locations">Hospet</a></div>
+        <div class="foot-col"><h4 data-i18n-key="footer.connect">Connect</h4><a href="mailto:vinayakainteriors308@gmail.com">vinayakainteriors308@gmail.com</a><a href="Contact.html">+91 80 4000 0000</a><div class="foot-soc-row"><a href="https://youtu.be/ZTSmjmOTvj0" class="foot-soc foot-soc-yt" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.12-2.12C19.5 5 12 5 12 5s-7.5 0-8.88.38A3 3 0 0 0 1 7.5 13 13 0 0 0 1 12a13 13 0 0 0 .12 4.5 3 3 0 0 0 2.12 2.12C4.5 19 12 19 12 19s7.5 0 8.88-.38a3 3 0 0 0 2.12-2.12A13 13 0 0 0 23 12a13 13 0 0 0-.12-4.5zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a><a href="https://www.facebook.com/profile.php?id=100090776470039" class="foot-soc foot-soc-fb" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg class="soc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.9V12h2.22V9.8c0-2.2 1.3-3.41 3.3-3.41.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.67-1.43 1.36V12h2.43l-.39 2.47h-2.04v8.38A12 12 0 0 0 24 12z"/></svg></a><a href="https://www.instagram.com/vinayaka_aluminum_interior_dwr/" class="foot-soc foot-soc-ig" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg class="soc-icon soc-icon-ig" viewBox="0 0 24 24" aria-hidden="true" fill="none"><defs><linearGradient id="foot-ig-grad" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="url(#foot-ig-grad)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="url(#foot-ig-grad)"/></svg></a></div><a href="Contact.html#follow">Catalog &amp; resources ↗</a></div>
       </div>
       <div class="foot-bottom">
-        <span class="cap">© MMXXVI Vinayak Aluminium Interiors</span>
-        <span class="cap">Composed with light</span>
+        <span class="cap" data-i18n-key="footer.copyright">© MMXXVI Vinayak Aluminium Interiors</span>
+        <span class="cap" data-i18n-key="footer.composed">Composed with light</span>
       </div>
     </div>
   </footer>
@@ -853,7 +1099,12 @@ AURUM.onSmooth = function () {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/morphdom@2.7.1/dist/morphdom-umd.min.js"></script>
-<script>window.VINAYAK_API = "https://vinayak-interiors-api.onrender.com/api";</script>
+<script>
+window.VINAYAK_API = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+  ? "http://localhost:5000/api"
+  : "https://vinayak-interiors-api.onrender.com/api";
+</script>
+<script src="assets/js/i18n.js"></script>
 <script src="assets/js/api.js"></script>
 <script src="assets/js/cms-supabase-config.js"></script>
 <script src="assets/js/cms-hydrate.js"></script>

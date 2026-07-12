@@ -20,6 +20,12 @@ const createTable = async () => {
   `;
 
   await pool.query(query);
+
+  await pool.query(`
+    ALTER TABLE studios
+      ADD COLUMN IF NOT EXISTS brand_kn TEXT,
+      ADD COLUMN IF NOT EXISTS brand_hi TEXT;
+  `);
 };
 
 const findAll = async () => {

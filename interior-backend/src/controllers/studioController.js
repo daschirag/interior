@@ -1,12 +1,15 @@
 const Studio = require("../models/studioModel");
+const { parseLang, resolveStudio } = require("../utils/i18nResolve");
 
 const getStudios = async (req, res) => {
   try {
+    const lang = parseLang(req.query.lang);
     const studios = await Studio.findAll();
 
     res.json({
       success: true,
-      studios,
+      lang,
+      studios: studios.map((row) => resolveStudio(row, lang)),
     });
   } catch (error) {
     res.status(500).json({
@@ -18,6 +21,7 @@ const getStudios = async (req, res) => {
 
 const getStudio = async (req, res) => {
   try {
+    const lang = parseLang(req.query.lang);
     const studio = await Studio.findById(req.params.id);
 
     if (!studio) {
@@ -29,7 +33,8 @@ const getStudio = async (req, res) => {
 
     res.json({
       success: true,
-      studio,
+      lang,
+      studio: resolveStudio(studio, lang),
     });
   } catch (error) {
     res.status(500).json({

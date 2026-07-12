@@ -45,12 +45,32 @@
   window.VINAYAK = {
     baseUrl: BASE,
 
+    getLang: function () {
+      try {
+        var stored = localStorage.getItem("vinayak_lang");
+        if (stored === "kn" || stored === "hi" || stored === "en") {
+          return stored;
+        }
+      } catch (e) {}
+      if (window.VINAYAK_I18N && VINAYAK_I18N.getLang) {
+        return VINAYAK_I18N.getLang();
+      }
+      return "en";
+    },
+
+    withLang: function (path) {
+      var lang = this.getLang();
+      var sep = path.indexOf("?") >= 0 ? "&" : "?";
+      return path + sep + "lang=" + encodeURIComponent(lang);
+    },
+
     getProjects: function (featured) {
-      return getJson("/projects" + (featured ? "?featured=true" : ""));
+      var path = "/projects" + (featured ? "?featured=true" : "");
+      return getJson(this.withLang(path));
     },
 
     getDisciplines: function () {
-      return getJson("/disciplines");
+      return getJson(this.withLang("/disciplines"));
     },
 
     getDistricts: function () {
@@ -62,7 +82,7 @@
     },
 
     getStudios: function () {
-      return getJson("/studios");
+      return getJson(this.withLang("/studios"));
     },
 
     getKarnatakaLocations: function () {
@@ -71,11 +91,13 @@
 
     getContentBlocks: function (page) {
       var q = page ? "?page=" + encodeURIComponent(page) : "";
-      return getJson("/content-blocks" + q);
+      return getJson(this.withLang("/content-blocks" + q));
     },
 
     getContentBlock: function (sectionKey) {
-      return getJson("/content-blocks/" + encodeURIComponent(sectionKey));
+      return getJson(
+        this.withLang("/content-blocks/" + encodeURIComponent(sectionKey)),
+      );
     },
 
     postContact: function (body) {
