@@ -704,6 +704,7 @@
       })
       .then(function () {
       if (window.AURUM && AURUM.refreshLazyMedia) AURUM.refreshLazyMedia();
+      if (window.AURUM && AURUM.initManifestoScroll) AURUM.initManifestoScroll();
       if (window.ScrollTrigger) window.ScrollTrigger.refresh(true);
       window.dispatchEvent(new Event("vinayak:cms-ready"));
     });
@@ -719,6 +720,7 @@
       }),
     ]).then(function () {
       if (window.AURUM && AURUM.refreshLazyMedia) AURUM.refreshLazyMedia();
+      if (window.AURUM && AURUM.initManifestoScroll) AURUM.initManifestoScroll();
       if (window.ScrollTrigger) window.ScrollTrigger.refresh(true);
       if (window.VINAYAK_I18N && VINAYAK_I18N.apply) VINAYAK_I18N.apply();
       window.dispatchEvent(new Event("vinayak:cms-ready"));

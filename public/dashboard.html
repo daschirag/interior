@@ -62,7 +62,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Sans+Kannada:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&family=Noto+Serif+Kannada:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/aurum.css" />
-<link rel="stylesheet" href="assets/css/chatbot.css" />
 <link rel="preload" as="image" href="/assets/images/img-hero.jpg" fetchpriority="high" />
 <style>
 /* ---------------- HERO ---------------- */
@@ -1078,9 +1077,19 @@ AURUM.initManifestoScroll = function () {
   if (!window.gsap || !window.ScrollTrigger) return;
   var manifesto = document.getElementById("manifesto-text");
   if (!manifesto) return;
+
+  // Lang/CMS rehydrate replaces .w nodes — kill prior scrub tween first
+  if (AURUM._manifestoTween) {
+    try { AURUM._manifestoTween.scrollTrigger && AURUM._manifestoTween.scrollTrigger.kill(); } catch (e) {}
+    try { AURUM._manifestoTween.kill(); } catch (e) {}
+    AURUM._manifestoTween = null;
+  }
+
   var words = gsap.utils.toArray("#manifesto-text .w");
   if (!words.length) return;
-  gsap.to(words, {
+
+  gsap.set(words, { color: "" }); // let CSS .w / .azure drive base colors
+  AURUM._manifestoTween = gsap.to(words, {
     color: function (i, t) {
       return t.classList.contains("azure") ? "#66C6F3" : "#ECEFF3";
     },
@@ -1091,12 +1100,17 @@ AURUM.initManifestoScroll = function () {
       start: "top 75%",
       end: "bottom 60%",
       scrub: 0.6,
+      invalidateOnRefresh: true,
     },
   });
 };
 AURUM.onSmooth = function () {
   AURUM.initManifestoScroll();
 };
+window.addEventListener("vinayak:cms-ready", function () {
+  if (AURUM.initManifestoScroll) AURUM.initManifestoScroll();
+  if (window.ScrollTrigger) ScrollTrigger.refresh(true);
+});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/morphdom@2.7.1/dist/morphdom-umd.min.js"></script>
@@ -1113,8 +1127,6 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
 <script src="assets/js/cms-edit-mode.js"></script>
 <script src="assets/js/session.js"></script>
 <script src="assets/js/aurum.js"></script>
-<script src="assets/js/chatbot-engine.js"></script>
-<script src="assets/js/chatbot.js"></script>
 
 <!-- room explorer + interactions (vanilla, independent of libs) -->
 <script>
