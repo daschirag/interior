@@ -189,9 +189,6 @@ html.has-js .torch{ opacity:1; }
 .lang-switch button:hover{ color:var(--ink); }
 .lang-switch button.is-active{ color:var(--azure-bright); }
 .lang-switch .lang-sep{ color:var(--ink-faint); opacity:.55; user-select:none; }
-.nav-sheet .lang-switch{ margin-top:18px; gap:10px; }
-.nav-sheet .lang-switch button{ font-size:12px; letter-spacing:.12em; color:var(--ink-soft); }
-.nav-sheet .lang-switch button.is-active{ color:var(--azure-bright); }
 
 /* Language switcher: keep EN / kn / hi optically equal */
 .lang-switch button{
@@ -510,8 +507,16 @@ html[lang="hi"].has-js [data-reveal="mask"]{
 .nav-burger{ display:none; }
 .nav-sheet{ display:none; }
 @media (max-width:880px){
-  .nav-links{ display:none; }
-  .nav-burger{ display:flex; flex-direction:column; gap:5px; padding:8px; }
+  /* Keep EN/ಕನ್ನಡ/हिंदी in the top bar; hide page links / CTA (those live in the sheet) */
+  .nav-links{
+    display:flex; align-items:center; gap:10px;
+    margin-left:auto; margin-right:6px;
+  }
+  .nav-links .nav-link,
+  .nav-links .nav-cta,
+  .nav-links .nav-logout{ display:none; }
+  .nav-links .lang-switch{ display:inline-flex; flex-shrink:0; }
+  .nav-burger{ display:flex; flex-direction:column; gap:5px; padding:8px; flex-shrink:0; }
   .nav-burger span{ width:24px; height:1.5px; background:var(--ink); transition:.4s var(--e-out); }
   .nav-open .nav-burger span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
   .nav-open .nav-burger span:nth-child(2){ opacity:0; }
@@ -525,6 +530,7 @@ html[lang="hi"].has-js [data-reveal="mask"]{
   .nav-open .nav-sheet{ opacity:1; pointer-events:auto; }
   .nav-sheet a{ font-family:var(--serif); font-size:42px; font-weight:300; color:var(--ink); }
   .nav-sheet a em{ font-style:normal; color:inherit; }
+  .nav-sheet .lang-switch{ display:none !important; }
 }
 
 /* ============================================================
