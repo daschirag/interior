@@ -660,21 +660,6 @@ html[lang="hi"] .room-info .rd{
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
-  .room-scene[data-scene="0"] .layer.l-far .ph {
-    background-image: url(assets/images/img-room-living-mobile.jpg) !important;
-    background-size: cover;
-    background-position: center;
-  }
-  .room-scene[data-scene="1"] .layer.l-far .ph {
-    background-image: url(assets/images/img-room-kitchen-mobile.jpg) !important;
-    background-size: cover;
-    background-position: center;
-  }
-  .room-scene[data-scene="2"] .layer.l-far .ph {
-    background-image: url(assets/images/img-room-bedroom-mobile.jpg) !important;
-    background-size: cover;
-    background-position: center;
-  }
   .room-scene .l-far .ph::after {
     opacity: 0.18;
     background: linear-gradient(180deg, transparent 55%, rgba(10,12,15,0.35) 100%);
@@ -913,9 +898,9 @@ html[lang="hi"] .room-info .rd{
       <div class="room-stage" id="roomStage">
         <!-- scene 0 -->
         <div class="room-scene on" data-scene="0">
-          <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-living.jpg" data-ik-preset="hero" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 01</span></div></div>
-          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-ik-preset="card" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_living_a">◐ LIVING ROOM</span><span class="b" data-i18n-key="rooms.tag_living_b">3 BHK · Bangalore</span></span></div></div>
-          <div class="layer l-near" data-depth="1.8"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-ik-preset="card" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-mark">DETAIL</span></div></div>
+          <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-living.jpg" data-lazy-bg-mobile="assets/images/img-room-living-mobile.jpg" data-ik-preset="hero" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 01</span></div></div>
+          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-ik-preset="card" style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_living_a">◐ LIVING ROOM</span><span class="b" data-i18n-key="rooms.tag_living_b">3 BHK · Bangalore</span></span></div></div>
+          <div class="layer l-near" data-depth="1.8"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-ik-preset="card" style="background-size:cover;background-position:center;"><span class="ph-mark">DETAIL</span></div></div>
           <span class="room-hot" style="top:34%; left:46%;"></span>
           <span class="room-hot" style="top:62%; left:30%;"></span>
           <div class="room-info">
@@ -930,7 +915,7 @@ html[lang="hi"] .room-info .rd{
         </div>
         <!-- scene 1 -->
         <div class="room-scene" data-scene="1">
-          <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-kitchen.jpg" data-ik-preset="hero" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 02</span></div></div>
+          <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-kitchen.jpg" data-lazy-bg-mobile="assets/images/img-room-kitchen-mobile.jpg" data-ik-preset="hero" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 02</span></div></div>
           <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-kitchen.jpg" data-ik-preset="card" style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_kitchen_a">◐ MODULAR KITCHEN</span><span class="b" data-i18n-key="rooms.tag_kitchen_b">Modular · Hubli</span></span></div></div>
           <div class="layer l-near" data-depth="1.8"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-kitchen.jpg" data-ik-preset="card" style="background-size:cover;background-position:center;"><span class="ph-mark">DETAIL</span></div></div>
           <span class="room-hot" style="top:40%; left:54%;"></span>
@@ -947,7 +932,7 @@ html[lang="hi"] .room-info .rd{
         </div>
         <!-- scene 2 -->
         <div class="room-scene" data-scene="2">
-          <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-bedroom.jpg" data-ik-preset="hero" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 03</span></div></div>
+          <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-bedroom.jpg" data-lazy-bg-mobile="assets/images/img-room-bedroom-mobile.jpg" data-ik-preset="hero" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 03</span></div></div>
           <div class="layer l-mid ticks" data-depth="1.0"><div class="ph"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_bedroom_a">◐ BEDROOM</span><span class="b" data-i18n-key="rooms.tag_bedroom_b">2 BHK · Dharwad</span></span></div></div>
           <div class="layer l-near" data-depth="1.8"><div class="ph"><span class="ph-mark">DETAIL</span></div></div>
           <span class="room-hot" style="top:46%; left:42%;"></span>

@@ -230,7 +230,13 @@
   }
   function loadLazyBg(el) {
     var preset = el.getAttribute("data-ik-preset") || undefined;
-    var url = resolveAssetUrl(el.getAttribute("data-lazy-bg"), preset);
+    var raw = el.getAttribute("data-lazy-bg");
+    var mobile = el.getAttribute("data-lazy-bg-mobile");
+    if (mobile && window.matchMedia && window.matchMedia("(max-width: 880px)").matches) {
+      raw = mobile;
+      if (preset === "hero") preset = "mobile";
+    }
+    var url = resolveAssetUrl(raw, preset);
     if (!url || el.dataset.lazyDone) return;
     el.dataset.lazyDone = "1";
     el.style.backgroundImage = "url(" + url + ")";
