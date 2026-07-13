@@ -233,6 +233,28 @@ html[lang="hi"] .hero-cue{
 .room-tab .n{ font-family:var(--mono); font-size:9px; color:var(--azure); margin-right:7px; }
 .room-tab:hover{ color:var(--ink-soft); border-color:var(--line-strong); }
 .room-tab.active{ color:var(--ink); border-color:var(--azure); background:var(--azure-glow); }
+
+html[lang="kn"] .room-tab,
+html[lang="hi"] .room-tab,
+html[lang="kn"] .room-info .rk,
+html[lang="hi"] .room-info .rk,
+html[lang="kn"] .room-spec .a,
+html[lang="hi"] .room-spec .a{
+  letter-spacing:0.02em;
+  text-transform:none;
+  line-height:1.45;
+  white-space:normal;
+}
+html[lang="kn"] .room-info .rt,
+html[lang="hi"] .room-info .rt{
+  letter-spacing:0;
+  line-height:1.25;
+}
+html[lang="kn"] .room-info .rd,
+html[lang="hi"] .room-info .rd{
+  letter-spacing:0;
+  line-height:1.65;
+}
 .room-stage{ position:relative; height:min(64vh,640px); border:1px solid var(--line); overflow:hidden; background:var(--bg-1); }
 .room-scene{ position:absolute; inset:0; opacity:0; transition:opacity 1s var(--e-out); }
 .room-scene.on{ opacity:1; }
@@ -868,67 +890,67 @@ html[lang="hi"] .hero-cue{
     <div class="wrap">
       <div class="rooms-head">
         <div>
-          <div class="kicker" data-reveal>02 — Interactive Room Explorer</div>
-          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span>Step <em>inside</em>.</span></h2>
+          <div class="kicker" data-reveal data-i18n-key="rooms.kicker">02 — Interactive Room Explorer</div>
+          <h2 class="h2" data-reveal="mask" style="margin-top:22px;"><span data-i18n-key="rooms.h2" data-i18n-html="true">Step <em>inside</em>.</span></h2>
         </div>
-        <p class="body" data-reveal>Three signature rooms, three moods. Move between them — each is composed for a different way of living.</p>
+        <p class="body" data-reveal data-i18n-key="rooms.lede">Three signature rooms, three moods. Move between them — each is composed for a different way of living.</p>
       </div>
 
       <div class="room-tabs" id="roomTabs">
-        <button class="room-tab active" data-room="0"><span class="n">01</span>Living Room</button>
-        <button class="room-tab" data-room="1"><span class="n">02</span>Kitchen</button>
-        <button class="room-tab" data-room="2"><span class="n">03</span>Bedroom</button>
+        <button class="room-tab active" data-room="0"><span class="n">01</span><span data-i18n-key="rooms.tab_living">Living Room</span></button>
+        <button class="room-tab" data-room="1"><span class="n">02</span><span data-i18n-key="rooms.tab_kitchen">Kitchen</span></button>
+        <button class="room-tab" data-room="2"><span class="n">03</span><span data-i18n-key="rooms.tab_bedroom">Bedroom</span></button>
       </div>
 
       <div class="room-stage" id="roomStage">
         <!-- scene 0 -->
         <div class="room-scene on" data-scene="0">
           <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-living.jpg" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 01</span></div></div>
-          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a">◐ LIVING ROOM</span><span class="b">3 BHK · Bangalore</span></span></div></div>
+          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_living_a">◐ LIVING ROOM</span><span class="b" data-i18n-key="rooms.tag_living_b">3 BHK · Bangalore</span></span></div></div>
           <div class="layer l-near" data-depth="1.8"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-living.jpg" data-lazy-eager style="background-size:cover;background-position:center;"><span class="ph-mark">DETAIL</span></div></div>
           <span class="room-hot" style="top:34%; left:46%;"></span>
           <span class="room-hot" style="top:62%; left:30%;"></span>
           <div class="room-info">
-            <div class="rk">01 / Living Room</div>
-            <div class="rt">The <em>Gathering</em></div>
-            <div class="rd">A low, layered lounge built around natural light and a single sculptural stone table — warmth held in brass and oak.</div>
+            <div class="rk" data-i18n-key="rooms.living_kicker">01 / Living Room</div>
+            <div class="rt" data-i18n-key="rooms.living_title" data-i18n-html="true">The <em>Gathering</em></div>
+            <div class="rd" data-i18n-key="rooms.living_desc">A low, layered lounge built around natural light and a single sculptural stone table — warmth held in brass and oak.</div>
           </div>
           <div class="room-specs">
-            <div class="room-spec"><div class="a">Footprint</div><div class="b">420 sq.ft</div></div>
-            <div class="room-spec"><div class="a">Palette</div><div class="b">Oak · Travertine</div></div>
+            <div class="room-spec"><div class="a" data-i18n-key="rooms.living_spec1_a">Footprint</div><div class="b" data-i18n-key="rooms.living_spec1_b">420 sq.ft</div></div>
+            <div class="room-spec"><div class="a" data-i18n-key="rooms.living_spec2_a">Palette</div><div class="b" data-i18n-key="rooms.living_spec2_b">Oak · Travertine</div></div>
           </div>
         </div>
         <!-- scene 1 -->
         <div class="room-scene" data-scene="1">
           <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-kitchen.jpg" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 02</span></div></div>
-          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-kitchen.jpg" style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a">◐ MODULAR KITCHEN</span><span class="b">Modular · Hubli</span></span></div></div>
+          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-kitchen.jpg" style="background-size:cover;background-position:center;"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_kitchen_a">◐ MODULAR KITCHEN</span><span class="b" data-i18n-key="rooms.tag_kitchen_b">Modular · Hubli</span></span></div></div>
           <div class="layer l-near" data-depth="1.8"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-kitchen.jpg" style="background-size:cover;background-position:center;"><span class="ph-mark">DETAIL</span></div></div>
           <span class="room-hot" style="top:40%; left:54%;"></span>
           <span class="room-hot" style="top:58%; left:24%;"></span>
           <div class="room-info">
-            <div class="rk">02 / Kitchen</div>
-            <div class="rt">The <em>Hearth</em></div>
-            <div class="rd">A working sculpture in matte stone and warm metal — engineered for the cook, composed for the room it opens onto.</div>
+            <div class="rk" data-i18n-key="rooms.kitchen_kicker">02 / Kitchen</div>
+            <div class="rt" data-i18n-key="rooms.kitchen_title" data-i18n-html="true">The <em>Hearth</em></div>
+            <div class="rd" data-i18n-key="rooms.kitchen_desc">A working sculpture in matte stone and warm metal — engineered for the cook, composed for the room it opens onto.</div>
           </div>
           <div class="room-specs">
-            <div class="room-spec"><div class="a">Island</div><div class="b">3.2 m</div></div>
-            <div class="room-spec"><div class="a">Palette</div><div class="b">Basalt · Brass</div></div>
+            <div class="room-spec"><div class="a" data-i18n-key="rooms.kitchen_spec1_a">Island</div><div class="b" data-i18n-key="rooms.kitchen_spec1_b">3.2 m</div></div>
+            <div class="room-spec"><div class="a" data-i18n-key="rooms.kitchen_spec2_a">Palette</div><div class="b" data-i18n-key="rooms.kitchen_spec2_b">Basalt · Brass</div></div>
           </div>
         </div>
         <!-- scene 2 -->
         <div class="room-scene" data-scene="2">
           <div class="layer l-far" data-depth="0.4"><div class="ph lazy-bg" data-lazy-bg="assets/images/img-room-bedroom.jpg" style="background-size:cover;background-position:center;"><span class="ph-mark">SCENE 03</span></div></div>
-          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph"><span class="ph-tag"><span class="a">◐ BEDROOM</span><span class="b">2 BHK · Dharwad</span></span></div></div>
+          <div class="layer l-mid ticks" data-depth="1.0"><div class="ph"><span class="ph-tag"><span class="a" data-i18n-key="rooms.tag_bedroom_a">◐ BEDROOM</span><span class="b" data-i18n-key="rooms.tag_bedroom_b">2 BHK · Dharwad</span></span></div></div>
           <div class="layer l-near" data-depth="1.8"><div class="ph"><span class="ph-mark">DETAIL</span></div></div>
           <span class="room-hot" style="top:46%; left:42%;"></span>
           <div class="room-info">
-            <div class="rk">03 / Bedroom</div>
-            <div class="rt">The <em>Retreat</em></div>
-            <div class="rd">A quiet envelope of soft plaster and linen, lit low — a room designed to slow the pulse the moment you enter.</div>
+            <div class="rk" data-i18n-key="rooms.bedroom_kicker">03 / Bedroom</div>
+            <div class="rt" data-i18n-key="rooms.bedroom_title" data-i18n-html="true">The <em>Retreat</em></div>
+            <div class="rd" data-i18n-key="rooms.bedroom_desc">A quiet envelope of soft plaster and linen, lit low — a room designed to slow the pulse the moment you enter.</div>
           </div>
           <div class="room-specs">
-            <div class="room-spec"><div class="a">Light</div><div class="b">2700K</div></div>
-            <div class="room-spec"><div class="a">Palette</div><div class="b">Plaster · Linen</div></div>
+            <div class="room-spec"><div class="a" data-i18n-key="rooms.bedroom_spec1_a">Light</div><div class="b" data-i18n-key="rooms.bedroom_spec1_b">2700K</div></div>
+            <div class="room-spec"><div class="a" data-i18n-key="rooms.bedroom_spec2_a">Palette</div><div class="b" data-i18n-key="rooms.bedroom_spec2_b">Plaster · Linen</div></div>
           </div>
         </div>
       </div>
