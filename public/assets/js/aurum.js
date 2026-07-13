@@ -171,7 +171,7 @@
     if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
     if (window.Lenis) {
       try {
-        var lenis = new Lenis({ duration: 0.95, lerp: 0.14, smoothWheel: true, wheelMultiplier: 1.05 });
+        var lenis = new Lenis({ duration: 1.05, lerp: 0.1, smoothWheel: true, wheelMultiplier: 0.95, touchMultiplier: 1.1 });
         AURUM.lenis = lenis;
         if (hasGsap && window.ScrollTrigger) {
           lenis.on("scroll", ScrollTrigger.update);
@@ -184,6 +184,7 @@
               return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
             }
           });
+          ScrollTrigger.defaults({ scroller: document.documentElement });
           ScrollTrigger.addEventListener("refresh", function () { lenis.resize(); });
           gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
           gsap.ticker.lagSmoothing(0);

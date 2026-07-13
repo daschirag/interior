@@ -362,13 +362,16 @@ body.svc-lightbox-open{ overflow:hidden; }
 .svc-expand[data-for="12"] .ss-v{ color:#c8d4dc; }
 
 /* MATERIAL LIBRARY */
-.matlib{ position:relative; padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); overflow:hidden; }
+.matlib{ position:relative; z-index:1; padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); overflow:hidden; isolation:isolate; contain:layout paint; }
 .matlib .feat-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--s3); margin-bottom:var(--s5); }
 .matlib .feat-head > div:first-child,
 .matlib .feat-head > .body{ flex:none; min-width:0; }
-.matlib-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--s5); }
+.matlib-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--s5); overflow:hidden; }
 @media (max-width:880px){ .matlib-grid{ grid-template-columns:repeat(2,1fr); } }
-.matcard{ position:relative; aspect-ratio:1/1.15; overflow:hidden; background:var(--bg-1); }
+.matcard{ position:relative; aspect-ratio:1/1.15; overflow:hidden; background:var(--bg-1); transform:translateZ(0); contain:paint; }
+/* Opacity-only reveal — translateY stacking contexts paint over GSAP-pinned Process */
+.has-js .matcard[data-reveal]{ opacity:0; transform:none; }
+.has-js .matcard[data-reveal].is-in{ opacity:1; transform:none; transition:opacity .9s var(--e-out); }
 .matcard .fill{ position:absolute; inset:0; transition:transform .8s var(--e-out); }
 .matcard .sheen{ position:absolute; inset:0; opacity:0; transition:opacity .5s var(--e-out); mix-blend-mode:screen; background:radial-gradient(180px 180px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.22), transparent 60%); }
 .matcard:hover .sheen{ opacity:1; }
@@ -379,8 +382,9 @@ body.svc-lightbox-open{ overflow:hidden; }
 .matcard .mno{ position:absolute; top:16px; left:18px; z-index:2; font-family:var(--mono); font-size:10px; color:rgba(255,255,255,.5); letter-spacing:.1em; }
 
 /* PROCESS */
-.process{ position:relative; background:var(--bg); }
-.proc-pin{ position:relative; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto 1fr; background:var(--bg); }
+.process{ position:relative; z-index:5; background:var(--bg); isolation:isolate; }
+.proc-pin{ position:relative; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto 1fr; background:var(--bg); z-index:5; }
+.pin-spacer{ background:var(--bg); }
 .proc-left-head{ grid-column:1; grid-row:1; position:relative; z-index:2; background:var(--bg); padding:clamp(40px,6vw,110px) var(--gut) 0; padding-top:clamp(36px,5vh,64px); }
 .proc-left-head .h2{ margin-bottom:34px; max-width:12ch; }
 .proc-left-track{ grid-column:1; grid-row:2; min-height:clamp(280px,48vh,460px); overflow:hidden; position:relative; padding:0 var(--gut) clamp(40px,6vw,110px); }
@@ -1046,8 +1050,14 @@ AURUM.onSmooth = function () {
   var vis = document.querySelectorAll("#procRight .proc-visual");
   var procList = document.getElementById("procItems");
   var track = document.querySelector(".proc-left-track");
+  var pinEl = document.getElementById("procPin");
   var total = items.length;
-  if (!total || !procList || !track) return;
+  if (!total || !procList || !track || !pinEl) return;
+
+  // Avoid duplicate pins if hydrate/idle re-runs setup
+  ScrollTrigger.getAll().forEach(function (st) {
+    if (st.trigger && st.trigger.id === "procPin") st.kill(true);
+  });
 
   var stepYs = [];
   var activeStep = -1;
@@ -1100,12 +1110,14 @@ AURUM.onSmooth = function () {
   }
 
   ScrollTrigger.create({
+    id: "services-process-pin",
     trigger: "#procPin",
     start: "top top",
-    end: "+=" + ((total - 1) * 170) + "vh",
+    end: "+=" + ((total - 1) * 140) + "vh",
     pin: true,
     pinSpacing: true,
-    scrub: 1.2,
+    pinType: "fixed",
+    scrub: 0.65,
     anticipatePin: 1,
     invalidateOnRefresh: true,
     onRefresh: function (self) { updateFromProgress(self.progress); },
@@ -1119,10 +1131,14 @@ AURUM.onSmooth = function () {
     applyStep(n);
   };
 
+  AURUM.refreshProcessPin = function () {
+    if (window.ScrollTrigger) ScrollTrigger.refresh(true);
+  };
+
   resetPanel();
   window.addEventListener("load", function () {
-    ScrollTrigger.refresh();
-    var st = ScrollTrigger.getAll().find(function (s) { return s.trigger && s.trigger.id === "procPin"; });
+    ScrollTrigger.refresh(true);
+    var st = ScrollTrigger.getById("services-process-pin");
     if (st) updateFromProgress(st.progress);
     else resetPanel();
   });
@@ -1159,29 +1175,7 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
       if (window.AURUM && AURUM.setProcStep) AURUM.setProcStep(i);
     });
   });
-  var rows = document.querySelectorAll('#svcList .svc-row');
-  var expands = document.querySelectorAll('#svcList .svc-expand');
-  var svcHint = document.querySelector('.svc-hint');
-  rows.forEach(function(row){
-    row.addEventListener('click', function(){
-      var id = row.getAttribute('data-svc');
-      var panel = document.querySelector('.svc-expand[data-for="'+id+'"]');
-      var isOpen = panel.classList.contains('open');
-      expands.forEach(function(e){ e.classList.remove('open'); });
-      rows.forEach(function(r){ r.classList.remove('open'); });
-      if(!isOpen){
-        panel.classList.add('open');
-        row.classList.add('open');
-        if (svcHint) svcHint.classList.add('is-dismissed');
-      }
-    });
-    row.addEventListener('keydown', function(e){
-      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); row.click(); }
-    });
-  });
-  document.querySelectorAll('.svc-expand-cta .svc-view-projects').forEach(function (a) {
-    a.addEventListener('click', function (e) { e.preventDefault(); });
-  });
+  /* Accordion is wired by cms-hydrate after CMS replace — avoid duplicate listeners */
 })();
 </script>
 </body>

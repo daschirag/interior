@@ -299,6 +299,25 @@
       .catch(function () {});
   }
 
+  function refreshScrollLayout() {
+    function run() {
+      if (window.AURUM && typeof AURUM.refreshProcessPin === "function") {
+        AURUM.refreshProcessPin();
+      } else if (window.ScrollTrigger) {
+        window.ScrollTrigger.refresh(true);
+      }
+      if (window.AURUM && AURUM.lenis && typeof AURUM.lenis.resize === "function") {
+        AURUM.lenis.resize();
+      }
+    }
+    requestAnimationFrame(function () {
+      run();
+      // Expand uses max-height transition (~0.85–1.1s) — refresh again after settle
+      setTimeout(run, 500);
+      setTimeout(run, 1100);
+    });
+  }
+
   function wireDisciplineAccordion() {
     if (document.documentElement.classList.contains("cms-edit-mode")) return;
     var rows = document.querySelectorAll("#svcList .svc-row");
@@ -323,6 +342,7 @@
           row.classList.add("open");
           if (svcHint) svcHint.classList.add("is-dismissed");
         }
+        refreshScrollLayout();
       });
       row.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") {
@@ -492,7 +512,9 @@
           window.AURUM.refreshLazyMedia();
         }
       })
-      .catch(function () {});
+      .catch(function () {
+        wireDisciplineAccordion();
+      });
   }
 
   function renderStudio(loc, index) {
@@ -813,4 +835,13 @@
     buildDisciplineGalleryHtml: buildDisciplineGalleryHtml,
     wireDisciplineAccordion: wireDisciplineAccordion,
   };
+
+  // Static markup accordion until/unless CMS replaces the list
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      wireDisciplineAccordion();
+    });
+  } else {
+    wireDisciplineAccordion();
+  }
 })();
