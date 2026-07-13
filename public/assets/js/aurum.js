@@ -215,12 +215,17 @@
   }
 
   /* ---------- Lazy backgrounds & deferred video ---------- */
-  function resolveAssetUrl(url) {
-    if (!url || /^(https?:|data:|\/)/.test(url)) return url;
-    return "/" + url.replace(/^\.\//, "");
+  function resolveAssetUrl(url, preset) {
+    if (!url) return url;
+    var resolved = /^(https?:|data:|\/)/.test(url) ? url : "/" + url.replace(/^\.\//, "");
+    if (window.VinayakImageUrl && typeof window.VinayakImageUrl.optimizeImageUrl === "function") {
+      return window.VinayakImageUrl.optimizeImageUrl(resolved, preset);
+    }
+    return resolved;
   }
   function loadLazyBg(el) {
-    var url = resolveAssetUrl(el.getAttribute("data-lazy-bg"));
+    var preset = el.getAttribute("data-ik-preset") || undefined;
+    var url = resolveAssetUrl(el.getAttribute("data-lazy-bg"), preset);
     if (!url || el.dataset.lazyDone) return;
     el.dataset.lazyDone = "1";
     el.style.backgroundImage = "url(" + url + ")";

@@ -25,10 +25,15 @@
     return fallback || key;
   }
 
-  function assetUrl(url) {
+  function assetUrl(url, preset) {
     if (!url) return "";
-    if (/^(https?:|data:|\/)/.test(url)) return url;
-    return "/" + url.replace(/^\.\//, "");
+    var resolved = /^(https?:|data:|\/)/.test(url)
+      ? url
+      : "/" + url.replace(/^\.\//, "");
+    if (window.VinayakImageUrl && typeof window.VinayakImageUrl.optimizeImageUrl === "function") {
+      return window.VinayakImageUrl.optimizeImageUrl(resolved, preset);
+    }
+    return resolved;
   }
 
   function titleWithEm(title) {
@@ -43,7 +48,7 @@
   }
 
   function projectCover(project) {
-    if (project.images && project.images.length) return assetUrl(project.images[0]);
+    if (project.images && project.images.length) return assetUrl(project.images[0], "card");
     return "assets/images/img-panel-penthouse.jpg";
   }
 
@@ -269,19 +274,25 @@
           var baBeforeInner = document.getElementById("baBeforeInner");
           if (baAfter) {
             var afterUrl = blockAfter
-              ? assetUrl(blockAfter.url)
+              ? assetUrl(blockAfter.url, "hero")
               : baProject
-                ? assetUrl(baProject.after_image_url)
+                ? assetUrl(baProject.after_image_url, "hero")
                 : null;
-            if (afterUrl) baAfter.setAttribute("data-lazy-bg", afterUrl);
+            if (afterUrl) {
+              baAfter.setAttribute("data-lazy-bg", afterUrl);
+              baAfter.setAttribute("data-ik-preset", "hero");
+            }
           }
           if (baBeforeInner) {
             var beforeUrl = blockBefore
-              ? assetUrl(blockBefore.url)
+              ? assetUrl(blockBefore.url, "hero")
               : baProject
-                ? assetUrl(baProject.before_image_url)
+                ? assetUrl(baProject.before_image_url, "hero")
                 : null;
-            if (beforeUrl) baBeforeInner.setAttribute("data-lazy-bg", beforeUrl);
+            if (beforeUrl) {
+              baBeforeInner.setAttribute("data-lazy-bg", beforeUrl);
+              baBeforeInner.setAttribute("data-ik-preset", "hero");
+            }
           }
         }
       })
@@ -342,7 +353,7 @@
       .join("");
     var projectsLink = d.cta_projects_link || "Projects.html";
     var consultLink = d.cta_consult_link || "Contact.html";
-    var img = assetUrl(d.image_url) || "assets/images/img-svc-1bhk.jpg";
+    var img = assetUrl(d.image_url, "card") || "assets/images/img-svc-1bhk.jpg";
     var id = String(i);
     var labelBudget = tt("studio.budget", "Budget Range");
     var labelTimeline = tt("studio.timeline", "Timeline");
@@ -572,12 +583,16 @@
 
     (block.images || []).forEach(function (img) {
       if (!img || !img.key || !img.url) return;
-      var url = assetUrl(img.url);
+      var preset =
+        /hero|studio|room|proc|ba-|sidebar|step/i.test(img.key) ? "hero" : "card";
+      if (/mobile/i.test(img.key)) preset = "mobile";
+      var url = assetUrl(img.url, preset);
       root.querySelectorAll('[data-cms-image="' + img.key + '"]').forEach(function (el) {
         if (el.tagName === "IMG") {
           el.src = url;
         } else {
           el.setAttribute("data-lazy-bg", url);
+          el.setAttribute("data-ik-preset", preset);
           el.style.backgroundImage = "url(" + url + ")";
           el.style.backgroundSize = "cover";
           el.style.backgroundPosition = "center";

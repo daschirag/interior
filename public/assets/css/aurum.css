@@ -14,9 +14,9 @@
 
   /* ink — cool bone */
   --ink:       #ECEFF3;
-  --ink-soft:  #A7B0BB;
-  --ink-dim:   #6A7480;
-  --ink-faint: #3B434D;
+  --ink-soft:  #B4BCC6;
+  --ink-dim:   #9AA3AD;
+  --ink-faint: #6A7480;
 
   /* azure — the architectural light (from the mark) */
   --azure:        #2C9AD4;
@@ -233,8 +233,8 @@ html[lang="kn"] .kicker,
 html[lang="hi"] .kicker,
 html[lang="kn"] .cap,
 html[lang="hi"] .cap,
-html[lang="kn"] .foot-col h4,
-html[lang="hi"] .foot-col h4,
+html[lang="kn"] .foot-col h3,
+html[lang="hi"] .foot-col h3,
 html[lang="kn"] .phead .ix-list div .a,
 html[lang="hi"] .phead .ix-list div .a{
   text-transform:none;
@@ -807,7 +807,7 @@ html[lang="hi"].has-js [data-reveal="mask"]{
 .foot-cta em{ font-style:italic; color:var(--azure-bright); }
 .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:var(--s4); margin-top:var(--s6); }
 @media (max-width:880px){ .foot-grid{ grid-template-columns:1fr 1fr; gap:var(--s3); } }
-.foot-col h4{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:var(--s2); }
+.foot-col h3{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:var(--s2); }
 .foot-col a,.foot-col p{ display:block; font-size:14px; color:var(--ink-soft); margin-bottom:9px; transition:color .3s; }
 .foot-col a:hover{ color:var(--azure-bright); }
 .foot-iso{

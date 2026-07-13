@@ -1,0 +1,270 @@
+{
+  "generatedAt": "2026-07-13T10:04:11.199Z",
+  "beforeTotalBytes": 226301834,
+  "afterTotalBytes": 5040491,
+  "savedBytes": 221261343,
+  "savedPct": 97.8,
+  "results": [
+    {
+      "file": "img-ba-after.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 7926437,
+      "afterBytes": 194526,
+      "savedBytes": 7731911,
+      "savedPct": 97.5
+    },
+    {
+      "file": "img-ba-before.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8698621,
+      "afterBytes": 257480,
+      "savedBytes": 8441141,
+      "savedPct": 97
+    },
+    {
+      "file": "img-contact.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8229699,
+      "afterBytes": 218405,
+      "savedBytes": 8011294,
+      "savedPct": 97.3
+    },
+    {
+      "file": "img-featured-basalt.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 8759333,
+      "afterBytes": 50127,
+      "savedBytes": 8709206,
+      "savedPct": 99.4
+    },
+    {
+      "file": "img-featured-linen-oak.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 8485539,
+      "afterBytes": 52861,
+      "savedBytes": 8432678,
+      "savedPct": 99.4
+    },
+    {
+      "file": "img-featured-penthouse.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 7940967,
+      "afterBytes": 49380,
+      "savedBytes": 7891587,
+      "savedPct": 99.4
+    },
+    {
+      "file": "img-hero-mobile.jpg",
+      "preset": "mobile",
+      "width": 900,
+      "beforeBytes": 6909039,
+      "afterBytes": 89452,
+      "savedBytes": 6819587,
+      "savedPct": 98.7
+    },
+    {
+      "file": "img-hero.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 7754891,
+      "afterBytes": 160136,
+      "savedBytes": 7594755,
+      "savedPct": 97.9
+    },
+    {
+      "file": "img-kitchen.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 193146,
+      "afterBytes": 51328,
+      "savedBytes": 141818,
+      "savedPct": 73.4
+    },
+    {
+      "file": "img-living.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 217881,
+      "afterBytes": 63366,
+      "savedBytes": 154515,
+      "savedPct": 70.9
+    },
+    {
+      "file": "img-panel-basalt.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8644191,
+      "afterBytes": 401764,
+      "savedBytes": 8242427,
+      "savedPct": 95.4
+    },
+    {
+      "file": "img-panel-linen-oak.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 7972646,
+      "afterBytes": 305913,
+      "savedBytes": 7666733,
+      "savedPct": 96.2
+    },
+    {
+      "file": "img-panel-penthouse.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 7984118,
+      "afterBytes": 292608,
+      "savedBytes": 7691510,
+      "savedPct": 96.3
+    },
+    {
+      "file": "img-proc-concept.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8893902,
+      "afterBytes": 404528,
+      "savedBytes": 8489374,
+      "savedPct": 95.5
+    },
+    {
+      "file": "img-proc-design.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 7860206,
+      "afterBytes": 374504,
+      "savedBytes": 7485702,
+      "savedPct": 95.2
+    },
+    {
+      "file": "img-proc-execute.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 9394525,
+      "afterBytes": 331173,
+      "savedBytes": 9063352,
+      "savedPct": 96.5
+    },
+    {
+      "file": "img-proc-reveal.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8970030,
+      "afterBytes": 403601,
+      "savedBytes": 8566429,
+      "savedPct": 95.5
+    },
+    {
+      "file": "img-proc-visualise.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8002677,
+      "afterBytes": 273112,
+      "savedBytes": 7729565,
+      "savedPct": 96.6
+    },
+    {
+      "file": "img-room-bedroom-mobile.jpg",
+      "preset": "mobile",
+      "width": 900,
+      "beforeBytes": 8195508,
+      "afterBytes": 126555,
+      "savedBytes": 8068953,
+      "savedPct": 98.5
+    },
+    {
+      "file": "img-room-bedroom.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8403476,
+      "afterBytes": 178595,
+      "savedBytes": 8224881,
+      "savedPct": 97.9
+    },
+    {
+      "file": "img-room-kitchen-mobile.jpg",
+      "preset": "mobile",
+      "width": 900,
+      "beforeBytes": 7824622,
+      "afterBytes": 102934,
+      "savedBytes": 7721688,
+      "savedPct": 98.7
+    },
+    {
+      "file": "img-room-kitchen.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8261793,
+      "afterBytes": 177566,
+      "savedBytes": 8084227,
+      "savedPct": 97.9
+    },
+    {
+      "file": "img-room-living-mobile.jpg",
+      "preset": "mobile",
+      "width": 900,
+      "beforeBytes": 8700100,
+      "afterBytes": 155033,
+      "savedBytes": 8545067,
+      "savedPct": 98.2
+    },
+    {
+      "file": "img-room-living.jpg",
+      "preset": "hero",
+      "width": 1920,
+      "beforeBytes": 8784098,
+      "afterBytes": 184323,
+      "savedBytes": 8599775,
+      "savedPct": 97.9
+    },
+    {
+      "file": "img-svc-1bhk.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 8480134,
+      "afterBytes": 27651,
+      "savedBytes": 8452483,
+      "savedPct": 99.7
+    },
+    {
+      "file": "img-svc-2bhk.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 8455141,
+      "afterBytes": 26118,
+      "savedBytes": 8429023,
+      "savedPct": 99.7
+    },
+    {
+      "file": "img-svc-3bhk.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 9584581,
+      "afterBytes": 35341,
+      "savedBytes": 9549240,
+      "savedPct": 99.6
+    },
+    {
+      "file": "img-svc-4bhk.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 9351888,
+      "afterBytes": 34086,
+      "savedBytes": 9317802,
+      "savedPct": 99.6
+    },
+    {
+      "file": "img-svc-aluminium.jpg",
+      "preset": "card",
+      "width": 600,
+      "beforeBytes": 7422645,
+      "afterBytes": 18025,
+      "savedBytes": 7404620,
+      "savedPct": 99.8
+    }
+  ]
+}

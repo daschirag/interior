@@ -14,10 +14,15 @@
     }
   }
 
-  function assetUrl(url) {
+  function assetUrl(url, preset) {
     if (!url) return "";
-    if (/^(https?:|data:|\/)/.test(url)) return url;
-    return "/" + url.replace(/^\.\//, "");
+    var resolved = /^(https?:|data:|\/)/.test(url)
+      ? url
+      : "/" + url.replace(/^\.\//, "");
+    if (window.VinayakImageUrl && typeof window.VinayakImageUrl.optimizeImageUrl === "function") {
+      return window.VinayakImageUrl.optimizeImageUrl(resolved, preset);
+    }
+    return resolved;
   }
 
   function esc(s) {
