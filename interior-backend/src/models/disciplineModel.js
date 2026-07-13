@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const { normalizeDisciplineImages } = require("../utils/disciplineImages");
 
 const createTable = async () => {
   const query = `
@@ -47,9 +48,23 @@ const createTable = async () => {
       ADD COLUMN IF NOT EXISTS tags_kn TEXT[],
       ADD COLUMN IF NOT EXISTS tags_hi TEXT[];
   `);
+
+  await pool.query(`
+    ALTER TABLE disciplines
+      ADD COLUMN IF NOT EXISTS images TEXT[];
+  `);
+
+  await pool.query(`
+    UPDATE disciplines
+    SET images = ARRAY[image_url]
+    WHERE image_url IS NOT NULL
+      AND image_url <> ''
+      AND (images IS NULL OR cardinality(images) = 0);
+  `);
 };
 
 const create = async (discipline) => {
+  const imgs = normalizeDisciplineImages(discipline);
   const query = `
     INSERT INTO disciplines (
       slug,
@@ -60,10 +75,11 @@ const create = async (discipline) => {
       scope,
       tags,
       image_url,
+      images,
       cta_projects_link,
       cta_consult_link
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
     RETURNING *;
   `;
 
@@ -75,7 +91,8 @@ const create = async (discipline) => {
     discipline.timeline || null,
     discipline.scope || null,
     discipline.tags || [],
-    discipline.image_url || null,
+    imgs.image_url,
+    imgs.images,
     discipline.cta_projects_link || null,
     discipline.cta_consult_link || null,
   ];
@@ -104,6 +121,12 @@ const applySnapshot = async (id, snapshot) => {
     throw new Error("Discipline not found");
   }
 
+  const imgs = normalizeDisciplineImages({
+    images: snapshot.images !== undefined ? snapshot.images : existing.images,
+    image_url:
+      snapshot.image_url !== undefined ? snapshot.image_url : existing.image_url,
+  });
+
   const query = `
     UPDATE disciplines
     SET
@@ -118,10 +141,11 @@ const applySnapshot = async (id, snapshot) => {
       scope = $9,
       tags = $10,
       image_url = $11,
-      cta_projects_link = $12,
-      cta_consult_link = $13,
-      is_active = $14
-    WHERE id = $15
+      images = $12,
+      cta_projects_link = $13,
+      cta_consult_link = $14,
+      is_active = $15
+    WHERE id = $16
     RETURNING *;
   `;
 
@@ -136,7 +160,8 @@ const applySnapshot = async (id, snapshot) => {
     snapshot.timeline ?? null,
     snapshot.scope ?? null,
     snapshot.tags ?? [],
-    snapshot.image_url ?? null,
+    imgs.image_url,
+    imgs.images,
     snapshot.cta_projects_link ?? null,
     snapshot.cta_consult_link ?? null,
     snapshot.is_active !== false,
@@ -148,6 +173,7 @@ const applySnapshot = async (id, snapshot) => {
 };
 
 const update = async (id, discipline) => {
+  const imgs = normalizeDisciplineImages(discipline);
   const query = `
     UPDATE disciplines
     SET
@@ -162,10 +188,11 @@ const update = async (id, discipline) => {
       scope = $9,
       tags = $10,
       image_url = $11,
-      cta_projects_link = $12,
-      cta_consult_link = $13,
+      images = $12,
+      cta_projects_link = $13,
+      cta_consult_link = $14,
       is_active = true
-    WHERE id = $14
+    WHERE id = $15
     RETURNING *;
   `;
 
@@ -180,7 +207,8 @@ const update = async (id, discipline) => {
     discipline.timeline || null,
     discipline.scope || null,
     discipline.tags || [],
-    discipline.image_url || null,
+    imgs.image_url,
+    imgs.images,
     discipline.cta_projects_link || null,
     discipline.cta_consult_link || null,
     id,
@@ -192,6 +220,7 @@ const update = async (id, discipline) => {
 };
 
 const upsertBySlug = async (discipline) => {
+  const imgs = normalizeDisciplineImages(discipline);
   const query = `
     INSERT INTO disciplines (
       slug,
@@ -205,10 +234,11 @@ const upsertBySlug = async (discipline) => {
       scope,
       tags,
       image_url,
+      images,
       cta_projects_link,
       cta_consult_link
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
     ON CONFLICT (slug) DO UPDATE SET
       title = EXCLUDED.title,
       display_order = EXCLUDED.display_order,
@@ -220,6 +250,7 @@ const upsertBySlug = async (discipline) => {
       scope = EXCLUDED.scope,
       tags = EXCLUDED.tags,
       image_url = EXCLUDED.image_url,
+      images = EXCLUDED.images,
       cta_projects_link = EXCLUDED.cta_projects_link,
       cta_consult_link = EXCLUDED.cta_consult_link,
       is_active = true
@@ -237,7 +268,8 @@ const upsertBySlug = async (discipline) => {
     discipline.timeline || null,
     discipline.scope || null,
     discipline.tags || [],
-    discipline.image_url || null,
+    imgs.image_url,
+    imgs.images,
     discipline.cta_projects_link || null,
     discipline.cta_consult_link || null,
   ];

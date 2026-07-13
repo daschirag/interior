@@ -63,6 +63,7 @@
   global.VinayakImageUrl = {
     PRESETS: PRESETS,
     isImageKit: isImageKit,
+    stripExistingTr: stripExistingTr,
     applyImageKitTransform: applyImageKitTransform,
     inferPreset: inferPreset,
     optimizeImageUrl: optimizeImageUrl,

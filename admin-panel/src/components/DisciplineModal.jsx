@@ -60,6 +60,9 @@ function DisciplineModal({
           ? tags.split(",").map((tag) => tag.trim())
           : [],
         image_url: imageUrl,
+        images: imageUrl
+          ? [imageUrl, ...((discipline && discipline.images) || []).slice(1)]
+          : ((discipline && discipline.images) || []).slice(1),
         cta_projects_link: projectsLink,
         cta_consult_link: consultLink,
       };

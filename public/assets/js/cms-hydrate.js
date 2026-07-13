@@ -340,6 +340,32 @@
     });
   }
 
+  function buildDisciplineGalleryHtml(urls) {
+    var list = (urls || []).filter(Boolean);
+    if (!list.length) list = ["assets/images/img-svc-1bhk.jpg"];
+    var cover = assetUrl(list[0], "hero");
+    var json = esc(JSON.stringify(list));
+    var more =
+      list.length > 1
+        ? '<button type="button" class="svc-gallery-more">View more photos</button>'
+        : "";
+    return (
+      '<div class="svc-gallery svc-gallery--cover" data-svc-gallery data-images="' +
+      json +
+      '">' +
+      '<div class="ph ticks lazy-bg" data-lazy-bg="' +
+      esc(cover) +
+      '" data-lazy-src="' +
+      esc(list[0]) +
+      '" data-ik-preset="hero" style="position:absolute;inset:0;"></div>' +
+      '<div class="svc-expand-media-overlay"></div>' +
+      (more
+        ? '<div class="svc-gallery-bar">' + more + "</div>"
+        : "") +
+      "</div>"
+    );
+  }
+
   function buildDisciplineItemHtml(d, i) {
     var meta = d.subtitle || d.budget_range || "";
     var kicker = d.subtitle || "";
@@ -353,7 +379,12 @@
       .join("");
     var projectsLink = d.cta_projects_link || "Projects.html";
     var consultLink = d.cta_consult_link || "Contact.html";
-    var img = assetUrl(d.image_url, "card") || "assets/images/img-svc-1bhk.jpg";
+    var galleryUrls =
+      Array.isArray(d.images) && d.images.length
+        ? d.images
+        : d.image_url
+          ? [d.image_url]
+          : ["assets/images/img-svc-1bhk.jpg"];
     var id = String(i);
     var labelBudget = tt("studio.budget", "Budget Range");
     var labelTimeline = tt("studio.timeline", "Timeline");
@@ -382,9 +413,9 @@
       '<div class="svc-expand" data-for="' +
       id +
       '"><div class="svc-expand-inner">' +
-      '<div class="svc-expand-media"><div class="ph ticks lazy-bg" data-lazy-bg="' +
-      esc(img) +
-      '" style="position:absolute;inset:0;"></div><div class="svc-expand-media-overlay"></div></div>' +
+      '<div class="svc-expand-media">' +
+      buildDisciplineGalleryHtml(galleryUrls) +
+      "</div>" +
       '<div class="svc-expand-body">' +
       '<div class="svc-expand-kicker">' +
       esc(kicker) +
@@ -454,6 +485,12 @@
 
         list.innerHTML = html;
         wireDisciplineAccordion();
+        if (window.VINAYAK_SVC_GALLERY && window.VINAYAK_SVC_GALLERY.wireAll) {
+          window.VINAYAK_SVC_GALLERY.wireAll(list);
+        }
+        if (window.AURUM && typeof window.AURUM.refreshLazyMedia === "function") {
+          window.AURUM.refreshLazyMedia();
+        }
       })
       .catch(function () {});
   }
@@ -773,6 +810,7 @@
     renderStudio: renderStudio,
     buildJourneyPanelHtml: buildJourneyPanelHtml,
     buildDisciplineItemHtml: buildDisciplineItemHtml,
+    buildDisciplineGalleryHtml: buildDisciplineGalleryHtml,
     wireDisciplineAccordion: wireDisciplineAccordion,
   };
 })();

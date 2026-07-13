@@ -65,7 +65,7 @@ async function buildImageReferenceIndex() {
       WHERE is_active = true
     `),
     pool.query(`
-      SELECT id, title, image_url
+      SELECT id, title, image_url, images
       FROM disciplines
       WHERE is_active = true
     `),
@@ -121,12 +121,23 @@ async function buildImageReferenceIndex() {
   }
 
   for (const discipline of disciplines.rows) {
-    if (!discipline.image_url) continue;
-    addReference(index, discipline.image_url, {
-      type: "discipline",
-      id: discipline.id,
-      label: discipline.title || `Discipline #${discipline.id}`,
-      field: "image_url",
+    if (discipline.image_url) {
+      addReference(index, discipline.image_url, {
+        type: "discipline",
+        id: discipline.id,
+        label: discipline.title || `Discipline #${discipline.id}`,
+        field: "image_url",
+      });
+    }
+    const gallery = Array.isArray(discipline.images) ? discipline.images : [];
+    gallery.forEach((url, i) => {
+      if (!url) return;
+      addReference(index, url, {
+        type: "discipline",
+        id: discipline.id,
+        label: discipline.title || `Discipline #${discipline.id}`,
+        field: `images[${i}]`,
+      });
     });
   }
 

@@ -360,12 +360,28 @@
         .join("");
     }
 
-    if (d.image_url) {
-      var bg = root.querySelector(".svc-expand-media .ph");
-      if (bg) {
-        var url = assetUrl(d.image_url);
-        bg.setAttribute("data-lazy-bg", url);
-        bg.style.backgroundImage = "url(" + url + ")";
+    var galleryUrls =
+      Array.isArray(d.images) && d.images.length
+        ? d.images.filter(Boolean)
+        : d.image_url
+          ? [d.image_url]
+          : [];
+    if (galleryUrls.length) {
+      var media = root.querySelector(".svc-expand-media");
+      if (media && window.VINAYAK_CMS_APPLY && window.VINAYAK_CMS_APPLY.buildDisciplineGalleryHtml) {
+        media.innerHTML =
+          window.VINAYAK_CMS_APPLY.buildDisciplineGalleryHtml(galleryUrls);
+        if (window.VINAYAK_SVC_GALLERY && window.VINAYAK_SVC_GALLERY.wireAll) {
+          window.VINAYAK_SVC_GALLERY.wireAll(media);
+        }
+        if (window.AURUM && window.AURUM.refreshLazyMedia) window.AURUM.refreshLazyMedia();
+      } else {
+        var bg = root.querySelector(".svc-expand-media .ph");
+        if (bg) {
+          var url = assetUrl(galleryUrls[0]);
+          bg.setAttribute("data-lazy-bg", url);
+          bg.style.backgroundImage = "url(" + url + ")";
+        }
       }
     }
 

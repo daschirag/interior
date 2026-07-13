@@ -124,6 +124,7 @@ function parseDisciplinesFromServicesHtml(html) {
       scope: scopeSpec || null,
       tags: featureTags,
       image_url: imageUrl,
+      images: imageUrl ? [imageUrl] : [],
       cta_projects_link: "Projects.html",
       cta_consult_link: "Contact.html",
       is_active: true,

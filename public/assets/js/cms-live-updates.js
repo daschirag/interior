@@ -329,11 +329,21 @@
 
     if (!build) return;
 
+    var discipline = Object.assign({}, row);
+    if (typeof discipline.images === "string") {
+      discipline.images = parseJsonField(
+        discipline.images,
+        discipline.image_url ? [discipline.image_url] : []
+      );
+    } else if (!Array.isArray(discipline.images) || !discipline.images.length) {
+      discipline.images = discipline.image_url ? [discipline.image_url] : [];
+    }
+
     window.VINAYAK_CMS_DISCIPLINES = window.VINAYAK_CMS_DISCIPLINES || {};
-    window.VINAYAK_CMS_DISCIPLINES[row.id] = row;
+    window.VINAYAK_CMS_DISCIPLINES[discipline.id] = discipline;
 
     var existing = list.querySelector(
-      '[data-discipline-id="' + esc(String(row.id)) + '"]',
+      '[data-discipline-id="' + esc(String(discipline.id)) + '"]',
     );
     var items = list.querySelectorAll("[data-discipline-id]");
     var index = existing
@@ -341,7 +351,7 @@
       : items.length;
 
     var wrap = document.createElement("div");
-    wrap.innerHTML = build(row, index);
+    wrap.innerHTML = build(discipline, index);
     var nextItem = wrap.firstElementChild;
     if (!nextItem) return;
 
@@ -355,9 +365,12 @@
     }
 
     if (wire) wire();
+    if (window.VINAYAK_SVC_GALLERY && window.VINAYAK_SVC_GALLERY.wireAll) {
+      window.VINAYAK_SVC_GALLERY.wireAll(list);
+    }
     if (window.AURUM && AURUM.refreshLazyMedia) AURUM.refreshLazyMedia();
     afterMorph();
-    console.info(LOG, "discipline updated:", row.id);
+    console.info(LOG, "discipline updated:", discipline.id);
   }
 
   function studiosGrid() {

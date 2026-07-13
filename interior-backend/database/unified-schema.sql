@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS disciplines (
   scope TEXT,
   tags TEXT[],
   image_url TEXT,
+  images TEXT[],
   cta_projects_link TEXT,
   cta_consult_link TEXT,
   is_active BOOLEAN DEFAULT true,

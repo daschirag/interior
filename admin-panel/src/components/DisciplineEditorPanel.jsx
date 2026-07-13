@@ -114,6 +114,12 @@ function DisciplineEditorPanel({
     setSaving(true);
     setStatus("");
     try {
+      const gallery =
+        Array.isArray(discipline.images) && discipline.images.length
+          ? discipline.images.filter(Boolean)
+          : discipline.image_url
+            ? [discipline.image_url]
+            : [];
       const payload = {
         title: discipline.title,
         slug: discipline.slug,
@@ -125,7 +131,8 @@ function DisciplineEditorPanel({
         timeline: discipline.timeline || "",
         scope: discipline.scope || "",
         tags: discipline.tags || [],
-        image_url: discipline.image_url || "",
+        images: gallery,
+        image_url: gallery[0] || "",
         cta_projects_link: discipline.cta_projects_link || "",
         cta_consult_link: discipline.cta_consult_link || "",
       };
@@ -324,18 +331,90 @@ function DisciplineEditorPanel({
                   }
                 />
               </label>
-              <div className="we-image-card">
-                <strong>Discipline image</strong>
-                {discipline.image_url && (
-                  <div
-                    className="we-image-thumb"
-                    style={{ backgroundImage: `url(${discipline.image_url})` }}
-                  />
-                )}
-                <CompactImageUploader
-                  label="Replace image"
-                  onUpload={(url) => update({ image_url: url })}
-                />
+              <div className="we-images">
+                <h3>Gallery photos</h3>
+                <p className="we-muted">
+                  Cover-flow + lightbox. Upload{" "}
+                  <strong>1800×1200</strong> (3:2 landscape), JPEG preferred,
+                  under ~3&nbsp;MB each. First image is the cover. Use{" "}
+                  <strong>Add image</strong> for photos 2–8 (Replace cover only
+                  swaps the first). Click <strong>Save</strong> after uploads or
+                  they won&apos;t appear on the site.
+                </p>
+                {(() => {
+                  const gallery =
+                    Array.isArray(discipline.images) && discipline.images.length
+                      ? [...discipline.images]
+                      : discipline.image_url
+                        ? [discipline.image_url]
+                        : [];
+                  const setGallery = (next) => {
+                    const cleaned = next.filter(Boolean);
+                    update({
+                      images: cleaned,
+                      image_url: cleaned[0] || "",
+                    });
+                  };
+                  return (
+                    <>
+                      <div className="we-image-card">
+                        <strong>Cover image (center slide)</strong>
+                        {gallery[0] && (
+                          <div
+                            className="we-image-thumb"
+                            style={{ backgroundImage: `url(${gallery[0]})` }}
+                          />
+                        )}
+                        <CompactImageUploader
+                          label={gallery[0] ? "Replace cover" : "Add cover"}
+                          recommended="1800x1200, 3:2 landscape"
+                          onUpload={(url) =>
+                            setGallery([url, ...gallery.slice(1)])
+                          }
+                        />
+                      </div>
+                      {gallery.slice(1).map((url, index) => (
+                        <div key={`gallery-${index}`} className="we-image-card">
+                          <strong>Gallery image {index + 1}</strong>
+                          {url && (
+                            <div
+                              className="we-image-thumb"
+                              style={{ backgroundImage: `url(${url})` }}
+                            />
+                          )}
+                          <CompactImageUploader
+                            label={url ? "Replace image" : "Add image"}
+                            recommended="1800x1200, 3:2 landscape"
+                            onUpload={(nextUrl) => {
+                              const next = [...gallery];
+                              next[index + 1] = nextUrl;
+                              setGallery(next);
+                            }}
+                          />
+                          <button
+                            type="button"
+                            className="we-btn we-btn--ghost"
+                            style={{ marginTop: 8 }}
+                            onClick={() => {
+                              const next = gallery.filter((_, i) => i !== index + 1);
+                              setGallery(next);
+                            }}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))}
+                      <div className="we-image-card">
+                        <strong>Add another photo</strong>
+                        <CompactImageUploader
+                          label="Add image"
+                          recommended="1800x1200, 3:2 landscape"
+                          onUpload={(url) => setGallery([...gallery, url])}
+                        />
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </>

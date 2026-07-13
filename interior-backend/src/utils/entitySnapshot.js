@@ -34,6 +34,11 @@ function disciplineToSnapshot(row) {
     scope: row.scope ?? null,
     tags: Array.isArray(row.tags) ? [...row.tags] : [],
     image_url: row.image_url ?? null,
+    images: Array.isArray(row.images)
+      ? [...row.images]
+      : row.image_url
+        ? [row.image_url]
+        : [],
     cta_projects_link: row.cta_projects_link ?? null,
     cta_consult_link: row.cta_consult_link ?? null,
     is_active: row.is_active !== false,
