@@ -626,6 +626,16 @@ html[lang="hi"].has-js [data-reveal="mask"]{
 .has-js [data-reveal]{ opacity:0; transform:translateY(28px); }
 .has-js [data-reveal="mask"]{ transform:none; overflow:hidden; padding-bottom:0.14em; margin-bottom:-0.14em; }
 .has-js [data-reveal="mask"] > *{ display:block; transform:translateY(108%); }
+/* First viewport must paint immediately — LCP was stuck on opacity:0 hero text */
+.has-js .hero [data-reveal],
+.has-js .phead [data-reveal]{
+  opacity:1;
+  transform:none;
+}
+.has-js .hero [data-reveal="mask"] > *,
+.has-js .phead [data-reveal="mask"] > *{
+  transform:none;
+}
 [data-reveal].is-in{ opacity:1; transform:none; transition:opacity 1s var(--e-out), transform 1.1s var(--e-out); }
 [data-reveal="mask"].is-in > *{ transform:translateY(0); transition:transform 1.05s var(--e-out); }
 .reveal-all [data-reveal]{ opacity:1 !important; transform:none !important; }

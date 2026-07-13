@@ -317,17 +317,26 @@
     var loader = document.querySelector(".loader");
     if (!loader) return;
     var hide = function () {
+      if (loader.dataset.hidden === "1") return;
+      loader.dataset.hidden = "1";
       loader.classList.add("done");
-      setTimeout(function () { loader.style.display = "none"; }, 850);
+      setTimeout(function () { loader.style.display = "none"; }, 500);
     };
     var seen = false;
     try { seen = sessionStorage.getItem("aurum_seen") === "1"; } catch (e) {}
-    if (seen) { loader.style.display = "none"; }
-    else {
-      window.addEventListener("load", function () { setTimeout(hide, 1500); });
-      setTimeout(hide, 3200); // safety
-      try { sessionStorage.setItem("aurum_seen", "1"); } catch (e) {}
+    if (seen) {
+      loader.style.display = "none";
+      return;
     }
+    try { sessionStorage.setItem("aurum_seen", "1"); } catch (e) {}
+    // Don't wait for window.load (all images) — that crushed LCP. Paint ASAP.
+    var start = function () { setTimeout(hide, 350); };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start, { once: true });
+    } else {
+      start();
+    }
+    setTimeout(hide, 1400); // safety
   }
 
   /* ---------- Boot ---------- */
