@@ -8,7 +8,10 @@
 <link rel="canonical" href="https://interior-sigma-one.vercel.app/Chat.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Sans+Kannada:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&family=Noto+Serif+Kannada:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<!-- EN fonts only (display=swap); kn/hi loaded by i18n.js on demand -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" /></noscript>
 <link rel="stylesheet" href="assets/css/aurum.css" />
 <link rel="stylesheet" href="assets/css/chat-page.css" />
 <script>document.documentElement.className = "has-js";</script>
@@ -120,10 +123,10 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
   ? "http://localhost:5000/api"
   : "https://vinayak-interiors-api.onrender.com/api";
 </script>
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/session.js"></script>
-<script src="assets/js/aurum.js"></script>
-<script src="assets/js/chatbot-engine.js"></script>
-<script src="assets/js/chat-page.js"></script>
+<script src="assets/js/i18n.js" defer></script>
+<script src="assets/js/session.js" defer></script>
+<script src="assets/js/aurum.js" defer></script>
+<script src="assets/js/chatbot-engine.js" defer></script>
+<script src="assets/js/chat-page.js" defer></script>
 </body>
 </html>

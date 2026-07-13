@@ -6,6 +6,32 @@
   var SUPPORTED = { en: true, kn: true, hi: true };
   var cache = {};
   var ready = null;
+  var FONT_HREF = {
+    kn:
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@300;400;500&family=Noto+Serif+Kannada:wght@300;400;500&display=swap",
+    hi:
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap",
+  };
+  var fontsLoaded = { kn: false, hi: false };
+
+  function ensureLangFonts(lang) {
+    lang = normalize(lang);
+    if (lang === "en" || !FONT_HREF[lang] || fontsLoaded[lang]) return;
+    if (document.getElementById("vinayak-font-" + lang)) {
+      fontsLoaded[lang] = true;
+      return;
+    }
+    fontsLoaded[lang] = true;
+    var link = document.createElement("link");
+    link.id = "vinayak-font-" + lang;
+    link.rel = "stylesheet";
+    link.href = FONT_HREF[lang];
+    link.media = "print";
+    link.onload = function () {
+      link.media = "all";
+    };
+    document.head.appendChild(link);
+  }
 
   function normalize(lang) {
     lang = String(lang || "en").toLowerCase();
@@ -88,6 +114,7 @@
     var silent = opts && opts.silent;
     currentLang = lang;
     writeStored(lang);
+    ensureLangFonts(lang);
 
     return loadDict("en")
       .then(function () {

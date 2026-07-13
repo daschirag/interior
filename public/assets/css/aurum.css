@@ -202,12 +202,12 @@ html.has-js .torch{ opacity:1; }
   font-weight:400;
 }
 .lang-switch button[data-lang-switch="kn"]{
-  font-family:"Noto Sans Kannada", var(--sans);
+  font-family: system-ui, "Segoe UI", "Noto Sans", sans-serif;
   font-size:9.5px;
   letter-spacing:0;
 }
 .lang-switch button[data-lang-switch="hi"]{
-  font-family:"Noto Sans Devanagari", var(--sans);
+  font-family: system-ui, "Segoe UI", "Noto Sans", sans-serif;
   font-size:10px;
   letter-spacing:0;
 }

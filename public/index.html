@@ -23,7 +23,10 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Sans+Kannada:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&family=Noto+Serif+Kannada:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<!-- EN fonts only (display=swap); kn/hi loaded by i18n.js on demand -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Space+Mono:wght@400&display=swap" /></noscript>
 <link rel="stylesheet" href="assets/css/world.css" />
 <style>
 /* Language switcher — Threshold chrome only (does not affect stage/GSAP) */
@@ -40,8 +43,8 @@
 .lang-switch button:hover{ color:var(--ink); }
 .lang-switch button.is-active{ color:var(--azure-bright); }
 .lang-switch .lang-sep{ color:var(--ink-faint); opacity:.55; user-select:none; }
-.lang-switch button[data-lang-switch="kn"]{ font-family:"Noto Sans Kannada", var(--sans); font-size:9.5px; letter-spacing:0; }
-.lang-switch button[data-lang-switch="hi"]{ font-family:"Noto Sans Devanagari", var(--sans); font-size:10px; letter-spacing:0; }
+.lang-switch button[data-lang-switch="kn"]{ font-family:system-ui,"Segoe UI","Noto Sans",sans-serif; font-size:9.5px; letter-spacing:0; }
+.lang-switch button[data-lang-switch="hi"]{ font-family:system-ui,"Segoe UI","Noto Sans",sans-serif; font-size:10px; letter-spacing:0; }
 
 /* Longer Indic CTAs on Threshold enter button */
 html[lang="kn"] #enterSite,
@@ -227,10 +230,10 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
   ? "http://localhost:5000/api"
   : "https://vinayak-interiors-api.onrender.com/api";
 </script>
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/image-url.js"></script>
-<script src="assets/js/api.js"></script>
-<script src="assets/js/cms-hydrate.js"></script>
-<script src="assets/js/engine.js"></script>
+<script src="assets/js/i18n.js" defer></script>
+<script src="assets/js/image-url.js" defer></script>
+<script src="assets/js/api.js" defer></script>
+<script src="assets/js/cms-hydrate.js" defer></script>
+<script src="assets/js/engine.js" defer></script>
 </body>
 </html>
