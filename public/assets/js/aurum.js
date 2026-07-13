@@ -193,10 +193,11 @@
         }
       } catch (e) { /* fall back to native scroll */ }
     }
-    // Page scroll animations (parallax + per-page hooks) run after CMS hydration when needed
+    // Page scroll animations — defer so hero LCP isn't blocked by GSAP transforms
     function setupScrollAnimations() {
       if (hasGsap && window.ScrollTrigger) {
         document.querySelectorAll("[data-parallax]").forEach(function (el) {
+          if (el.closest(".hero")) return; // never parallax the LCP hero
           var amt = parseFloat(el.getAttribute("data-parallax")) || 0.18;
           gsap.fromTo(el, { yPercent: -amt * 50 }, {
             yPercent: amt * 50, ease: "none",
@@ -207,10 +208,14 @@
       if (AURUM.onSmooth) try { AURUM.onSmooth(); } catch (e) {}
       if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh(true);
     }
+    function whenIdle(fn) {
+      if (window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2500 });
+      else setTimeout(fn, 1200);
+    }
     if (window.VINAYAK_WAIT_CMS && window.VINAYAK_CMS_READY) {
-      window.VINAYAK_CMS_READY.finally(setupScrollAnimations);
+      window.VINAYAK_CMS_READY.finally(function () { whenIdle(setupScrollAnimations); });
     } else {
-      setupScrollAnimations();
+      whenIdle(setupScrollAnimations);
     }
   }
 
