@@ -9,4 +9,4 @@ Disallow: /admin-analytics.html
 Disallow: /admin-analytics.js
 
 # Absolute sitemap URL — update SITE_ORIGIN if you attach a custom domain
-Sitemap: https://www.vinayakainteriors.com/sitemap.xml
+Sitemap: https://interior-sigma-one.vercel.app/sitemap.xml

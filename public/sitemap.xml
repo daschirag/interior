@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  SITE_ORIGIN: https://www.vinayakainteriors.com
+  SITE_ORIGIN: https://interior-sigma-one.vercel.app
   Replace with your live Vercel/custom domain (no trailing slash) if different,
   then update robots.txt Sitemap: line to match.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.vinayakainteriors.com/index.html</loc>
+    <loc>https://interior-sigma-one.vercel.app/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.vinayakainteriors.com/dashboard.html</loc>
+    <loc>https://interior-sigma-one.vercel.app/dashboard.html</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.vinayakainteriors.com/Projects.html</loc>
+    <loc>https://interior-sigma-one.vercel.app/Projects.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.vinayakainteriors.com/Services.html</loc>
+    <loc>https://interior-sigma-one.vercel.app/Services.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.vinayakainteriors.com/Contact.html</loc>
+    <loc>https://interior-sigma-one.vercel.app/Contact.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.vinayakainteriors.com/Chat.html</loc>
+    <loc>https://interior-sigma-one.vercel.app/Chat.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
