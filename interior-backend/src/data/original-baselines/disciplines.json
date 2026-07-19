@@ -1,0 +1,355 @@
+[
+  {
+    "slug": "1-bhk-interiors",
+    "title": "1 BHK Interiors",
+    "display_order": 1,
+    "subtitle": "Compact · Complete",
+    "headline": "Every square foot,<br><em>considered</em>.",
+    "description": "A 1 BHK is not a smaller home — it is a tighter brief. We resolve storage, light and mood into a space that lives larger than its footprint.",
+    "budget_range": "₹1.5L – ₹2L",
+    "timeline": "6 – 10 weeks",
+    "scope": "Full fit-out",
+    "tags": [
+      "Space planning",
+      "Modular storage",
+      "Lighting design",
+      "Material board",
+      "Site supervision"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/1bhk-1783954526927-WhatsApp_Image_2026-07-13_at_20.17.58_uxDzoDMFS.jpeg",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/1bhk-1783954526927-WhatsApp_Image_2026-07-13_at_20.17.58_uxDzoDMFS.jpeg",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/1bhk-1783954528647-WhatsApp_Image_2026-07-13_at_20.18.28_0Wou0LK2I.jpeg",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/1bhk-1783954530004-WhatsApp_Image_2026-07-13_at_20.18.45_e6bXPAec5.jpeg",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/1bhk-1783954531353-WhatsApp_Image_2026-07-13_at_20.19.14_q7FkvrhbLA.jpeg"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "2-bhk-interiors",
+    "title": "2 BHK Interiors",
+    "display_order": 2,
+    "subtitle": "Family · Considered",
+    "headline": "Designed for<br><em>how you live</em>.",
+    "description": "A family home with two bedrooms calls for separate moods held together by one coherent material language.",
+    "budget_range": "₹2.5L – ₹3L",
+    "timeline": "10 – 14 weeks",
+    "scope": "Complete interiors",
+    "tags": [
+      "Living & dining",
+      "2 bedrooms",
+      "Kitchen",
+      "Wardrobes",
+      "False ceiling",
+      "Lighting"
+    ],
+    "image_url": "assets/images/img-svc-2bhk.jpg",
+    "images": [
+      "assets/images/img-svc-2bhk.jpg"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "3-bhk-interiors",
+    "title": "3 BHK Interiors",
+    "display_order": 3,
+    "subtitle": "Layered · Spacious",
+    "headline": "Room by room,<br><em>resolved</em>.",
+    "description": "Three bedrooms mean three distinct personalities within one home. We compose each individually while keeping the house coherent.",
+    "budget_range": "₹3.5L",
+    "timeline": "14 – 20 weeks",
+    "scope": "Full architecture",
+    "tags": [
+      "3 bedrooms",
+      "Living & dining",
+      "Kitchen",
+      "Utility",
+      "Wardrobes",
+      "Ceilings",
+      "Lighting"
+    ],
+    "image_url": "assets/images/img-svc-3bhk.jpg",
+    "images": [
+      "assets/images/img-svc-3bhk.jpg"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "4-bhk-interiors",
+    "title": "4 BHK Interiors",
+    "display_order": 4,
+    "subtitle": "Estate · Bespoke",
+    "headline": "The complete<br><em>residence</em>.",
+    "description": "A 4 BHK is a full architectural commission. Custom joinery, bespoke furniture, stone work and lighting design resolved from a single material palette.",
+    "budget_range": "₹4.5L",
+    "timeline": "20 – 32 weeks",
+    "scope": "Signature project",
+    "tags": [
+      "Custom joinery",
+      "Stone work",
+      "Bespoke furniture",
+      "Home theatre",
+      "Lighting design"
+    ],
+    "image_url": "assets/images/img-svc-4bhk.jpg",
+    "images": [
+      "assets/images/img-svc-4bhk.jpg"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "modular-kitchen",
+    "title": "Modular Kitchen",
+    "display_order": 5,
+    "subtitle": "Engineered · Crafted",
+    "headline": "Where cooking<br><em>becomes craft</em>.",
+    "description": "We engineer the workflow first — the triangle, the storage hierarchy, the ventilation — and then compose the surface: stone, metal, wood and light.",
+    "budget_range": "₹3.5L – ₹12L",
+    "timeline": "4 – 7 weeks",
+    "scope": "Full kitchen",
+    "tags": [
+      "Layout planning",
+      "Modular cabinets",
+      "Counter stone",
+      "Appliance integration",
+      "Lighting"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/kitchen-1783945454008-ChatGPT_Image_Jul_13__2026__05_39_08_PM_TfD6ohxHT.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/kitchen-1783945454008-ChatGPT_Image_Jul_13__2026__05_39_08_PM_TfD6ohxHT.png",
+      "assets/images/img-kitchen.jpg",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/kitchen-1783945447489-ChatGPT_Image_Jul_13__2026__05_24_52_PM_J7f4NsflN.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/kitchen-1783945449912-ChatGPT_Image_Jul_13__2026__05_29_50_PM_vWCv3O6xbE.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/kitchen-1783945452060-ChatGPT_Image_Jul_13__2026__05_33_15_PM_wUiuUVcTC.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "luxury-living-rooms",
+    "title": "Luxury Living Rooms",
+    "display_order": 6,
+    "subtitle": "Signature · Statement",
+    "headline": "The room that<br><em>announces you</em>.",
+    "description": "We build it around a single strong idea — a material, a view, a piece — and let everything else serve that centre of gravity.",
+    "budget_range": "₹5L – ₹20L",
+    "timeline": "6 – 10 weeks",
+    "scope": "Signature room",
+    "tags": [
+      "Feature wall",
+      "Custom furniture",
+      "Ambient lighting",
+      "Stone & brass",
+      "Drapery"
+    ],
+    "image_url": "assets/images/img-living.jpg",
+    "images": [
+      "assets/images/img-living.jpg"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-interiors",
+    "title": "Aluminium Interiors",
+    "display_order": 7,
+    "subtitle": "Durable · Precise",
+    "headline": "Built to last<br><em>a generation</em>.",
+    "description": "Termite-proof, warp-proof and finished to a millimetre — the practical choice that still looks considered.",
+    "budget_range": "₹2.5L – ₹8L",
+    "timeline": "3 – 6 weeks",
+    "scope": "Modular units",
+    "tags": [
+      "Wardrobes",
+      "Kitchen frames",
+      "Partitions",
+      "Termite-proof",
+      "10yr warranty"
+    ],
+    "image_url": "assets/images/img-svc-aluminium.jpg",
+    "images": [
+      "assets/images/img-svc-aluminium.jpg"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-tv-unit",
+    "title": "Aluminium TV Unit",
+    "display_order": 8,
+    "subtitle": "Living · Focal",
+    "headline": "The screen,<br><em>composed</em>.",
+    "description": "Wall-mounted or floor-standing aluminium TV units with concealed wiring, ambient backlight channels and laminate or glass shutters — built for clean lines and daily use.",
+    "budget_range": "₹45K – ₹2.5L",
+    "timeline": "1 – 3 weeks",
+    "scope": "Single unit",
+    "tags": [
+      "Wall mount",
+      "Cable management",
+      "LED grove",
+      "Shutters",
+      "Hardware"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/tv-unit-1783948714799-ChatGPT_Image_Jul_13__2026__06_26_13_PM__LZHgtTI2.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/tv-unit-1783948714799-ChatGPT_Image_Jul_13__2026__06_26_13_PM__LZHgtTI2.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/tv-unit-1783948717103-ChatGPT_Image_Jul_13__2026__06_31_32_PM_Yy_dc-EQV.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/tv-unit-1783948719139-ChatGPT_Image_Jul_13__2026__06_36_19_PM_ZZwvZBuy1.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/tv-unit-1783948720904-ChatGPT_Image_Jul_13__2026__06_43_33_PM_61dyN0KwL.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-showcase",
+    "title": "Aluminium Showcase",
+    "display_order": 9,
+    "subtitle": "Display · Curated",
+    "headline": "Objects,<br><em>elevated</em>.",
+    "description": "Display cabinets in aluminium frame with glass fronts — for dining niches, living alcoves and collector shelves that stay dust-free without looking heavy.",
+    "budget_range": "₹60K – ₹3L",
+    "timeline": "2 – 4 weeks",
+    "scope": "Display unit",
+    "tags": [
+      "Glass fronts",
+      "LED lighting",
+      "Adjustable shelves",
+      "Locks",
+      "Laminate finish"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/showcase-1783950369298-ChatGPT_Image_Jul_13__2026__07_03_41_PM_9S_j8wml1.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/showcase-1783950369298-ChatGPT_Image_Jul_13__2026__07_03_41_PM_9S_j8wml1.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/showcase-1783950372057-ChatGPT_Image_Jul_13__2026__07_06_04_PM_DlLWl7ce6.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/showcase-1783950373868-ChatGPT_Image_Jul_13__2026__07_07_32_PM_ZPU3PEq8a.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/showcase-1783950375777-ChatGPT_Image_Jul_13__2026__07_10_00_PM_0AVHW5cuX.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-dressing-table",
+    "title": "Aluminium Dressing Table",
+    "display_order": 10,
+    "subtitle": "Personal · Refined",
+    "headline": "Morning ritual,<br><em>resolved</em>.",
+    "description": "Compact dressing units with mirror integration, drawer banks and soft-close hardware — aluminium carcass with laminate or lacquer fronts tailored to your bedroom.",
+    "budget_range": "₹35K – ₹1.8L",
+    "timeline": "1 – 3 weeks",
+    "scope": "Bedroom unit",
+    "tags": [
+      "Mirror panel",
+      "Soft-close drawers",
+      "Vanity storage",
+      "LED mirror",
+      "Custom width"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/dressing-1783952762170-ChatGPT_Image_Jul_13__2026__07_51_38_PM_ciY5Zu7R4.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/dressing-1783952762170-ChatGPT_Image_Jul_13__2026__07_51_38_PM_ciY5Zu7R4.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/dressing-1783952764289-ChatGPT_Image_Jul_13__2026__07_52_17_PM_KTNawkI4a.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/dressing-1783952766115-ChatGPT_Image_Jul_13__2026__07_52_30_PM_mdPx8JMKA.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/dressing-1783952767964-ChatGPT_Image_Jul_13__2026__07_52_37_PM_KWW8HOZGL.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-pantry-unit",
+    "title": "Aluminium Pantry Unit",
+    "display_order": 11,
+    "subtitle": "Storage · Utility",
+    "headline": "Everything behind<br><em>one door</em>.",
+    "description": "Tall pantry cupboards for kitchens and utilities — deep shelving, pull-out baskets and ventilated zones for provisions, appliances and daily stock.",
+    "budget_range": "₹50K – ₹2.2L",
+    "timeline": "2 – 4 weeks",
+    "scope": "Pantry fit-out",
+    "tags": [
+      "Pull-out baskets",
+      "Tall unit",
+      "Ventilation",
+      "Adjustable shelves",
+      "Soft-close"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/pantry-1783953558049-ChatGPT_Image_Jul_13__2026__08_04_40_PM_EbkNpXH4S.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/pantry-1783953558049-ChatGPT_Image_Jul_13__2026__08_04_40_PM_EbkNpXH4S.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/pantry-1783953560362-ChatGPT_Image_Jul_13__2026__08_04_46_PM_cnfGyh7Xm.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/pantry-1783953562175-ChatGPT_Image_Jul_13__2026__08_04_52_PM_irpEm5ahco.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/pantry-1783953563823-ChatGPT_Image_Jul_13__2026__08_04_58_PM_vFWJbGE0tf.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-partition",
+    "title": "Aluminium Partition",
+    "display_order": 12,
+    "subtitle": "Space · Defined",
+    "headline": "Rooms without<br><em>walls</em>.",
+    "description": "Sliding or fixed aluminium partitions with glass, laminate or fluted panels — divide living and dining, foyer and study without blocking light.",
+    "budget_range": "₹80K – ₹4L",
+    "timeline": "2 – 5 weeks",
+    "scope": "Partition system",
+    "tags": [
+      "Sliding track",
+      "Glass panels",
+      "Fluted insert",
+      "Floor guide",
+      "Custom height"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/partition-1783951884587-ChatGPT_Image_Jul_13__2026__07_31_07_PM_mdq7YBc8UR.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/partition-1783951884587-ChatGPT_Image_Jul_13__2026__07_31_07_PM_mdq7YBc8UR.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/partition-1783951886963-ChatGPT_Image_Jul_13__2026__07_31_50_PM_Llm22Ew9K.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/partition-1783951888837-ChatGPT_Image_Jul_13__2026__07_33_56_PM_9EMxl99O0.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/partition-1783951890826-ChatGPT_Image_Jul_13__2026__07_35_07_PM_Z5wMXPPg5.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  },
+  {
+    "slug": "aluminium-loft",
+    "title": "Aluminium Loft",
+    "display_order": 13,
+    "subtitle": "Overhead · Maximised",
+    "headline": "Height,<br><em>reclaimed</em>.",
+    "description": "Overhead loft storage above wardrobes, kitchens and corridors — aluminium framework with accessible shutters to use every inch of vertical space.",
+    "budget_range": "₹40K – ₹2L",
+    "timeline": "1 – 3 weeks",
+    "scope": "Loft storage",
+    "tags": [
+      "Overhead unit",
+      "Access shutters",
+      "Wardrobe top",
+      "Kitchen loft",
+      "Dust-sealed"
+    ],
+    "image_url": "https://ik.imagekit.io/vqyudydbj/interior-cms/loft-1783951152666-ChatGPT_Image_Jul_13__2026__07_15_35_PM_kfwQ7ul51.png",
+    "images": [
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/loft-1783951152666-ChatGPT_Image_Jul_13__2026__07_15_35_PM_kfwQ7ul51.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/loft-1783951155308-ChatGPT_Image_Jul_13__2026__07_18_26_PM_nqkt6M8nK.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/loft-1783951157073-ChatGPT_Image_Jul_13__2026__07_23_41_PM_S19AvBDUm.png",
+      "https://ik.imagekit.io/vqyudydbj/interior-cms/loft-1783951158960-ChatGPT_Image_Jul_13__2026__07_26_02_PM_-u-kxtbI0.png"
+    ],
+    "cta_projects_link": "Projects.html",
+    "cta_consult_link": "Contact.html",
+    "is_active": true
+  }
+]

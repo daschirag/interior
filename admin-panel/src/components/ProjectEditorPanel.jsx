@@ -183,7 +183,7 @@ function ProjectEditorPanel({
   const handleResetDefault = async () => {
     if (
       !window.confirm(
-        "Reset this project to its originally seeded content? Current state will be saved to history first.",
+        "Reset this project to the current website original? Current state will be saved to history first.",
       )
     ) {
       return;
@@ -402,7 +402,7 @@ function ProjectEditorPanel({
               className="we-btn we-btn--danger-outline"
               onClick={handleResetDefault}
             >
-              Reset to original seeded content
+              Reset to current website original
             </button>
           </div>
         )}
@@ -416,7 +416,7 @@ function ProjectEditorPanel({
           <p className="we-status we-status--ok">Version restored and saved.</p>
         )}
         {status === "reset" && (
-          <p className="we-status we-status--ok">Reset to originally seeded content.</p>
+          <p className="we-status we-status--ok">Reset to current website original.</p>
         )}
         {status === "discarded" && (
           <p className="we-status">Discarded unsaved changes.</p>

@@ -244,7 +244,7 @@ function ContentBlockEditorPanel({
   const handleResetDefault = async () => {
     if (
       !window.confirm(
-        "Reset this section to original launch-day content? This cannot be undone except via history.",
+        "Reset this section to the current website original? Current state will be saved to history first.",
       )
     ) {
       return;
@@ -412,7 +412,7 @@ function ContentBlockEditorPanel({
               className="we-btn we-btn--danger-outline"
               onClick={handleResetDefault}
             >
-              Reset to original launch content
+              Reset to current website original
             </button>
           </div>
         )}
@@ -428,7 +428,7 @@ function ContentBlockEditorPanel({
           <p className="we-status we-status--ok">Version restored and saved.</p>
         )}
         {status === "reset" && (
-          <p className="we-status we-status--ok">Reset to launch-day content.</p>
+          <p className="we-status we-status--ok">Reset to current website original.</p>
         )}
         {status === "discarded" && (
           <p className="we-status">Discarded unsaved changes.</p>

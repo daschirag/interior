@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Penthouse Fourteen",
+    "slug": "penthouse-fourteen",
+    "location": "Bangalore",
+    "year": 2025,
+    "area_sqft": 0,
+    "project_type": "4 BHK Residence",
+    "description": "A sky-level home composed around a travertine spine, with brass thresholds marking each shift in mood from public to private.",
+    "material_tags": [
+      "Travertine",
+      "Brass",
+      "Oak",
+      "Linen"
+    ],
+    "images": [
+      "assets/images/img-panel-penthouse.jpg",
+      "assets/images/img-featured-penthouse.jpg"
+    ],
+    "before_image_url": "assets/images/img-ba-before.jpg",
+    "after_image_url": "assets/images/img-ba-after.jpg",
+    "is_featured": true,
+    "journey_order": 1,
+    "is_active": true
+  },
+  {
+    "title": "The Basalt House",
+    "slug": "the-basalt-house",
+    "location": "Dharwad",
+    "year": 2024,
+    "area_sqft": null,
+    "project_type": "Villa",
+    "description": "Dark stone and low light. A house that holds the heat out and the calm in — built around a planted internal court.",
+    "material_tags": [
+      "Basalt",
+      "Walnut",
+      "Bronze"
+    ],
+    "images": [
+      "assets/images/img-panel-basalt.jpg",
+      "assets/images/img-featured-basalt.jpg"
+    ],
+    "before_image_url": null,
+    "after_image_url": null,
+    "is_featured": true,
+    "journey_order": 2,
+    "is_active": true
+  },
+  {
+    "title": "Linen & Oak",
+    "slug": "linen-oak",
+    "location": "Hubli",
+    "year": 2025,
+    "area_sqft": null,
+    "project_type": "2 BHK Apartment",
+    "description": "A soft, bright apartment for a young family — rift oak, raw linen and a kitchen that opens fully to the living room.",
+    "material_tags": [
+      "Rift Oak",
+      "Linen",
+      "Plaster"
+    ],
+    "images": [
+      "assets/images/img-panel-linen-oak.jpg",
+      "assets/images/img-featured-linen-oak.jpg"
+    ],
+    "before_image_url": null,
+    "after_image_url": null,
+    "is_featured": true,
+    "journey_order": 3,
+    "is_active": true
+  }
+]
