@@ -672,8 +672,8 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
 <script src="assets/js/session.js" defer></script>
 <script src="assets/js/aurum.js" defer></script>
 <script>
-/* Consultation multi-step journey */
-(function () {
+/* Consultation multi-step journey — wait for deferred api.js (DOMContentLoaded) */
+document.addEventListener("DOMContentLoaded", function () {
   var step = 0, total = 6;
   function tt(key, fallback) {
     if (window.VINAYAK_I18N && typeof window.VINAYAK_I18N.t === "function") {
@@ -685,6 +685,7 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
   var data = { name:"", email:"", phone:"", city:"", region:"", space:"", style:"", msg:"" };
   var cityCatalog = [];
   var stage = document.getElementById("cStage");
+  if (!stage) return;
   var steps = stage.querySelectorAll(".cstep");
   var caSteps = document.querySelectorAll("#caSteps .ca-step");
   var fill = document.getElementById("cFill");
@@ -746,12 +747,35 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
     if (exact) return exact;
     var key = normalizeCityKey(q);
     if (key.length < 2) return null;
-    var matches = cityCatalog.filter(function (c) {
-      var cKey = normalizeCityKey(c.city);
-      var dKey = normalizeCityKey(c.district);
-      return cKey.indexOf(key) === 0 || dKey.indexOf(key) === 0;
+
+    // Exact district name (e.g. "Bagalkot") → prefer the district's own city row
+    var districtExact = cityCatalog.filter(function (c) {
+      return normalizeCityKey(c.district) === key && normalizeCityKey(c.city) === key;
     });
-    if (matches.length === 1) return matches[0];
+    if (districtExact.length === 1) return districtExact[0];
+    if (!districtExact.length) {
+      var byDistrict = cityCatalog.filter(function (c) {
+        return normalizeCityKey(c.district) === key;
+      });
+      if (byDistrict.length === 1) return byDistrict[0];
+    }
+
+    // Prefix match on city name only (avoid district fan-out: Bagalkot matches 8 towns)
+    var cityPrefix = cityCatalog.filter(function (c) {
+      return normalizeCityKey(c.city).indexOf(key) === 0;
+    });
+    if (cityPrefix.length === 1) return cityPrefix[0];
+    // Prefer shortest city name when several start with the same stem (Bagalkot vs Bagalkote)
+    if (cityPrefix.length > 1) {
+      cityPrefix.sort(function (a, b) {
+        return normalizeCityKey(a.city).length - normalizeCityKey(b.city).length;
+      });
+      var best = cityPrefix[0];
+      var bestKey = normalizeCityKey(best.city);
+      if (cityPrefix.every(function (c) { return normalizeCityKey(c.city).indexOf(bestKey) === 0; })) {
+        return best;
+      }
+    }
     return null;
   }
 
@@ -807,16 +831,44 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
     cityDetect.classList.add("is-unknown");
   }
 
+  function applyCatalog(list) {
+    if (!list || !list.length) return false;
+    cityCatalog = list;
+    syncCityFromInput();
+    return true;
+  }
+
+  function loadFallbackCatalog() {
+    return fetch("assets/data/karnataka-cities.json")
+      .then(function (res) {
+        if (!res.ok) throw new Error("fallback missing");
+        return res.json();
+      })
+      .then(function (res) {
+        if (res && res.data && res.data.all) applyCatalog(res.data.all);
+      })
+      .catch(function () {
+        console.warn("Could not load Karnataka city catalog");
+      });
+  }
+
   function loadCityCatalog() {
-    if (!window.VINAYAK) return;
-    VINAYAK.getKarnatakaLocations().then(function (res) {
-      if (res.success && res.data && res.data.all) {
-        cityCatalog = res.data.all;
-        syncCityFromInput();
-      }
-    }).catch(function () {
-      console.warn("Could not load Karnataka locations from API");
-    });
+    var apiPromise =
+      window.VINAYAK && typeof VINAYAK.getKarnatakaLocations === "function"
+        ? VINAYAK.getKarnatakaLocations()
+        : Promise.reject(new Error("VINAYAK API not ready"));
+
+    apiPromise
+      .then(function (res) {
+        if (res.success && res.data && res.data.all && res.data.all.length) {
+          applyCatalog(res.data.all);
+          return;
+        }
+        return loadFallbackCatalog();
+      })
+      .catch(function () {
+        return loadFallbackCatalog();
+      });
   }
 
   if (cityInput) {
@@ -917,7 +969,7 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
   back.addEventListener("click", function () { if (step > 0) { step--; render(); } });
   window.addEventListener("vinayak:langchange", function () { render(); });
   render();
-})();
+});
 </script>
 </body>
 </html>
