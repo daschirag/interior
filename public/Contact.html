@@ -325,7 +325,13 @@ html[lang="hi"] .phead .kicker{
               <div class="cq" data-i18n-key="contact.q_reach" data-i18n-html="true">Where may we <em>reach you</em>?</div>
               <div class="chint" data-i18n-key="contact.h_reach">We'll send a note to arrange your consultation.</div>
               <div class="cfield"><label data-i18n-key="contact.label_email">Email</label><input id="f_email" type="email" placeholder="you@residence.com" data-i18n-key="contact.ph_email" data-i18n-attr="placeholder" autocomplete="email" /><span class="ul"></span></div>
-              <div class="cfield"><label data-i18n-key="contact.label_phone">Phone</label><input id="f_phone" type="tel" placeholder="+91 ·····" data-i18n-key="contact.ph_phone" data-i18n-attr="placeholder" autocomplete="tel" /><span class="ul"></span></div>
+              <div class="cfield cfield-phone"><label data-i18n-key="contact.label_phone">Mobile number</label>
+                <div class="phone-row">
+                  <span class="phone-prefix" aria-hidden="true">+91</span>
+                  <input id="f_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="98765 43210" data-i18n-key="contact.ph_phone" data-i18n-attr="placeholder" autocomplete="tel-national" aria-label="10-digit mobile number" />
+                </div>
+                <span class="ul"></span>
+              </div>
             </div>
             <!-- 2 city -->
             <div class="cstep" data-step="2">
@@ -345,11 +351,19 @@ html[lang="hi"] .phead .kicker{
               <div class="chint" data-i18n-key="contact.h_space">Choose the space closest to your project.</div>
               <p class="copt-hint" data-i18n-key="contact.form_opt_hint">Tap an option to select</p>
               <div class="copts" id="optSpace">
+                <button class="copt" type="button" data-v="1 BHK"><span class="on-name">1 BHK</span><span class="on-d" data-i18n-key="contact.opt_1bhk_d">Compact home</span></button>
                 <button class="copt" type="button" data-v="2 BHK"><span class="on-name">2 BHK</span><span class="on-d" data-i18n-key="contact.opt_2bhk_d">Family home</span></button>
                 <button class="copt" type="button" data-v="3 BHK"><span class="on-name">3 BHK</span><span class="on-d" data-i18n-key="contact.opt_3bhk_d">Layered home</span></button>
                 <button class="copt" type="button" data-v="4 BHK"><span class="on-name">4 BHK</span><span class="on-d" data-i18n-key="contact.opt_4bhk_d">Estate</span></button>
                 <button class="copt" type="button" data-v="Modular Kitchen"><span class="on-name" data-i18n-key="contact.opt_kitchen">Modular Kitchen</span><span class="on-d" data-i18n-key="contact.opt_kitchen_d">The hearth</span></button>
                 <button class="copt" type="button" data-v="Living Room"><span class="on-name" data-i18n-key="contact.opt_living">Living Room</span><span class="on-d" data-i18n-key="contact.opt_living_d">Signature space</span></button>
+                <button class="copt" type="button" data-v="Aluminium Interiors"><span class="on-name" data-i18n-key="contact.opt_aluminium">Aluminium Interiors</span><span class="on-d" data-i18n-key="contact.opt_aluminium_d">Full fit-out</span></button>
+                <button class="copt" type="button" data-v="Aluminium TV Unit"><span class="on-name" data-i18n-key="contact.opt_tv">Aluminium TV Unit</span><span class="on-d" data-i18n-key="contact.opt_tv_d">Media wall</span></button>
+                <button class="copt" type="button" data-v="Aluminium Showcase"><span class="on-name" data-i18n-key="contact.opt_showcase">Aluminium Showcase</span><span class="on-d" data-i18n-key="contact.opt_showcase_d">Display &amp; storage</span></button>
+                <button class="copt" type="button" data-v="Aluminium Dressing Table"><span class="on-name" data-i18n-key="contact.opt_dressing">Aluminium Dressing Table</span><span class="on-d" data-i18n-key="contact.opt_dressing_d">Wardrobe &amp; vanity</span></button>
+                <button class="copt" type="button" data-v="Aluminium Pantry Unit"><span class="on-name" data-i18n-key="contact.opt_pantry">Aluminium Pantry Unit</span><span class="on-d" data-i18n-key="contact.opt_pantry_d">Kitchen storage</span></button>
+                <button class="copt" type="button" data-v="Aluminium Partition"><span class="on-name" data-i18n-key="contact.opt_partition">Aluminium Partition</span><span class="on-d" data-i18n-key="contact.opt_partition_d">Space divider</span></button>
+                <button class="copt" type="button" data-v="Aluminium Loft"><span class="on-name" data-i18n-key="contact.opt_loft">Aluminium Loft</span><span class="on-d" data-i18n-key="contact.opt_loft_d">Overhead storage</span></button>
               </div>
             </div>
             <!-- 4 style -->
@@ -658,9 +672,7 @@ html[lang="hi"] .phead .kicker{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/morphdom@2.7.1/dist/morphdom-umd.min.js" defer></script>
 <script>
-window.VINAYAK_API = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-  ? "http://localhost:5000/api"
-  : "https://vinayak-interiors-api.onrender.com/api";
+window.VINAYAK_API = "https://vinayak-interiors-api.onrender.com/api";
 </script>
 <script src="assets/js/i18n.js" defer></script>
 <script src="assets/js/image-url.js" defer></script>
@@ -909,14 +921,44 @@ document.addEventListener("DOMContentLoaded", function () {
     if (step === 2) syncCityFromInput();
   }
 
+  function normalizePhone(raw) {
+    var digits = String(raw || "").replace(/\D/g, "");
+    // Strip country code if user pasted 91XXXXXXXXXX or 091...
+    if (digits.length === 12 && digits.indexOf("91") === 0) digits = digits.slice(2);
+    if (digits.length === 11 && digits.charAt(0) === "0") digits = digits.slice(1);
+    return digits.slice(0, 10);
+  }
+
+  function isValidIndianMobile(raw) {
+    var digits = normalizePhone(raw);
+    // India mobile: 10 digits starting 6–9
+    return /^[6-9]\d{9}$/.test(digits);
+  }
+
+  var phoneInput = document.getElementById("f_phone");
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      phoneInput.value = normalizePhone(phoneInput.value);
+    });
+    phoneInput.addEventListener("paste", function (ev) {
+      ev.preventDefault();
+      var text = (ev.clipboardData || window.clipboardData).getData("text") || "";
+      phoneInput.value = normalizePhone(text);
+    });
+  }
+
   function validate() {
     err.classList.remove("show");
     if (step === 0) { data.name = document.getElementById("f_name").value.trim(); if (data.name.length < 2) return tt("contact.err_name", "Kindly share your name"); }
     if (step === 1) {
       data.email = document.getElementById("f_email").value.trim();
-      data.phone = document.getElementById("f_phone").value.trim();
+      var phoneRaw = document.getElementById("f_phone").value.trim();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) return tt("contact.err_email", "A valid email, please");
-      if (data.phone.replace(/\D/g, "").length < 7) return tt("contact.err_phone", "A number we can reach you on");
+      if (!phoneRaw) return tt("contact.err_phone_empty", "Please enter your mobile number");
+      if (!isValidIndianMobile(phoneRaw)) {
+        return tt("contact.err_phone", "Enter a valid 10-digit Indian mobile number");
+      }
+      data.phone = "+91" + normalizePhone(phoneRaw);
     }
     if (step === 2) {
       syncCityFromInput();
@@ -926,6 +968,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (step === 3 && !data.space) return tt("contact.err_space", "Choose the space");
     if (step === 4 && !data.style) return tt("contact.err_style", "Choose a direction");
+    // step 5 (note) is optional — empty message is allowed
     return "";
   }
 
@@ -938,6 +981,14 @@ document.addEventListener("DOMContentLoaded", function () {
       next.disabled = true;
       nextLabel.textContent = tt("contact.form_sending", "Sending…");
 
+      if (!window.VINAYAK || typeof VINAYAK.postContact !== "function") {
+        err.textContent = tt("contact.err_send", "Could not send your brief. Please try again or call your nearest studio.");
+        err.classList.add("show");
+        next.disabled = false;
+        nextLabel.textContent = tt("contact.form_submit", "Send brief");
+        return;
+      }
+
       VINAYAK.postContact({
           name: data.name,
           email: data.email,
@@ -945,10 +996,13 @@ document.addEventListener("DOMContentLoaded", function () {
           city: data.city,
           space: data.space,
           style: data.style,
-          message: data.msg,
+          message: data.msg || "",
         })
         .then(function (result) {
-          if (!result.ok || !result.data.success) throw new Error("submit failed");
+          if (!result.ok || !result.data || !result.data.success) {
+            var apiMsg = result.data && result.data.message;
+            throw new Error(apiMsg || "submit failed");
+          }
           trackEvent("form_submit");
           step = total;
           steps.forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-step") === 6); });

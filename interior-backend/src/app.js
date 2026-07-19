@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { getAllowedOrigins } = require("./config/corsOrigins");
+const { corsOriginDelegate } = require("./config/corsOrigins");
 
 const authRoutes = require("./routes/authRoutes");
 const disciplineRoutes = require("./routes/disciplineRoutes");
@@ -19,10 +19,9 @@ const chatbotRoutes = require("./routes/chatbotRoutes");
 
 const app = express();
 
-const allowedOrigins = getAllowedOrigins();
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: corsOriginDelegate,
     credentials: true,
   }),
 );

@@ -42,6 +42,10 @@
 .cfield .ul{ position:absolute; left:0; bottom:0; height:1px; width:100%; background:var(--azure); transform:scaleX(0); transform-origin:left; transition:transform .5s var(--e-out); }
 .cfield.focus .ul{ transform:scaleX(1); }
 .cfield.focus label{ color:var(--azure); }
+.cfield-phone .phone-row{ display:flex; align-items:baseline; gap:10px; border-bottom:1px solid var(--line-strong); }
+.cfield-phone .phone-row input{ border-bottom:none; padding-bottom:12px; }
+.cfield-phone .phone-prefix{ flex:0 0 auto; font-family:var(--serif); font-size:24px; color:var(--ink-dim); padding:10px 0 12px; letter-spacing:.04em; user-select:none; }
+.cfield-phone .ul{ bottom:0; }
 
 .copts{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:var(--s3); }
 @media (max-width:520px){ .copts{ grid-template-columns:1fr; } }

@@ -1,6 +1,17 @@
 const pool = require("../config/db");
 const { resolveCityInput, isKnownCity } = require("../utils/karnatakaRegions");
 
+function normalizeIndianMobile(raw) {
+  let digits = String(raw || "").replace(/\D/g, "");
+  if (digits.length === 12 && digits.startsWith("91")) digits = digits.slice(2);
+  if (digits.length === 11 && digits.startsWith("0")) digits = digits.slice(1);
+  return digits;
+}
+
+function isValidIndianMobile(raw) {
+  return /^[6-9]\d{9}$/.test(normalizeIndianMobile(raw));
+}
+
 const submitContact = async (req, res) => {
   try {
     const {
@@ -16,6 +27,27 @@ const submitContact = async (req, res) => {
 
     const space_type = spaceTypeField || space || null;
 
+    if (!name || String(name).trim().length < 2) {
+      return res.status(400).json({
+        success: false,
+        message: "Please share your name.",
+      });
+    }
+
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(email).trim())) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address.",
+      });
+    }
+
+    if (!phone || !isValidIndianMobile(phone)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid 10-digit Indian mobile number.",
+      });
+    }
+
     if (!city || !isKnownCity(city)) {
       return res.status(400).json({
         success: false,
@@ -25,6 +57,7 @@ const submitContact = async (req, res) => {
     }
 
     const resolved = resolveCityInput(city);
+    const normalizedPhone = "+91" + normalizeIndianMobile(phone);
 
     const result = await pool.query(
       `
@@ -34,15 +67,15 @@ const submitContact = async (req, res) => {
       RETURNING *
       `,
       [
-        name,
-        email,
-        phone,
+        String(name).trim(),
+        String(email).trim(),
+        normalizedPhone,
         resolved.city,
         resolved.district,
         resolved.region,
         space_type,
         style || null,
-        message || null,
+        message && String(message).trim() ? String(message).trim() : null,
       ],
     );
 
