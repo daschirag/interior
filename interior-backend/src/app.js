@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const pool = require("./config/db");
 const { corsOriginDelegate } = require("./config/corsOrigins");
 
 const authRoutes = require("./routes/authRoutes");
@@ -27,13 +28,33 @@ app.use(
 );
 app.use(express.json());
 
+/** Liveness only — no DB. Useful if the process is up but Postgres is paused. */
 function healthPayload(req, res) {
   res.status(200).json({ status: "ok" });
 }
 
-// /health works locally; Render may intercept this path before it reaches the app.
+/**
+ * Uptime / keep-warm probe. Runs a real DB round-trip so Supabase free-tier
+ * inactivity pause is less likely (API traffic alone does not count).
+ */
+async function pingWithDb(req, res) {
+  try {
+    await pool.query("SELECT 1");
+    res.status(200).json({ status: "ok", db: "up" });
+  } catch (error) {
+    console.error("[ping] database check failed:", error.message);
+    res.status(503).json({
+      status: "degraded",
+      db: "down",
+      message: error.message,
+    });
+  }
+}
+
+// /health = process alive (may be intercepted on some hosts)
 app.get("/health", healthPayload);
-app.get("/api/ping", healthPayload);
+// /api/ping = process + database (wire UptimeRobot here)
+app.get("/api/ping", pingWithDb);
 
 app.get("/", (req, res) => {
   res.status(200).json({

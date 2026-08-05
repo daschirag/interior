@@ -43,6 +43,49 @@
     return esc(parts.join(" ")) + " <em>" + esc(last) + "</em>";
   }
 
+  function pickTranslated(translated, english) {
+    return translated != null && String(translated).trim() !== ""
+      ? translated
+      : english;
+  }
+
+  /** Map a raw DB/API discipline row into the active UI language. */
+  function resolveDisciplineForLang(row, lang) {
+    if (!row) return row;
+    lang = lang || (window.VINAYAK && VINAYAK.getLang ? VINAYAK.getLang() : "en");
+    if (lang === "en") return row;
+    var tagsTranslated = row["tags_" + lang];
+    var tags =
+      Array.isArray(tagsTranslated) && tagsTranslated.length
+        ? tagsTranslated
+        : row.tags;
+    return Object.assign({}, row, {
+      title: pickTranslated(row["title_" + lang], row.title),
+      scope: pickTranslated(row["scope_" + lang], row.scope),
+      subtitle: pickTranslated(row["subtitle_" + lang], row.subtitle),
+      headline: pickTranslated(row["headline_" + lang], row.headline),
+      description: pickTranslated(row["description_" + lang], row.description),
+      tags: tags,
+    });
+  }
+
+  /** Merge fields_kn / fields_hi onto fields for the active UI language. */
+  function resolveContentBlockForLang(block, lang) {
+    if (!block) return block;
+    lang = lang || (window.VINAYAK && VINAYAK.getLang ? VINAYAK.getLang() : "en");
+    if (lang === "en") return block;
+    var translated = lang === "kn" ? block.fields_kn : block.fields_hi;
+    if (!translated || typeof translated !== "object") return block;
+    var base = block.fields && typeof block.fields === "object" ? block.fields : {};
+    var merged = Object.assign({}, base);
+    Object.keys(base).forEach(function (key) {
+      if (translated[key] != null && String(translated[key]).trim() !== "") {
+        merged[key] = translated[key];
+      }
+    });
+    return Object.assign({}, block, { fields: merged });
+  }
+
   function padNo(n) {
     return n < 10 ? "0" + n : String(n);
   }
@@ -493,8 +536,19 @@
 
     return VINAYAK.getDisciplines()
       .then(function (res) {
-        if (!res.success || !res.disciplines || !res.disciplines.length) return;
-        var disciplines = res.disciplines;
+        if (!res.success || !res.disciplines || !res.disciplines.length) {
+          console.warn(
+            "[cms-hydrate] disciplines fetch returned no data — keeping static English markup",
+            res && res.message,
+          );
+          wireDisciplineAccordion();
+          return;
+        }
+        var lang = VINAYAK.getLang ? VINAYAK.getLang() : "en";
+        // Resolve again client-side so live/raw rows and any missed server merge still show KN/HI
+        var disciplines = res.disciplines.map(function (d) {
+          return resolveDisciplineForLang(d, lang);
+        });
         window.VINAYAK_CMS_DISCIPLINES = {};
         var html = "";
 
@@ -512,7 +566,11 @@
           window.AURUM.refreshLazyMedia();
         }
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.warn(
+          "[cms-hydrate] disciplines API failed — Services cards stay English until API recovers",
+          err && err.message ? err.message : err,
+        );
         wireDisciplineAccordion();
       });
   }
@@ -541,21 +599,32 @@
       esc(addr) +
       '</p><ul class="loc-meta">' +
       (hours
-        ? '<li><span class="lm-k">Hours</span><span class="lm-v">' + esc(hours) + "</span></li>"
+        ? '<li><span class="lm-k">' +
+          esc(tt("contact.hours", "Hours")) +
+          '</span><span class="lm-v">' +
+          esc(hours) +
+          "</span></li>"
         : "") +
       '</ul></div><div class="loc-actions">' +
       '<a class="loc-btn loc-btn--maps" href="' +
       esc(maps) +
-      '" target="_blank" rel="noopener noreferrer" aria-label="Get directions to ' +
+      '" target="_blank" rel="noopener noreferrer" aria-label="' +
+      esc(tt("contact.maps", "Get directions")) +
+      " — " +
       esc(city) +
-      ' studio in Google Maps">' +
+      '">' +
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>' +
-      '<span class="loc-btn-label">Get directions</span>' +
-      '<span class="loc-btn-hint">Opens in Google Maps · turn-by-turn route</span></a>' +
+      '<span class="loc-btn-label">' +
+      esc(tt("contact.maps", "Get directions")) +
+      "</span>" +
+      '<span class="loc-btn-hint">' +
+      esc(tt("contact.maps_hint", "Opens in Google Maps · turn-by-turn route")) +
+      "</span></a>" +
       (phone
         ? (function () {
             var digits = String(phone).replace(/\D/g, "");
             if (digits.length === 10) digits = "91" + digits;
+            var callLabel = tt("contact.call", "Call");
             var waText = encodeURIComponent(
               "Hi, I'm interested in interior design services at your " +
                 city +
@@ -564,11 +633,13 @@
             return (
               '<a class="loc-btn loc-btn--call" href="tel:' +
               esc(phone.replace(/\s/g, "")) +
-              '" aria-label="Call ' +
-              esc(city) +
-              ' studio">' +
+              '" aria-label="' +
+              esc(callLabel + " " + city) +
+              '">' +
               '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>' +
-              '<span class="loc-btn-label">Call ' +
+              '<span class="loc-btn-label">' +
+              esc(callLabel) +
+              " " +
               esc(phoneLabel) +
               "</span></a>" +
               '<a class="loc-btn loc-btn--wa" href="https://wa.me/' +
