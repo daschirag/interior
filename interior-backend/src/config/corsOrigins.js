@@ -12,60 +12,93 @@ const LOCAL_DEV_ORIGINS = [
   "http://127.0.0.1:8080",
 ];
 
+/**
+ * Known production origins — always allowed regardless of the ALLOWED_ORIGINS
+ * env var, so a misconfigured/missing env value can't take the live site down.
+ */
+const PRODUCTION_ORIGINS = [
+  "https://interior-sigma-one.vercel.app",
+  "https://www.interior-sigma-one.vercel.app",
+  "https://vinayakaluminiuminterior.com",
+  "https://www.vinayakaluminiuminterior.com",
+];
+
+/**
+ * Vercel auto-generates a preview/branch deployment URL for every push, e.g.
+ *   https://interior-sigma-one-git-main-daschirag.vercel.app
+ *   https://interior-sigma-one-8f3k2a9bc.vercel.app
+ * These always start with the project name followed by "-" and end in
+ * ".vercel.app", so match that shape instead of listing them one by one.
+ */
+const VERCEL_PREVIEW_PATTERN =
+  /^https:\/\/interior-sigma-one-[a-z0-9-]+\.vercel\.app$/i;
+
 function isLocalDevOrigin(origin) {
   return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(String(origin || ""));
+}
+
+function isVercelPreviewOrigin(origin) {
+  return VERCEL_PREVIEW_PATTERN.test(String(origin || ""));
 }
 
 function getAllowedOrigins() {
   const raw = process.env.ALLOWED_ORIGINS || process.env.CORS_ORIGIN;
 
-  if (!raw) {
-    return LOCAL_DEV_ORIGINS;
-  }
-
   const fromEnv = raw
-    .split(",")
-    .map((origin) => origin.trim())
-    .filter(Boolean);
+    ? raw
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+    : [];
 
-  if (process.env.DISALLOW_LOCAL_ORIGINS === "true") {
-    return fromEnv;
-  }
+  const base =
+    process.env.DISALLOW_LOCAL_ORIGINS === "true"
+      ? [...PRODUCTION_ORIGINS]
+      : [...LOCAL_DEV_ORIGINS, ...PRODUCTION_ORIGINS];
 
-  return [...new Set([...LOCAL_DEV_ORIGINS, ...fromEnv])];
+  return [...new Set([...base, ...fromEnv])];
 }
 
 /**
- * Express `cors` origin callback — allows listed origins plus any localhost port
- * (unless DISALLOW_LOCAL_ORIGINS=true).
+ * Single source of truth for "is this Origin header allowed". Used both by
+ * the `cors` middleware (to decide whether to send CORS headers) and by the
+ * rejection middleware in app.js (to decide whether to actually block the
+ * request with a 403).
  */
-function corsOriginDelegate(origin, callback) {
-  // Same-origin / curl / server-to-server (no Origin header)
-  if (!origin) {
-    callback(null, true);
-    return;
-  }
+function isOriginAllowed(origin) {
+  // Same-origin / curl / server-to-server requests never send an Origin header.
+  if (!origin) return true;
 
   if (
     process.env.DISALLOW_LOCAL_ORIGINS !== "true" &&
     isLocalDevOrigin(origin)
   ) {
-    callback(null, true);
-    return;
+    return true;
   }
 
-  const allowed = getAllowedOrigins();
-  if (allowed.includes(origin)) {
-    callback(null, true);
-    return;
-  }
+  if (isVercelPreviewOrigin(origin)) return true;
 
-  callback(new Error("Not allowed by CORS"));
+  return getAllowedOrigins().includes(origin);
+}
+
+/**
+ * Express `cors` origin callback. Never passes an Error — that would make the
+ * `cors` package call next(err) and fall through to Express's default error
+ * handler, which returns an HTML 500 page. Instead, resolve with
+ * `true`/`false`: an allowed origin gets the CORS headers, a disallowed one
+ * gets none (and is turned into a clean 403 JSON response by the
+ * corsRejectionHandler middleware in app.js).
+ */
+function corsOriginDelegate(origin, callback) {
+  callback(null, isOriginAllowed(origin));
 }
 
 module.exports = {
   getAllowedOrigins,
   LOCAL_DEV_ORIGINS,
+  PRODUCTION_ORIGINS,
   isLocalDevOrigin,
+  isVercelPreviewOrigin,
+  isOriginAllowed,
   corsOriginDelegate,
 };

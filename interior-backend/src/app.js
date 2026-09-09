@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const pool = require("./config/db");
-const { corsOriginDelegate } = require("./config/corsOrigins");
+const { corsOriginDelegate, isOriginAllowed } = require("./config/corsOrigins");
 
 const authRoutes = require("./routes/authRoutes");
 const disciplineRoutes = require("./routes/disciplineRoutes");
@@ -26,6 +26,24 @@ app.use(
     credentials: true,
   }),
 );
+
+/**
+ * The `cors` package doesn't reject disallowed origins on its own — it just
+ * omits the CORS headers and calls next(), leaving the request to fall
+ * through to routes/Express's default handler (an HTML 500 page). Block it
+ * here explicitly with a clean 403 JSON response instead.
+ */
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && !isOriginAllowed(origin)) {
+    return res.status(403).json({
+      success: false,
+      message: "Origin not allowed",
+    });
+  }
+  next();
+});
+
 app.use(express.json());
 
 /** Liveness only — no DB. Useful if the process is up but Postgres is paused. */
