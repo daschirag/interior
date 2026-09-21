@@ -210,7 +210,7 @@ const FAQ = {
 const PROJECTS = [
   {
     title: "Penthouse Fourteen",
-    location: "4 BHK · Bangalore",
+    location: "4 BHK · Bengaluru",
     materials: "Travertine, brass, oak, linen",
     blurb:
       "An elevated estate living room composition — warm brass accents with travertine and oak.",
