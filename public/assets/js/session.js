@@ -6,10 +6,6 @@
   var ENTRANCE = "index.html";
 
   AURUM.auth = {
-    goEntrance: function () {
-      try { sessionStorage.removeItem("aurum_seen"); } catch (e) {}
-      window.location.href = ENTRANCE;
-    },
     wireNav: function () {
       var page = document.body.getAttribute("data-page");
       if (!page) return;
@@ -42,35 +38,6 @@
       document.querySelectorAll('.foot-col a[href="index.html"]').forEach(function (a) {
         if (a.textContent.trim().toLowerCase().indexOf("home") !== -1) a.setAttribute("href", HOME);
       });
-
-      var links = document.querySelector(".nav-links");
-      if (links && !document.getElementById("navReplay")) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "nav-logout";
-        btn.id = "navReplay";
-        btn.setAttribute("data-i18n-key", "nav.replay");
-        btn.textContent = "Replay entrance";
-        btn.addEventListener("click", function () { AURUM.auth.goEntrance(); });
-        links.appendChild(btn);
-        if (window.VINAYAK_I18N && VINAYAK_I18N.apply) VINAYAK_I18N.apply();
-      }
-
-      var sheet = document.querySelector(".nav-sheet");
-      if (sheet && !document.getElementById("navReplaySheet")) {
-        var lo = document.createElement("a");
-        lo.href = "#";
-        lo.id = "navReplaySheet";
-        lo.setAttribute("data-i18n-key", "nav.replay");
-        lo.textContent = "Replay entrance";
-        lo.addEventListener("click", function (e) {
-          e.preventDefault();
-          document.body.classList.remove("nav-open");
-          AURUM.auth.goEntrance();
-        });
-        sheet.appendChild(lo);
-        if (window.VINAYAK_I18N && VINAYAK_I18N.apply) VINAYAK_I18N.apply();
-      }
     }
   };
 })();
