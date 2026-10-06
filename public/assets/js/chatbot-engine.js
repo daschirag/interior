@@ -1,11 +1,11 @@
 /* Auto-generated from interior-backend chatbot — do not edit by hand */
 (function (g) {
   "use strict";
-  var COMPANY = {"name":"Vinayak Aluminium Interiors","shortName":"Vinayak Interiors","foundedYear":2004,"foundedRoman":"MMIV","serviceArea":"Karnataka","specialization":"Interior architecture and aluminium interiors — modular kitchens, living spaces, full BHK fit-outs, and custom aluminium units.","email":"vinayakainteriors308@gmail.com","contactPage":"Contact.html","studiosSummary":"Vijayapura, Dharwad, Kalaburagi, and Hospet"};
-  var DISCIPLINES = [{"slug":"1-bhk-interiors","title":"1 BHK Interiors","budget_range":"₹1.5L – ₹2L","timeline":"6 – 10 weeks","scope":"Full fit-out","keywords":["1bhk","1 bhk","one bhk","1-bedroom","1 bedroom"]},{"slug":"2-bhk-interiors","title":"2 BHK Interiors","budget_range":"₹2.5L – ₹3L","timeline":"10 – 14 weeks","scope":"Complete interiors","keywords":["2bhk","2 bhk","two bhk","2-bedroom","2 bedroom"]},{"slug":"3-bhk-interiors","title":"3 BHK Interiors","budget_range":"₹3.5L","timeline":"14 – 20 weeks","scope":"Full architecture","keywords":["3bhk","3 bhk","three bhk","3-bedroom","3 bedroom"]},{"slug":"4-bhk-interiors","title":"4 BHK Interiors","budget_range":"₹4.5L","timeline":"20 – 32 weeks","scope":"Signature project","keywords":["4bhk","4 bhk","four bhk","4-bedroom","4 bedroom"]},{"slug":"modular-kitchen","title":"Modular Kitchen","budget_range":"₹3.5L – ₹12L","timeline":"4 – 7 weeks","scope":"Full kitchen","keywords":["kitchen","modular kitchen","modular"]},{"slug":"luxury-living-rooms","title":"Luxury Living Rooms","budget_range":"₹5L – ₹20L","timeline":"6 – 10 weeks","scope":"Signature room","keywords":["living room","living rooms","lounge","drawing room"]},{"slug":"aluminium-interiors","title":"Aluminium Interiors","budget_range":"₹2.5L – ₹8L","timeline":"3 – 6 weeks","scope":"Modular units","keywords":["aluminium interiors","aluminum interiors","aluminium work"]},{"slug":"aluminium-tv-unit","title":"Aluminium TV Unit","budget_range":"₹45K – ₹2.5L","timeline":"1 – 3 weeks","scope":"Single unit","keywords":["tv unit","tv cabinet","television unit"]},{"slug":"aluminium-showcase","title":"Aluminium Showcase","budget_range":"₹60K – ₹3L","timeline":"2 – 4 weeks","scope":"Display unit","keywords":["showcase","display unit","display cabinet"]},{"slug":"aluminium-dressing-table","title":"Aluminium Dressing Table","budget_range":"₹35K – ₹1.8L","timeline":"1 – 3 weeks","scope":"Bedroom unit","keywords":["dressing table","dresser","dressing"]},{"slug":"aluminium-pantry-unit","title":"Aluminium Pantry Unit","budget_range":"₹50K – ₹2.2L","timeline":"2 – 4 weeks","scope":"Pantry fit-out","keywords":["pantry","pantry unit"]},{"slug":"aluminium-partition","title":"Aluminium Partition","budget_range":"₹80K – ₹4L","timeline":"2 – 5 weeks","scope":"Partition system","keywords":["partition","partitions","divider"]},{"slug":"aluminium-loft","title":"Aluminium Loft","budget_range":"₹40K – ₹2L","timeline":"1 – 3 weeks","scope":"Loft storage","keywords":["loft","loft storage","overhead storage"]}];
+  var COMPANY = {"name":"Vinayak Aluminium Interiors","shortName":"Vinayak Interiors","foundedYear":2004,"foundedRoman":"MMIV","serviceArea":"Karnataka","specialization":"Interior architecture and aluminium interiors — modular kitchens, living spaces, full BHK fit-outs, and custom aluminium units.","email":"vinayakainteriors308@gmail.com","contactPage":"Contact.html","studiosSummary":"Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet"};
+  var DISCIPLINES = [{"slug":"1-bhk-interiors","title":"1 BHK Interiors","budget_range":"₹1.5L – ₹2L","timeline":"6 – 10 weeks","scope":"Full fit-out","keywords":["1bhk","1 bhk","one bhk","1-bedroom","1 bedroom"]},{"slug":"2-bhk-interiors","title":"2 BHK Interiors","budget_range":"₹2.5L – ₹3L","timeline":"10 – 14 weeks","scope":"Complete interiors","keywords":["2bhk","2 bhk","two bhk","2-bedroom","2 bedroom"]},{"slug":"3-bhk-interiors","title":"3 BHK Interiors","budget_range":"₹3.5L","timeline":"14 – 20 weeks","scope":"Full architecture","keywords":["3bhk","3 bhk","three bhk","3-bedroom","3 bedroom"]},{"slug":"4-bhk-interiors","active":false,"title":"4 BHK Interiors","budget_range":"₹4.5L","timeline":"20 – 32 weeks","scope":"Signature project","keywords":["4bhk","4 bhk","four bhk","4-bedroom","4 bedroom"]},{"slug":"modular-kitchen","title":"Modular Kitchen","budget_range":"₹3.5L – ₹12L","timeline":"4 – 7 weeks","scope":"Full kitchen","keywords":["kitchen","modular kitchen","modular"]},{"slug":"luxury-living-rooms","active":false,"title":"Luxury Living Rooms","budget_range":"₹5L – ₹20L","timeline":"6 – 10 weeks","scope":"Signature room","keywords":["living room","living rooms","lounge","drawing room"]},{"slug":"aluminium-interiors","active":false,"title":"Aluminium Interiors","budget_range":"₹2.5L – ₹8L","timeline":"3 – 6 weeks","scope":"Modular units","keywords":["aluminium interiors","aluminum interiors","aluminium work"]},{"slug":"aluminium-tv-unit","title":"Aluminium TV Unit","budget_range":"₹45K – ₹2.5L","timeline":"1 – 3 weeks","scope":"Single unit","keywords":["tv unit","tv cabinet","television unit"]},{"slug":"aluminium-showcase","title":"Aluminium Showcase","budget_range":"₹60K – ₹3L","timeline":"2 – 4 weeks","scope":"Display unit","keywords":["showcase","display unit","display cabinet"]},{"slug":"aluminium-dressing-table","title":"Aluminium Dressing Table","budget_range":"₹35K – ₹1.8L","timeline":"1 – 3 weeks","scope":"Bedroom unit","keywords":["dressing table","dresser","dressing"]},{"slug":"aluminium-pantry-unit","title":"Aluminium Pantry Unit","budget_range":"₹50K – ₹2.2L","timeline":"2 – 4 weeks","scope":"Pantry fit-out","keywords":["pantry","pantry unit"]},{"slug":"aluminium-partition","title":"Aluminium Partition","budget_range":"₹80K – ₹4L","timeline":"2 – 5 weeks","scope":"Partition system","keywords":["partition","partitions","divider"]},{"slug":"aluminium-loft","title":"Aluminium Loft","budget_range":"₹40K – ₹2L","timeline":"1 – 3 weeks","scope":"Loft storage","keywords":["loft","loft storage","overhead storage"]}];
   var PROCESS_STEPS = [{"step":1,"name":"Enquiry","body":"You call us. We take approximate measurements over the phone and give you an initial quotation — no site visit needed for the first quote."},{"step":2,"name":"Site Visit","body":"If you're happy with the estimate, we visit your home, take exact measurements, and give you a final detailed quotation."},{"step":3,"name":"Booking & Discussion","body":"Once you confirm, we collect a booking amount. We then sit with you to discuss the full project — materials, finishes, layout — and show you samples."},{"step":4,"name":"Execution","body":"Our team begins work. A dedicated site supervisor visits regularly during working days to check quality and progress."},{"step":5,"name":"Handover & Check","body":"After completion, we re-measure the entire work, note any changes or adjustments, and inform you before final handover."}];
-  var STUDIOS = [{"city":"Vijayapura","brand":"Vinayak Aluminium Interiors","address":"Hubli-Bagalkot Road, Opp. Ayurgram Hospital, Amruth Nagar, Vijayapura — 586101","hours":"Mon–Sat · 10am to 5:30pm","phone":"+917019631202","phone_display":"+91 70196 31202","keywords":["vijayapura","bijapur"]},{"city":"Dharwad","brand":"Vinayak Aluminium Interiors","address":"2nd Cross, Maratha Colony, Near Ganesh Temple, Shinde Avenue, Dharwad — 580001","hours":"Mon–Sat · 10am to 5pm","phone":"+919380348113","phone_display":"+91 93803 48113","keywords":["dharwad","hubli","hubballi"]},{"city":"Kalaburagi","brand":"Vinayak Aluminium Interiors","address":"SP Sambha Complex, Bidar Colony, Near Hanuman Temple, Kalaburagi — 585102","hours":"Mon–Sat · 10am to 5:30pm","phone":"+917483620588","phone_display":"+91 74836 20588","keywords":["kalaburagi","gulbarga"]},{"city":"Hospet","brand":"Vinayak Aluminium Interiors","address":"First Floor, Above Ramdev Mobile Shop, Near Ganesh Travels Office, Station Road, Hospet — 583201","hours":"Mon–Sat · 10am to 5pm","phone":"+919483145955","phone_display":"+91 94831 45955","keywords":["hospet","hosapete"]}];
-  var FAQ = {"about":"Vinayak Aluminium Interiors is an interior architecture studio founded in 2004 (MMIV). We specialise in aluminium interiors and full home fit-outs across Karnataka — with studios in Vijayapura, Dharwad, Kalaburagi, and Hospet.","contact":"Email us at vinayakainteriors308@gmail.com, visit Contact.html to book a consultation, or WhatsApp / call your nearest studio from The Studios list on our Contact page.","materials":"We work with aluminium systems plus laminates, hardware, and finishes suited to each brief. You can browse catalogues and ISO certification on our Contact page under Follow & Resources."};
+  var STUDIOS = [{"city":"Vijayapura","brand":"Vinayak Aluminium Interiors","address":"Hubli-Bagalkot Road, Opp. Ayurgram Hospital, Amruth Nagar, Vijayapura — 586101","hours":"Mon–Sat · 10am to 5:30pm","phone":"+917019631202","phone_display":"+91 70196 31202","keywords":["vijayapura","bijapur"]},{"city":"Dharwad","brand":"Vinayak Aluminium Interiors","address":"2nd Cross, Maratha Colony, Near Ganesh Temple, Shinde Avenue, Dharwad — 580001","hours":"Mon–Sat · 10am to 5pm","phone":"+919380348113","phone_display":"+91 93803 48113","keywords":["dharwad","hubli","hubballi"]},{"city":"Kalaburagi","brand":"Vinayak Aluminium Interiors","address":"SP Sambha Complex, Bidar Colony, Near Hanuman Temple, Kalaburagi — 585102","hours":"Mon–Sat · 10am to 5:30pm","phone":"+917483620588","phone_display":"+91 74836 20588","keywords":["kalaburagi","gulbarga"]},{"city":"Hospet","brand":"Vinayak Aluminium Interiors","address":"First Floor, Above Ramdev Mobile Shop, Near Ganesh Travels Office, Station Road, Hospet — 583201","hours":"Mon–Sat · 10am to 5pm","phone":"+919483145955","phone_display":"+91 94831 45955","keywords":["hospet","hosapete"]},{"city":"Bengaluru","brand":"Vinayak Aluminium Interiors","address":"Kouzina Kafe, Narayana Reddy Circle, 133/4, Bannerghatta Rd, Kothnur, Hommadevanahalli, Bengaluru, K.G.Hommadevanahalli, Karnataka 560083","hours":"Mon–Sat · 10am to 5:30pm","phone":"+919380348113","phone_display":"+91 93803 48113","maps_url":"https://maps.app.goo.gl/xJmyTiMZ8YpNP6Em6","keywords":["bengaluru","bangalore"]}];
+  var FAQ = {"about":"Vinayak Aluminium Interiors is an interior architecture studio founded in 2004 (MMIV). We specialise in aluminium interiors and full home fit-outs across Karnataka — with studios in Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet. We are ISO 9001:2015 certified.","contact":"Email us at vinayakainteriors308@gmail.com, visit Contact.html to book a consultation, or WhatsApp / call your nearest studio from The Studios list on our Contact page.","materials":"We work with aluminium systems plus laminates, hardware, and finishes suited to each brief. You can browse catalogues and ISO certification on our Contact page under Follow & Resources."};
   var PROJECTS = [{"title":"Penthouse Fourteen","location":"4 BHK · Bengaluru","materials":"Travertine, brass, oak, linen","blurb":"An elevated estate living room composition — warm brass accents with travertine and oak."},{"title":"The Basalt House","location":"Villa · Dharwad","materials":"Basalt, walnut, bronze","blurb":"A dark, cool villa palette — basalt stone with walnut and bronze detailing."},{"title":"Linen & Oak","location":"2 BHK · Hubli","materials":"Rift oak, linen, plaster","blurb":"A soft Scandinavian-leaning home — rift oak, linen, and quiet plaster."}];
 
 
@@ -18,12 +18,18 @@ const INTENTS = {
   PROCESS: "process_inquiry",
   CONTACT: "contact_inquiry",
   PROJECTS: "projects_inquiry",
+  ABOUT: "about_inquiry",
   OFF_TOPIC: "off_topic",
   COMPLEX: "complex_query",
   FALLBACK: "fallback",
 };
 
 const MATCH_THRESHOLD = 2;
+
+/** Disciplines the studio currently publishes (inactive ones stay out of lists). */
+const ACTIVE_DISCIPLINES = DISCIPLINES.filter((d) => d.active !== false);
+
+const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
 const BUSINESS_KEYWORDS = [
   "interior",
@@ -65,6 +71,8 @@ const BUSINESS_KEYWORDS = [
   "hospet",
   "hubli",
   "hubballi",
+  "bengaluru",
+  "bangalore",
   "consultation",
   "fit-out",
   "fitout",
@@ -191,7 +199,7 @@ const INTENT_TRIGGERS = {
       "rate",
       "rates",
       "₹",
-      "rs ",
+      /\brs\b/,
       "rupee",
       "expensive",
       "affordable",
@@ -220,6 +228,8 @@ const INTENT_TRIGGERS = {
       "hospet",
       "hubli",
       "hubballi",
+      "bengaluru",
+      "bangalore",
       "hours",
       "timing",
       "timings",
@@ -279,6 +289,39 @@ const INTENT_TRIGGERS = {
     ],
     weight: 2,
   },
+  [INTENTS.ABOUT]: {
+    phrases: [
+      "about your company",
+      "about the company",
+      "about your studio",
+      "about vinayak",
+      "about you",
+      "who are you",
+      "who is vinayak",
+      "your company",
+      "company profile",
+      "founded",
+      "founder",
+      "founding",
+      "established",
+      "since when",
+      "how long have you",
+      "how long has",
+      "how long you",
+      "in business",
+      "been operating",
+      "are you operating",
+      "operating since",
+      "how old is",
+      "history",
+      "years of experience",
+      "experienced",
+      "iso 9001",
+      "iso certified",
+      "iso certification",
+    ],
+    weight: 3,
+  },
 };
 
 function normalize(text) {
@@ -293,7 +336,11 @@ function scoreIntent(normalized, phrases, weight) {
   let score = 0;
   const hits = [];
   for (const phrase of phrases) {
-    if (normalized === phrase || normalized.includes(phrase)) {
+    const hit =
+      phrase instanceof RegExp
+        ? phrase.test(normalized)
+        : normalized === phrase || normalized.includes(phrase);
+    if (hit) {
       score += weight;
       hits.push(phrase);
     }
@@ -301,6 +348,7 @@ function scoreIntent(normalized, phrases, weight) {
   return { score, hits };
 }
 
+/** Matches active and inactive disciplines; callers decide how to answer inactive ones. */
 function findDiscipline(normalized) {
   for (const d of DISCIPLINES) {
     for (const kw of d.keywords) {
@@ -332,8 +380,30 @@ function formatDisciplineLine(d) {
   return `• ${d.title} — budget ${d.budget_range}, timeline ${d.timeline} (${d.scope})`;
 }
 
+function isActive(d) {
+  return d.active !== false;
+}
+
+/**
+ * Inactive discipline: no published price — point to the team for a quotation.
+ * Deliberately makes no claim about whether the studio takes this work.
+ */
+function replyUnpublished(d) {
+  const isBhk = /bhk/.test(d.slug);
+  const options = ACTIVE_DISCIPLINES.filter((x) => /bhk/.test(x.slug) === isBhk);
+  const lines = (options.length ? options : ACTIVE_DISCIPLINES)
+    .map(formatDisciplineLine)
+    .join("\n");
+  return (
+    `We don’t have a published price for ${d.title}. Please contact our team for a quotation.\n\n` +
+    `Published ${isBhk ? "BHK options" : "services"}:\n${lines}\n\n` +
+    `${link("Contact us for a quotation", "Contact.html")} · ${link("Studio / Services", "Services.html")}`
+  );
+}
+
 function replyServices(normalized) {
   const d = findDiscipline(normalized);
+  if (d && !isActive(d)) return replyUnpublished(d);
   if (d) {
     return (
       `${d.title} is one of our core offerings.\n\n` +
@@ -345,7 +415,7 @@ function replyServices(normalized) {
       `or ${link("book a consultation", "Contact.html")} for a tailored quote.`
     );
   }
-  const lines = DISCIPLINES.map(formatDisciplineLine).join("\n");
+  const lines = ACTIVE_DISCIPLINES.map(formatDisciplineLine).join("\n");
   return (
     `We compose interiors across ${COMPANY.serviceArea} — from full BHK fit-outs to modular kitchens and aluminium units.\n\n` +
     `${lines}\n\n` +
@@ -356,6 +426,7 @@ function replyServices(normalized) {
 
 function replyPricing(normalized) {
   const d = findDiscipline(normalized);
+  if (d && !isActive(d)) return replyUnpublished(d);
   if (d) {
     return (
       `For ${d.title}, our published budget range is ${d.budget_range}, with a typical timeline of ${d.timeline}.\n\n` +
@@ -364,7 +435,7 @@ function replyPricing(normalized) {
       `or ${link("start a consultation", "Contact.html")} when you’re ready.`
     );
   }
-  const summary = DISCIPLINES.slice(0, 7)
+  const summary = ACTIVE_DISCIPLINES
     .map((x) => `• ${x.title}: ${x.budget_range}`)
     .join("\n");
   return (
@@ -382,7 +453,9 @@ function replyLocation(normalized) {
       `Our ${s.city} studio:\n\n` +
       `• Address: ${s.address}\n` +
       `• Hours: ${s.hours}\n` +
-      `• Phone: ${s.phone_display}\n\n` +
+      `• Phone: ${s.phone_display}\n` +
+      (s.maps_url ? `• Maps: ${link("Open in Google Maps", s.maps_url)}\n` : "") +
+      `\n` +
       `Directions and WhatsApp are on ${link("Contact — The Studios", "Contact.html#locations")}.`
     );
   }
@@ -391,7 +464,7 @@ function replyLocation(normalized) {
       `• ${st.city}: ${st.address}\n  Hours ${st.hours} · ${st.phone_display}`,
   ).join("\n\n");
   return (
-    `We have four studios across ${COMPANY.serviceArea}:\n\n${blocks}\n\n` +
+    `We have ${NUMBER_WORDS[STUDIOS.length] || STUDIOS.length} studios across ${COMPANY.serviceArea}:\n\n${blocks}\n\n` +
     `Ask for a city (e.g. “Dharwad address”), or open ${link("Contact — The Studios", "Contact.html#locations")} for maps and WhatsApp.`
   );
 }
@@ -429,6 +502,14 @@ function replyProjects() {
     `Here are featured compositions from our portfolio:\n\n${lines}\n\n` +
     `Explore the full journey, materials, and before/after on ${link("Projects", "Projects.html")}. ` +
     `If a space resonates, ${link("book a consultation", "Contact.html")} and we’ll tailor a brief to your home.`
+  );
+}
+
+function replyAbout() {
+  return (
+    `${FAQ.about}\n\n` +
+    `See our work on ${link("Projects", "Projects.html")}, explore ${link("Studio / Services", "Services.html")}, ` +
+    `or find your nearest studio on ${link("Contact — The Studios", "Contact.html#locations")}.`
   );
 }
 
@@ -572,6 +653,8 @@ function buildReply(intent, message) {
       return replyContact();
     case INTENTS.PROJECTS:
       return replyProjects();
+    case INTENTS.ABOUT:
+      return replyAbout();
     case INTENTS.OFF_TOPIC:
       return replyOffTopic();
     case INTENTS.COMPLEX:

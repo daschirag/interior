@@ -20,12 +20,18 @@ const INTENTS = {
   PROCESS: "process_inquiry",
   CONTACT: "contact_inquiry",
   PROJECTS: "projects_inquiry",
+  ABOUT: "about_inquiry",
   OFF_TOPIC: "off_topic",
   COMPLEX: "complex_query",
   FALLBACK: "fallback",
 };
 
 const MATCH_THRESHOLD = 2;
+
+/** Disciplines the studio currently publishes (inactive ones stay out of lists). */
+const ACTIVE_DISCIPLINES = DISCIPLINES.filter((d) => d.active !== false);
+
+const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
 const BUSINESS_KEYWORDS = [
   "interior",
@@ -67,6 +73,8 @@ const BUSINESS_KEYWORDS = [
   "hospet",
   "hubli",
   "hubballi",
+  "bengaluru",
+  "bangalore",
   "consultation",
   "fit-out",
   "fitout",
@@ -193,7 +201,7 @@ const INTENT_TRIGGERS = {
       "rate",
       "rates",
       "₹",
-      "rs ",
+      /\brs\b/,
       "rupee",
       "expensive",
       "affordable",
@@ -222,6 +230,8 @@ const INTENT_TRIGGERS = {
       "hospet",
       "hubli",
       "hubballi",
+      "bengaluru",
+      "bangalore",
       "hours",
       "timing",
       "timings",
@@ -281,6 +291,39 @@ const INTENT_TRIGGERS = {
     ],
     weight: 2,
   },
+  [INTENTS.ABOUT]: {
+    phrases: [
+      "about your company",
+      "about the company",
+      "about your studio",
+      "about vinayak",
+      "about you",
+      "who are you",
+      "who is vinayak",
+      "your company",
+      "company profile",
+      "founded",
+      "founder",
+      "founding",
+      "established",
+      "since when",
+      "how long have you",
+      "how long has",
+      "how long you",
+      "in business",
+      "been operating",
+      "are you operating",
+      "operating since",
+      "how old is",
+      "history",
+      "years of experience",
+      "experienced",
+      "iso 9001",
+      "iso certified",
+      "iso certification",
+    ],
+    weight: 3,
+  },
 };
 
 function normalize(text) {
@@ -295,7 +338,11 @@ function scoreIntent(normalized, phrases, weight) {
   let score = 0;
   const hits = [];
   for (const phrase of phrases) {
-    if (normalized === phrase || normalized.includes(phrase)) {
+    const hit =
+      phrase instanceof RegExp
+        ? phrase.test(normalized)
+        : normalized === phrase || normalized.includes(phrase);
+    if (hit) {
       score += weight;
       hits.push(phrase);
     }
@@ -303,6 +350,7 @@ function scoreIntent(normalized, phrases, weight) {
   return { score, hits };
 }
 
+/** Matches active and inactive disciplines; callers decide how to answer inactive ones. */
 function findDiscipline(normalized) {
   for (const d of DISCIPLINES) {
     for (const kw of d.keywords) {
@@ -334,8 +382,30 @@ function formatDisciplineLine(d) {
   return `• ${d.title} — budget ${d.budget_range}, timeline ${d.timeline} (${d.scope})`;
 }
 
+function isActive(d) {
+  return d.active !== false;
+}
+
+/**
+ * Inactive discipline: no published price — point to the team for a quotation.
+ * Deliberately makes no claim about whether the studio takes this work.
+ */
+function replyUnpublished(d) {
+  const isBhk = /bhk/.test(d.slug);
+  const options = ACTIVE_DISCIPLINES.filter((x) => /bhk/.test(x.slug) === isBhk);
+  const lines = (options.length ? options : ACTIVE_DISCIPLINES)
+    .map(formatDisciplineLine)
+    .join("\n");
+  return (
+    `We don’t have a published price for ${d.title}. Please contact our team for a quotation.\n\n` +
+    `Published ${isBhk ? "BHK options" : "services"}:\n${lines}\n\n` +
+    `${link("Contact us for a quotation", "Contact.html")} · ${link("Studio / Services", "Services.html")}`
+  );
+}
+
 function replyServices(normalized) {
   const d = findDiscipline(normalized);
+  if (d && !isActive(d)) return replyUnpublished(d);
   if (d) {
     return (
       `${d.title} is one of our core offerings.\n\n` +
@@ -347,7 +417,7 @@ function replyServices(normalized) {
       `or ${link("book a consultation", "Contact.html")} for a tailored quote.`
     );
   }
-  const lines = DISCIPLINES.map(formatDisciplineLine).join("\n");
+  const lines = ACTIVE_DISCIPLINES.map(formatDisciplineLine).join("\n");
   return (
     `We compose interiors across ${COMPANY.serviceArea} — from full BHK fit-outs to modular kitchens and aluminium units.\n\n` +
     `${lines}\n\n` +
@@ -358,6 +428,7 @@ function replyServices(normalized) {
 
 function replyPricing(normalized) {
   const d = findDiscipline(normalized);
+  if (d && !isActive(d)) return replyUnpublished(d);
   if (d) {
     return (
       `For ${d.title}, our published budget range is ${d.budget_range}, with a typical timeline of ${d.timeline}.\n\n` +
@@ -366,7 +437,7 @@ function replyPricing(normalized) {
       `or ${link("start a consultation", "Contact.html")} when you’re ready.`
     );
   }
-  const summary = DISCIPLINES.slice(0, 7)
+  const summary = ACTIVE_DISCIPLINES
     .map((x) => `• ${x.title}: ${x.budget_range}`)
     .join("\n");
   return (
@@ -384,7 +455,9 @@ function replyLocation(normalized) {
       `Our ${s.city} studio:\n\n` +
       `• Address: ${s.address}\n` +
       `• Hours: ${s.hours}\n` +
-      `• Phone: ${s.phone_display}\n\n` +
+      `• Phone: ${s.phone_display}\n` +
+      (s.maps_url ? `• Maps: ${link("Open in Google Maps", s.maps_url)}\n` : "") +
+      `\n` +
       `Directions and WhatsApp are on ${link("Contact — The Studios", "Contact.html#locations")}.`
     );
   }
@@ -393,7 +466,7 @@ function replyLocation(normalized) {
       `• ${st.city}: ${st.address}\n  Hours ${st.hours} · ${st.phone_display}`,
   ).join("\n\n");
   return (
-    `We have four studios across ${COMPANY.serviceArea}:\n\n${blocks}\n\n` +
+    `We have ${NUMBER_WORDS[STUDIOS.length] || STUDIOS.length} studios across ${COMPANY.serviceArea}:\n\n${blocks}\n\n` +
     `Ask for a city (e.g. “Dharwad address”), or open ${link("Contact — The Studios", "Contact.html#locations")} for maps and WhatsApp.`
   );
 }
@@ -431,6 +504,14 @@ function replyProjects() {
     `Here are featured compositions from our portfolio:\n\n${lines}\n\n` +
     `Explore the full journey, materials, and before/after on ${link("Projects", "Projects.html")}. ` +
     `If a space resonates, ${link("book a consultation", "Contact.html")} and we’ll tailor a brief to your home.`
+  );
+}
+
+function replyAbout() {
+  return (
+    `${FAQ.about}\n\n` +
+    `See our work on ${link("Projects", "Projects.html")}, explore ${link("Studio / Services", "Services.html")}, ` +
+    `or find your nearest studio on ${link("Contact — The Studios", "Contact.html#locations")}.`
   );
 }
 
@@ -574,6 +655,8 @@ function buildReply(intent, message) {
       return replyContact();
     case INTENTS.PROJECTS:
       return replyProjects();
+    case INTENTS.ABOUT:
+      return replyAbout();
     case INTENTS.OFF_TOPIC:
       return replyOffTopic();
     case INTENTS.COMPLEX:

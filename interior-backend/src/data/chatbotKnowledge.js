@@ -13,10 +13,14 @@ const COMPANY = {
     "Interior architecture and aluminium interiors — modular kitchens, living spaces, full BHK fit-outs, and custom aluminium units.",
   email: "vinayakainteriors308@gmail.com",
   contactPage: "Contact.html",
-  studiosSummary: "Vijayapura, Dharwad, Kalaburagi, and Hospet",
+  studiosSummary: "Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet",
 };
 
-/** Mirrors disciplines seeded from public/Services.html */
+/**
+ * Mirrors disciplines seeded from public/Services.html.
+ * `active: false` mirrors disciplines.is_active = false in the DB — the bot keeps
+ * them out of service/pricing lists. Check drift with scripts/check-chatbot-disciplines.js.
+ */
 const DISCIPLINES = [
   {
     slug: "1-bhk-interiors",
@@ -44,6 +48,7 @@ const DISCIPLINES = [
   },
   {
     slug: "4-bhk-interiors",
+    active: false,
     title: "4 BHK Interiors",
     budget_range: "₹4.5L",
     timeline: "20 – 32 weeks",
@@ -60,6 +65,7 @@ const DISCIPLINES = [
   },
   {
     slug: "luxury-living-rooms",
+    active: false,
     title: "Luxury Living Rooms",
     budget_range: "₹5L – ₹20L",
     timeline: "6 – 10 weeks",
@@ -68,6 +74,7 @@ const DISCIPLINES = [
   },
   {
     slug: "aluminium-interiors",
+    active: false,
     title: "Aluminium Interiors",
     budget_range: "₹2.5L – ₹8L",
     timeline: "3 – 6 weeks",
@@ -195,11 +202,23 @@ const STUDIOS = [
     phone_display: "+91 94831 45955",
     keywords: ["hospet", "hosapete"],
   },
+  {
+    city: "Bengaluru",
+    brand: "Vinayak Aluminium Interiors",
+    address:
+      "Kouzina Kafe, Narayana Reddy Circle, 133/4, Bannerghatta Rd, Kothnur, Hommadevanahalli, Bengaluru, K.G.Hommadevanahalli, Karnataka 560083",
+    hours: "Mon–Sat · 10am to 5:30pm",
+    // Temporarily shares the Dharwad studio's phone number until Bengaluru has its own line.
+    phone: "+919380348113",
+    phone_display: "+91 93803 48113",
+    maps_url: "https://maps.app.goo.gl/xJmyTiMZ8YpNP6Em6",
+    keywords: ["bengaluru", "bangalore"],
+  },
 ];
 
 const FAQ = {
   about:
-    "Vinayak Aluminium Interiors is an interior architecture studio founded in 2004 (MMIV). We specialise in aluminium interiors and full home fit-outs across Karnataka — with studios in Vijayapura, Dharwad, Kalaburagi, and Hospet.",
+    "Vinayak Aluminium Interiors is an interior architecture studio founded in 2004 (MMIV). We specialise in aluminium interiors and full home fit-outs across Karnataka — with studios in Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet. We are ISO 9001:2015 certified.",
   contact:
     "Email us at vinayakainteriors308@gmail.com, visit Contact.html to book a consultation, or WhatsApp / call your nearest studio from The Studios list on our Contact page.",
   materials:
