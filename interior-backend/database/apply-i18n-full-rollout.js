@@ -38,7 +38,7 @@ const PROJECTS = {
 const BLOCKS = {
   "dashboard-hero": {
     kn: {
-      kicker: "ವಿನಾಯಕ ಅಲ್ಯೂಮಿನಿಯಂ ಇಂಟೀರಿಯರ್ಸ್ — Est. MMXIV",
+      kicker: "ವಿನಾಯಕ ಅಲ್ಯೂಮಿನಿಯಂ ಇಂಟೀರಿಯರ್ಸ್ — Est. MMIV",
       h1_line1: "ನಾವು ರಚಿಸುತ್ತೇವೆ",
       h1_line2_html: "<em>ವಾತಾವರಣ</em>, ಕೊಠಡಿಗಳಲ್ಲ.",
       lede: "ಬೆಳಕು, ವಸ್ತು ಮತ್ತು ಅನುಪಾತದಿಂದ ಆಕಾರ ಕೊಡುವ ಇಂಟೀರಿಯರ್ ಆರ್ಕಿಟೆಕ್ಚರ್ ಸ್ಟುಡಿಯೋ — ವಿಜಯಪುರ, ಧಾರವಾಡ, ಕಲಬುರಗಿ ಮತ್ತು ಹೊಸಪೇಟೆ. ಒಂದು ಅಡುಗೆಮನೆಯಿಂದ ಪೂರ್ಣ ನಿವಾಸದವರೆಗೆ.",
@@ -48,12 +48,12 @@ const BLOCKS = {
       stat_cities_label: "ನಗರಗಳು",
       stat_cities_value: "04",
       stat_since_label: "ರಿಂದ",
-      stat_since_value: "MMXIV",
+      stat_since_value: "MMIV",
       hero_tag_b: "ಲಗ್ಜರಿ ಲಿವಿಂಗ್ ರೂಮ್ — ಕರ್ನಾಟಕ",
       plate_mark: "PLATE 01 · ƒ/1.8",
     },
     hi: {
-      kicker: "विनायक एल्युमिनियम इंटीरियर्स — Est. MMXIV",
+      kicker: "विनायक एल्युमिनियम इंटीरियर्स — Est. MMIV",
       h1_line1: "हम रचते हैं",
       h1_line2_html: "<em>माहौल</em>, कमरे नहीं।",
       lede: "प्रकाश, सामग्री और अनुपात से आकार देने वाला इंटीरियर आर्किटेक्चर स्टूडियो — विजयपुरा, धारवाड़, कलबुर्गी और होस्पेट। एक किचन से लेकर पूरा घर।",
@@ -63,7 +63,7 @@ const BLOCKS = {
       stat_cities_label: "शहर",
       stat_cities_value: "04",
       stat_since_label: "से",
-      stat_since_value: "MMXIV",
+      stat_since_value: "MMIV",
       hero_tag_b: "लक्ज़री लिविंग रूम — कर्नाटक",
       plate_mark: "PLATE 01 · ƒ/1.8",
     },
@@ -176,7 +176,7 @@ const BLOCKS = {
       stat_cities_label: "ನಗರಗಳು",
       stat_cities_value: "04",
       stat_since_label: "ರಿಂದ",
-      stat_since_value: "MMXXI",
+      stat_since_value: "MMIV",
     },
     hi: {
       kicker: "चुने हुए काम — 2021 / 2026",
@@ -187,7 +187,7 @@ const BLOCKS = {
       stat_cities_label: "शहर",
       stat_cities_value: "04",
       stat_since_label: "से",
-      stat_since_value: "MMXXI",
+      stat_since_value: "MMIV",
     },
   },
   "projects-journey-intro": {
