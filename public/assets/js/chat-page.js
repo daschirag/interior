@@ -8,6 +8,13 @@
     "I can explain our services, published budgets, studio locations, and our five-step process — using only what’s on this site.\n\n" +
     "Try a suggestion on the right, or ask in your own words. Useful pages: [Projects](Projects.html), [Studio](Services.html), [Contact](Contact.html).";
 
+  // Lead submits wait for the server (cold starts can take 20s+) and only confirm a real save.
+  var LEAD_TIMEOUT_MS = 25000;
+  var LEAD_FAIL_TEXT =
+    "Sorry — we couldn’t save your details just now. Please call our Dharwad studio on " +
+    "[+91 93803 48113](tel:+919380348113) or [WhatsApp us](https://wa.me/919380348113), " +
+    "or try sending your details again.";
+
   var SEND_ICON =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>';
 
@@ -152,12 +159,14 @@
     if (!state.sessionId) state.sessionId = uid();
     if (!Array.isArray(state.messages)) state.messages = [];
     engineSession.awaitingContact = !!state.awaitingContact;
+    engineSession.originalQuestion = state.originalQuestion || null;
 
     function persist() {
       saveState({
         sessionId: state.sessionId,
         messages: state.messages,
         awaitingContact: !!state.awaitingContact,
+        originalQuestion: engineSession.originalQuestion || null,
       });
     }
 
@@ -227,7 +236,7 @@
           return;
         }
         clearLead();
-        sendMessage(name + ", " + phone);
+        submitContact(name + ", " + phone);
       });
       box.querySelector("[data-ask-lead-skip]").addEventListener("click", function () {
         clearLead();
@@ -257,9 +266,75 @@
       scrollLog();
     }
 
+    /**
+     * Name/phone go straight to the server (no local fallback): the bot only says
+     * the details are noted once the server confirms the lead was saved.
+     */
+    async function submitContact(text) {
+      var msg = String(text || "").trim();
+      if (!msg || busy) return;
+
+      appendBubble("user", msg);
+      state.messages.push({ role: "user", text: msg });
+      persist();
+      input.value = "";
+      setBusy(true);
+      var saving = appendBubble("bot", "Saving your details…");
+      saving.setAttribute("aria-live", "polite");
+
+      var data = null;
+      try {
+        var controller = new AbortController();
+        var t = setTimeout(function () {
+          controller.abort();
+        }, LEAD_TIMEOUT_MS);
+        var res = await fetch(apiBase() + "/chatbot/message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: msg,
+            sessionId: state.sessionId,
+            awaitingContact: true,
+            originalQuestion: engineSession.originalQuestion || null,
+          }),
+          signal: controller.signal,
+        });
+        clearTimeout(t);
+        data = res.ok ? await res.json() : null;
+      } catch (e) {
+        data = null;
+      }
+      saving.remove();
+
+      var reply;
+      var stillWaiting;
+      if (data && data.success && data.leadSaved) {
+        reply = data.reply;
+        stillWaiting = false;
+      } else if (data && data.success && data.needsContact) {
+        reply = data.reply; // no phone found in the message — server asks again
+        stillWaiting = true;
+      } else {
+        reply = LEAD_FAIL_TEXT;
+        stillWaiting = true;
+      }
+
+      appendBubble("bot", reply);
+      state.messages.push({ role: "bot", text: reply });
+      state.awaitingContact = stillWaiting;
+      engineSession.awaitingContact = stillWaiting;
+      if (!stillWaiting) engineSession.originalQuestion = null;
+      persist();
+      if (stillWaiting) showLead();
+      else clearLead();
+      setBusy(false);
+      input.focus();
+    }
+
     async function sendMessage(text) {
       var msg = String(text || "").trim();
       if (!msg || busy) return;
+      if (state.awaitingContact) return submitContact(msg);
 
       appendBubble("user", msg);
       state.messages.push({ role: "user", text: msg });

@@ -34,7 +34,18 @@ const postMessage = async (req, res) => {
       });
     }
 
-    const prior = getSession(sessionId);
+    let prior = getSession(sessionId);
+    // Sessions live in memory and vanish when the server sleeps or restarts, and the
+    // question that opened the lead form may have been answered by the browser engine.
+    // Trust the client's hint so a name/phone submit is still treated as a lead.
+    if (!prior.awaitingContact && req.body.awaitingContact === true) {
+      prior = {
+        awaitingContact: true,
+        originalQuestion: req.body.originalQuestion
+          ? String(req.body.originalQuestion).slice(0, 500)
+          : null,
+      };
+    }
     const result = processMessage(String(message), prior);
 
     if (result.lead) {
@@ -48,6 +59,13 @@ const postMessage = async (req, res) => {
         });
       } catch (leadErr) {
         console.error("chatbot lead save failed:", leadErr.message);
+        // Keep waiting for contact so the visitor can retry; never claim it was saved.
+        setSession(sessionId, prior);
+        return res.status(503).json({
+          success: false,
+          leadSaved: false,
+          message: "Could not save contact details",
+        });
       }
     }
 
@@ -58,6 +76,7 @@ const postMessage = async (req, res) => {
       reply: result.reply,
       intent: result.intent,
       needsContact: !!result.needsContact,
+      ...(result.lead ? { leadSaved: true } : {}),
     });
   } catch (error) {
     console.error(error);
