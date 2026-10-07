@@ -37,7 +37,9 @@ function trustProxyHops() {
   );
   return DEFAULT_TRUST_PROXY_HOPS;
 }
-app.set("trust proxy", trustProxyHops());
+const TRUST_PROXY_HOPS = trustProxyHops();
+app.set("trust proxy", TRUST_PROXY_HOPS);
+console.log(`trust proxy hops: ${TRUST_PROXY_HOPS}`);
 
 app.use(
   cors({
