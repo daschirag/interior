@@ -801,7 +801,7 @@ html[lang="hi"] .room-info .rd{
     </div>
     <div class="hero-meta-tl cap" data-cms-field="meta_coords_html" data-cms-html="true">KARNATAKA<br>INTERIOR ARCHITECTURE</div>
     <div class="hero-inner">
-      <div data-reveal="mask"><div class="kicker" data-cms-field="kicker">Vinayak Aluminium Interiors — Est. MMIV</div></div>
+      <div data-reveal="mask"><div class="kicker" data-cms-field="kicker">Vinayak Aluminium Interiors — Est. 2004</div></div>
       <h1 class="hero-title" data-reveal="mask">
         <span class="hero-title-line" data-cms-field="h1_line1">We compose</span>
         <span class="hero-title-line" data-cms-field="h1_line2_html" data-cms-html="true"><em>atmosphere</em>, not rooms.</span>
@@ -814,7 +814,7 @@ html[lang="hi"] .room-info .rd{
         <div class="ix-list" data-reveal>
           <div><div class="a" data-cms-field="stat_completed_label">Completed</div><div class="b" data-cms-field="stat_completed_value">240+</div></div>
           <div><div class="a" data-cms-field="stat_cities_label">Cities</div><div class="b" data-cms-field="stat_cities_value">05</div></div>
-          <div><div class="a" data-cms-field="stat_since_label">Since</div><div class="b" data-cms-field="stat_since_value">MMIV</div></div>
+          <div><div class="a" data-cms-field="stat_since_label">Since</div><div class="b" data-cms-field="stat_since_value">2004</div></div>
         </div>
       </div>
     </div>
@@ -1176,27 +1176,34 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
    Counts up when scrolled into view
    ============================================================ */
 (function(){
-  var counters = [
-    { selector: '.phead .ix-list', targets: [
-      { el: null, from: 0, to: 240, suffix: '+', decimals: 0 },
-      { el: null, from: 0, to: 4, suffix: '', decimals: 0 },
-      { el: null, from: 2021, to: 2026, suffix: '', decimals: 0 }
-    ]}
-  ];
-
-  function animateCount(el, from, to, suffix, duration) {
+  // Targets are read from each stat's own text (CMS value, or the static HTML fallback),
+  // so the counter only animates towards what the content says and never replaces it.
+  function animateCount(el, from, to, suffix, pad, finalText, duration) {
     var start = null;
     var range = to - from;
+    var last = null;
     function step(timestamp) {
+      // CMS hydration or a language switch rewrote the stat mid-count: keep their value.
+      if (last !== null && el.textContent !== last) return;
       if (!start) start = timestamp;
       var progress = Math.min((timestamp - start) / duration, 1);
       var ease = 1 - Math.pow(1 - progress, 3);
-      var current = Math.floor(from + range * ease);
-      el.textContent = current + suffix;
+      var current = String(Math.floor(from + range * ease));
+      while (current.length < pad) current = '0' + current;
+      last = progress < 1 ? current + suffix : finalText;
+      el.textContent = last;
       if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = to + suffix;
     }
     requestAnimationFrame(step);
+  }
+
+  // "240+" → 240 / "+", "05" → 5 padded to 2 digits, "2004" → 2004.
+  // Anything that isn't a plain number is left exactly as it is.
+  function parseStat(text) {
+    var t = String(text || '').trim();
+    var m = /^(\d+)(\D*)$/.exec(t);
+    if (!m) return null;
+    return { value: parseInt(m[1], 10), suffix: m[2], pad: m[1].charAt(0) === '0' ? m[1].length : 0, text: t };
   }
 
   // Find all .b elements inside .ix-list
@@ -1205,10 +1212,12 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
   var bEls = ixList.querySelectorAll('.b');
   if (bEls.length < 3) return;
 
+  // Same motion as before: the first two count up from 0; the year rolls over its
+  // last 6 years (as 2020 → 2026 did). Durations unchanged.
   var data = [
-    { el: bEls[0], from: 0, to: 240, suffix: '+', duration: 1800 },
-    { el: bEls[1], from: 0, to: 4, suffix: '', duration: 800 },
-    { el: bEls[2], from: 2020, to: 2026, suffix: '', duration: 1200 }
+    { el: bEls[0], fromZero: true, duration: 1800 },
+    { el: bEls[1], fromZero: true, duration: 800 },
+    { el: bEls[2], yearWindow: 6, duration: 1200 }
   ];
 
   var animated = false;
@@ -1217,7 +1226,10 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
       if(entry.isIntersecting && !animated){
         animated = true;
         data.forEach(function(d){
-          animateCount(d.el, d.from, d.to, d.suffix, d.duration);
+          var stat = parseStat(d.el.textContent);
+          if (!stat) return;
+          var from = d.yearWindow ? Math.max(0, stat.value - d.yearWindow) : 0;
+          animateCount(d.el, from, stat.value, stat.suffix, stat.pad, stat.text, d.duration);
         });
         io.disconnect();
       }

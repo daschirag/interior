@@ -7,7 +7,6 @@ const COMPANY = {
   name: "Vinayak Aluminium Interiors",
   shortName: "Vinayak Interiors",
   foundedYear: 2004,
-  foundedRoman: "MMIV",
   serviceArea: "Karnataka",
   specialization:
     "Interior architecture and aluminium interiors — modular kitchens, living spaces, full BHK fit-outs, and custom aluminium units.",
@@ -218,7 +217,7 @@ const STUDIOS = [
 
 const FAQ = {
   about:
-    "Vinayak Aluminium Interiors is an interior architecture studio founded in 2004 (MMIV). We specialise in aluminium interiors and full home fit-outs across Karnataka — with studios in Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet. We are ISO 9001:2015 certified.",
+    "Vinayak Aluminium Interiors is an interior architecture studio founded in 2004. We specialise in aluminium interiors and full home fit-outs across Karnataka — with studios in Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet. We are ISO 9001:2015 certified.",
   contact:
     "Email us at vinayakainteriors308@gmail.com, visit Contact.html to book a consultation, or WhatsApp / call your nearest studio from The Studios list on our Contact page.",
   materials:
