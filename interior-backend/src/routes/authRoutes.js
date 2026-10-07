@@ -2,20 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 const authenticateToken = require("../middleware/authMiddleware");
+const { loginLimiter } = require("../middleware/rateLimit");
 
 const {
-  initDatabase,
-  register,
   login,
   getProfile,
   updateProfile,
 } = require("../controllers/authController");
 
-router.get("/init-db", initDatabase);
-
-router.post("/register", register);
-
-router.post("/login", login);
+// No public registration — admins are created with scripts/create-admin.js.
+router.post("/login", loginLimiter, login);
 
 router.get(
   "/profile",
@@ -30,11 +26,5 @@ router.put(
 );
 
 console.log("AUTH ROUTES LOADED");
-router.put("/test-put", (req, res) => {
-  res.json({
-    success: true,
-    message: "PUT route working",
-  });
-});
 
 module.exports = router;

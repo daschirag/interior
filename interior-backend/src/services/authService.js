@@ -2,31 +2,26 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const generateToken = require("../utils/generateToken");
 
-const registerUser = async ({
-  name,
-  email,
-  password,
-}) => {
-  const hashedPassword = await bcrypt.hash(
-    password,
-    10
-  );
-
-  return await User.create({
-    name,
-    email,
-    password: hashedPassword,
-  });
-};
+/** Expected auth failures carry an HTTP status; anything else is a real server error. */
+function authError(status, message) {
+  const err = new Error(message);
+  err.status = status;
+  return err;
+}
 
 const loginUser = async ({
   email,
   password,
-}) => {
-  const user = await User.findByEmail(email);
+} = {}) => {
+  if (typeof email !== "string" || typeof password !== "string" || !email.trim() || !password) {
+    throw authError(400, "Email and password are required");
+  }
 
+  const user = await User.findByEmail(email.trim().toLowerCase());
+
+  // Same message for unknown email and wrong password, so accounts can't be probed.
   if (!user) {
-    throw new Error("User not found");
+    throw authError(401, "Invalid email or password");
   }
 
   const isMatch = await bcrypt.compare(
@@ -35,7 +30,7 @@ const loginUser = async ({
   );
 
   if (!isMatch) {
-    throw new Error("Invalid password");
+    throw authError(401, "Invalid email or password");
   }
 
   const token = generateToken(user);
@@ -51,6 +46,5 @@ const loginUser = async ({
 };
 
 module.exports = {
-  registerUser,
   loginUser,
 };

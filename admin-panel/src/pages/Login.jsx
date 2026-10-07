@@ -30,8 +30,6 @@ function Login() {
 
     navigate("/dashboard");
 
-    console.log(response.data);
-
   } catch (error) {
     alert(
       error.response?.data?.message || "Login Failed"

@@ -1,72 +1,28 @@
-const Discipline = require("../models/disciplineModel");
-const Project = require("../models/projectModel");
-const SiteSettings = require("../models/siteSettingsModel");
 const User = require("../models/userModel");
-const District = require("../models/districtModel");
-const Studio = require("../models/studioModel");
 
-const {
-  registerUser,
-  loginUser,
-} = require("../services/authService");
-
-const initDatabase = async (req, res) => {
-  try {
-    await User.createTable();
-    await Project.createTable();
-    await Discipline.createTable();
-    await SiteSettings.createTable();
-    console.log("CREATING DISTRICTS TABLE...");
-
-    await District.createTable();
-    await Studio.createTable();
-    const ContentBlock = require("../models/contentBlockModel");
-    await ContentBlock.createTable();
-    const EntityHistory = require("../models/entityHistoryModel");
-    await EntityHistory.createTable();
-
-    res.json({
-      success: true,
-      message: "Users table created successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-const register = async (req, res) => {
-  try {
-    const user = await registerUser(req.body);
-
-    res.json({
-      success: true,
-      user,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+const { loginUser } = require("../services/authService");
 
 const login = async (req, res) => {
   try {
     const result = await loginUser(req.body);
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Login successful",
       token: result.token,
       user: result.user,
     });
   } catch (error) {
+    if (error.status) {
+      return res.status(error.status).json({
+        success: false,
+        message: error.message,
+      });
+    }
+    console.error("login failed:", error.message);
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Login is temporarily unavailable. Please try again.",
     });
   }
 };
@@ -110,8 +66,6 @@ const updateProfile = async (req, res) => {
 };
 
 module.exports = {
-  initDatabase,
-  register,
   login,
   getProfile,
   updateProfile,

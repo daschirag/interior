@@ -20,6 +20,12 @@ const chatbotRoutes = require("./routes/chatbotRoutes");
 
 const app = express();
 
+// Proxy hops in front of the app (Cloudflare edge + Render). req.ip — the login rate
+// limiter's key — is the real client only when this matches the actual hop count:
+// too low and every visitor shares the proxy's address; too high and clients can spoof
+// X-Forwarded-For. Verify after each infra change via the RateLimit-Policy `pk` header.
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: corsOriginDelegate,

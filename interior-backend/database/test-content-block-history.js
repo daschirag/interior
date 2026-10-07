@@ -8,8 +8,12 @@ const ContentBlock = require("../src/models/contentBlockModel");
 const ContentBlockHistory = require("../src/models/contentBlockHistoryModel");
 
 const BASE = process.env.API_BASE_URL || "http://localhost:5000/api";
-const EMAIL = process.env.TEST_ADMIN_EMAIL || "integration-test@vinayaka.local";
-const PASSWORD = process.env.TEST_ADMIN_PASSWORD || "TestPass123!";
+const EMAIL = process.env.TEST_ADMIN_EMAIL;
+const PASSWORD = process.env.TEST_ADMIN_PASSWORD;
+if (!EMAIL || !PASSWORD) {
+  console.error("Set TEST_ADMIN_EMAIL and TEST_ADMIN_PASSWORD (e.g. in .env) to run this test.");
+  process.exit(1);
+}
 const SECTION = "dashboard-hero";
 
 async function request(path, options = {}) {

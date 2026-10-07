@@ -4,6 +4,12 @@
  */
 require("dotenv").config({ path: require("path").join(__dirname, "..", ".env") });
 
+const { TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } = process.env;
+if (!TEST_ADMIN_EMAIL || !TEST_ADMIN_PASSWORD) {
+  console.error("Set TEST_ADMIN_EMAIL and TEST_ADMIN_PASSWORD (e.g. in .env) to run this test.");
+  process.exit(1);
+}
+
 const BASE = `http://localhost:${process.env.PORT || 5000}`;
 
 async function req(method, path, body, token) {
@@ -33,8 +39,8 @@ async function main() {
   push("GET / health", health.ok, health.json);
 
   const login = await req("POST", "/api/auth/login", {
-    email: "integration-test@vinayaka.local",
-    password: "TestPass123!",
+    email: TEST_ADMIN_EMAIL,
+    password: TEST_ADMIN_PASSWORD,
   });
   const token = login.json?.token;
   push("POST /api/auth/login", login.ok && !!token, login.json?.message || login.status);
