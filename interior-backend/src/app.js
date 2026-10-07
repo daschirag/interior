@@ -20,14 +20,15 @@ const chatbotRoutes = require("./routes/chatbotRoutes");
 
 const app = express();
 
-// Proxy hops in front of the app (Cloudflare edge + Render's load balancer). req.ip — the
-// login rate limiter's key — is the real client only when this matches the actual hop
-// count: too low and every visitor shares a proxy's address; too high and clients can
-// spoof X-Forwarded-For. Verified 2026-10-07 on the live API: with 1, the limiter keyed on
-// rotating proxy addresses (not the client), and spoofed X-Forwarded-For was ignored —
-// so the client is one hop further back. Re-verify via the RateLimit-Policy `pk` header
-// after any infra change; override with TRUST_PROXY_HOPS (1–3) without a code change.
-const DEFAULT_TRUST_PROXY_HOPS = 2;
+// Proxy hops in front of the app (Cloudflare + Render's proxies). req.ip — the login rate
+// limiter's key — is the real client only when this matches the actual hop count: too
+// low and every visitor shares a proxy's address; too high and clients can spoof
+// X-Forwarded-For. Verified live on 2026-10-07: with 1 and 2 hops the limiter keyed on
+// rotating proxy addresses; with 3 it keys on the real client IP, and spoofed
+// X-Forwarded-For values are ignored. Re-run verify-live-ratelimit.js after any
+// infrastructure change (a new domain for the API, a change in front of Render, a
+// Cloudflare setting). Override with TRUST_PROXY_HOPS (1–3) without a code change.
+const DEFAULT_TRUST_PROXY_HOPS = 3;
 function trustProxyHops() {
   const raw = process.env.TRUST_PROXY_HOPS;
   if (raw == null || raw.trim() === "") return DEFAULT_TRUST_PROXY_HOPS;
