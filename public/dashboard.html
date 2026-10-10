@@ -348,8 +348,9 @@ html[lang="hi"] .room-info .rd{
 
 /* ---------------- MATERIALS TEASER ---------------- */
 .mats{ padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); }
-.mats-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--s4); }
+.mats-row{ display:grid; grid-template-columns:repeat(7,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--s4); }
 @media (max-width:760px){ .mats-row{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:1200px){ .mats-row{ grid-template-columns:repeat(4,1fr); } .mats-row > .mat:nth-child(7){ grid-column:span 2; aspect-ratio:3/2; } }
 .mat{ position:relative; aspect-ratio:3/4; overflow:hidden; background:var(--bg-1); }
 .mat .swatch{ position:absolute; inset:0; transition:transform .9s var(--e-out), filter .9s; }
 .mat:hover .swatch{ transform:scale(1.08); filter:brightness(1.12); }
@@ -357,6 +358,7 @@ html[lang="hi"] .room-info .rd{
 .mat:hover .mlabel{ transform:none; opacity:1; }
 .mat .mn{ font-family:var(--serif); font-size:21px; }
 .mat .mt{ font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); margin-top:4px; }
+html[lang="kn"] .mat .mt, html[lang="hi"] .mat .mt{ letter-spacing:.02em; text-transform:none; font-size:11px; }
 
 /* ---------------- PROCESS MINI ---------------- */
 .proc{ padding:var(--s7) var(--gut); border-top:1px solid var(--line-soft); }
@@ -482,6 +484,7 @@ html[lang="hi"] .room-info .rd{
 .mats::before { content:""; position:absolute; inset:0; background: radial-gradient(80% 50% at 50% 50%, rgba(194,162,105,0.05), transparent 60%); pointer-events:none; }
 .mats-row { box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
 .mat .mlabel { background: linear-gradient(0deg, rgba(10,12,15,0.8), transparent); }
+.mat.mat-light .mlabel { background: linear-gradient(0deg, rgba(10,12,15,0.9), rgba(10,12,15,0.62) 62%, transparent); }
 
 /* PROCESS — Structural, precise, architectural drawings */
 .proc { background: linear-gradient(180deg, var(--bg) 0%, #080c10 100%); position:relative; }
@@ -727,6 +730,8 @@ html[lang="hi"] .room-info .rd{
   .feat { padding-bottom: 20px; }
   .mats { padding-top: var(--s3); }
   .mats-row { grid-template-columns: 1fr; }
+  .mats-row > .mat { aspect-ratio: 4/3; }
+  .mats-row > .mat:nth-child(7) { grid-column: auto; aspect-ratio: 4/3; }
   .foot-grid { grid-template-columns: 1fr; }
   .studio-walk-meta { flex-direction: column; gap: 8px; align-items: flex-start; }
 }
@@ -984,11 +989,13 @@ html[lang="hi"] .room-info .rd{
         <a class="link magnetic" data-mag="0.2" href="Services.html#materials" data-reveal><span data-cms-field="link_text">Explore materials</span> <span class="arw">→</span></a>
       </div>
       <div class="mats-row" data-stagger>
-        <div class="mat" data-cur="Marble" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#2a2f38,#3b424d 40%,#262b33);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_1_name">Marble</div><div class="mt" data-cms-field="mat_1_subtitle">Carrara · Statuario</div></div></div>
-        <div class="mat" data-cur="Oak" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3a2c1d,#5a4226 45%,#2f2417);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_2_name">Oak</div><div class="mt" data-cms-field="mat_2_subtitle">Smoked · Rift</div></div></div>
-        <div class="mat" data-cur="Brass" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#6b552c,#c2a269 48%,#7d6433);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_3_name">Brass</div><div class="mt" data-cms-field="mat_3_subtitle">Antique · Brushed</div></div></div>
-        <div class="mat" data-cur="Stone" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#2c2e30,#4a4d50 45%,#282a2c);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_4_name">Stone</div><div class="mt" data-cms-field="mat_4_subtitle">Basalt · Travertine</div></div></div>
-        <div class="mat" data-cur="Linen" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3a3a36,#5e5d55 45%,#34342f);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_5_name">Linen</div><div class="mt" data-cms-field="mat_5_subtitle">Belgian · Raw</div></div></div>
+        <div class="mat" data-cur="Steel" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#3b4249,#8a949e 48%,#353b42);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_1_name">Steel</div><div class="mt" data-cms-field="mat_1_subtitle">Brushed · Satin</div></div></div>
+        <div class="mat mat-light" data-cur="Rose Gold" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#6b4a42,#c9907f 48%,#7a5248);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_2_name">Rose Gold</div><div class="mt" data-cms-field="mat_2_subtitle">Polished · Metallic</div></div></div>
+        <div class="mat" data-cur="Dark Grey" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#232527,#3a3d40 45%,#1f2123);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_3_name">Dark Grey</div><div class="mt" data-cms-field="mat_3_subtitle">Matte · Textured</div></div></div>
+        <div class="mat" data-cur="Walnut" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#34241a,#523a28 45%,#281c14);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_4_name">Walnut</div><div class="mt" data-cms-field="mat_4_subtitle">Natural · Grain</div></div></div>
+        <div class="mat" data-cur="Malabar" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#4a2416,#7a3b22 45%,#3d1d12);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_5_name">Malabar</div><div class="mt" data-cms-field="mat_5_subtitle">Warm · Grain</div></div></div>
+        <div class="mat mat-light" data-cur="Ivory" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#8c8676,#e4dcc8 48%,#9a937f);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_6_name">Ivory</div><div class="mt" data-cms-field="mat_6_subtitle">Soft · Matte</div></div></div>
+        <div class="mat mat-light" data-cur="Champagne Gold" data-reveal><div class="swatch" style="background:linear-gradient(135deg,#6e5f45,#d8c39a 48%,#7f6e50);"></div><div class="mlabel"><div class="mn" data-cms-field="mat_7_name">Champagne Gold</div><div class="mt" data-cms-field="mat_7_subtitle">Satin · Metallic</div></div></div>
       </div>
     </div>
   </section>
@@ -1197,7 +1204,7 @@ window.VINAYAK_API = (location.hostname === "localhost" || location.hostname ===
     requestAnimationFrame(step);
   }
 
-  // "240+" → 240 / "+", "05" → 5 padded to 2 digits, "2004" → 2004.
+  // "240+" → 240 / "+", "05" → 5 padded to 2 digits, "2014" → 2014.
   // Anything that isn't a plain number is left exactly as it is.
   function parseStat(text) {
     var t = String(text || '').trim();
