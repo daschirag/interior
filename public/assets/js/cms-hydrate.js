@@ -25,6 +25,16 @@
     return fallback || key;
   }
 
+  /** "Future project" label for projects flagged is_future (text follows the current language). */
+  function futureTagHtml(p) {
+    if (!p || p.is_future !== true) return "";
+    return (
+      '<span class="fp-tag" data-i18n-key="label.future_project">' +
+      esc(tt("label.future_project", "Future project")) +
+      "</span>"
+    );
+  }
+
   function assetUrl(url, preset) {
     if (!url) return "";
     var resolved = /^(https?:|data:|\/)/.test(url)
@@ -208,7 +218,9 @@
             '<div class="pf ticks"><div class="ph lazy-bg" data-lazy-bg="' + esc(cover) + '" style="background-size:cover;background-position:center;">' +
             '<span class="ph-tag"><span class="a">◐ PROJECT</span><span class="b">' + esc(p.title) + "</span></span></div></div>" +
             '<div class="pmeta"><span class="pt">' + esc(p.title) + '</span><span class="pn">' + padNo(i + 1) + "</span></div>" +
-            '<div class="pl">' + esc(sub) + "</div></a>"
+            (p.is_future === true
+              ? '<div class="pl has-fp"><span>' + esc(sub) + "</span>" + futureTagHtml(p) + "</div></a>"
+              : '<div class="pl">' + esc(sub) + "</div></a>")
           );
         }).join("");
         if (window.AURUM && AURUM.refreshReveals) AURUM.refreshReveals(row);
@@ -234,11 +246,9 @@
       esc(projectCover(p)) +
       '" style="position:absolute;inset:0;"></div></div>' +
       '<div class="hpanel-body">' +
-      '<div class="hpanel-no">' +
-      padNo(i + 1) +
-      " / " +
-      padNo(total) +
-      "</div>" +
+      (p.is_future === true
+        ? '<div class="hpanel-no has-fp"><span>' + padNo(i + 1) + " / " + padNo(total) + "</span>" + futureTagHtml(p) + "</div>"
+        : '<div class="hpanel-no">' + padNo(i + 1) + " / " + padNo(total) + "</div>") +
       '<h3 class="hpanel-ttl">' +
       titleWithEm(p.title) +
       "</h3>" +
@@ -249,9 +259,11 @@
       '<div><div class="a">City</div><div class="b">' +
       esc(p.location || "—") +
       "</div></div>" +
-      '<div><div class="a">Year</div><div class="b">' +
-      esc(p.year || "—") +
-      "</div></div></div>" +
+      // Future projects don't show a (past) year next to the "Future project" label.
+      (p.is_future === true
+        ? ""
+        : '<div><div class="a">Year</div><div class="b">' + esc(p.year || "—") + "</div></div>") +
+      "</div>" +
       '<p class="hpanel-desc">' +
       esc(p.description || "") +
       "</p>" +
@@ -908,6 +920,7 @@
     titleWithEm: titleWithEm,
     renderStudio: renderStudio,
     buildJourneyPanelHtml: buildJourneyPanelHtml,
+    futureTagHtml: futureTagHtml,
     buildDisciplineItemHtml: buildDisciplineItemHtml,
     buildDisciplineGalleryHtml: buildDisciplineGalleryHtml,
     wireDisciplineAccordion: wireDisciplineAccordion,

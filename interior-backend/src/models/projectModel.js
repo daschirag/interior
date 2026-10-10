@@ -35,7 +35,22 @@ const createTable = async () => {
       ADD COLUMN IF NOT EXISTS title_hi TEXT,
       ADD COLUMN IF NOT EXISTS description_hi TEXT;
   `);
+
+  await pool.query(`
+    ALTER TABLE projects
+      ADD COLUMN IF NOT EXISTS is_future BOOLEAN NOT NULL DEFAULT false;
+  `);
 };
+
+/**
+ * is_future from an API body or snapshot: true/false when given, otherwise null,
+ * which the SQL below reads as "leave the stored value unchanged" (never writes NULL).
+ */
+function futureFlag(value) {
+  if (value === true || value === "true") return true;
+  if (value === false || value === "false") return false;
+  return null;
+}
 
 const create = async (project) => {
   const query = `
@@ -51,9 +66,10 @@ const create = async (project) => {
       before_image_url,
       after_image_url,
       is_featured,
-      journey_order
+      journey_order,
+      is_future
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,COALESCE($13::boolean, false))
     RETURNING *;
   `;
 
@@ -70,6 +86,7 @@ const create = async (project) => {
     project.after_image_url || null,
     project.is_featured || false,
     project.journey_order || 0,
+    futureFlag(project.is_future),
   ];
 
   const result = await pool.query(query, values);
@@ -92,9 +109,10 @@ const upsertBySlug = async (project) => {
       before_image_url,
       after_image_url,
       is_featured,
-      journey_order
+      journey_order,
+      is_future
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,COALESCE($14::boolean, false))
     ON CONFLICT (slug) DO UPDATE SET
       title = EXCLUDED.title,
       location = EXCLUDED.location,
@@ -108,6 +126,7 @@ const upsertBySlug = async (project) => {
       after_image_url = EXCLUDED.after_image_url,
       is_featured = EXCLUDED.is_featured,
       journey_order = EXCLUDED.journey_order,
+      is_future = COALESCE($14::boolean, projects.is_future),
       is_active = true
     RETURNING *;
   `;
@@ -126,6 +145,7 @@ const upsertBySlug = async (project) => {
     project.after_image_url || null,
     project.is_featured || false,
     project.journey_order || 0,
+    futureFlag(project.is_future),
   ];
 
   const result = await pool.query(query, values);
@@ -168,7 +188,8 @@ const applySnapshot = async (id, snapshot) => {
       after_image_url = $11,
       is_featured = $12,
       journey_order = $13,
-      is_active = $14
+      is_active = $14,
+      is_future = COALESCE($16::boolean, is_future)
     WHERE id = $15
     RETURNING *;
   `;
@@ -189,6 +210,7 @@ const applySnapshot = async (id, snapshot) => {
     snapshot.journey_order ?? 0,
     snapshot.is_active !== false,
     id,
+    futureFlag(snapshot.is_future), // snapshots taken before the column existed leave it unchanged
   ];
 
   const result = await pool.query(query, values);
@@ -224,7 +246,8 @@ const update = async (id, project) => {
       after_image_url = $11,
       is_featured = $12,
       journey_order = $13,
-      is_active = true
+      is_active = true,
+      is_future = COALESCE($15::boolean, is_future)
     WHERE id = $14
     RETURNING *;
   `;
@@ -244,6 +267,7 @@ const update = async (id, project) => {
     project.is_featured ?? current.is_featured,
     project.journey_order ?? current.journey_order,
     id,
+    futureFlag(project.is_future), // an admin save without the field leaves it unchanged
   ];
 
   const result = await pool.query(query, values);

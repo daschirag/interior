@@ -125,6 +125,7 @@ function ProjectEditorPanel({
         images: project.images || [],
         journey_order: project.journey_order || 0,
         is_featured: !!project.is_featured,
+        is_future: project.is_future === true,
       };
       const res = await api.put(`/projects/${projectId}`, payload);
       if (!res.data?.success) throw new Error("Save failed");
@@ -284,6 +285,14 @@ function ProjectEditorPanel({
                   value={project.year ?? ""}
                   onChange={(e) => update({ year: e.target.value })}
                 />
+              </label>
+              <label className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={project.is_future === true}
+                  onChange={(e) => update({ is_future: e.target.checked })}
+                />
+                Future project (shows label)
               </label>
               <label className="we-field">
                 <span>Description</span>

@@ -16,6 +16,7 @@ function projectToSnapshot(row) {
     is_featured: row.is_featured ?? false,
     journey_order: row.journey_order ?? 0,
     is_active: row.is_active !== false,
+    is_future: row.is_future === true,
   };
 }
 

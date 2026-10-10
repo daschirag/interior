@@ -21,7 +21,8 @@
     "after_image_url": "assets/images/img-ba-after.jpg",
     "is_featured": true,
     "journey_order": 1,
-    "is_active": true
+    "is_active": true,
+    "is_future": true
   },
   {
     "title": "The Basalt House",
@@ -44,7 +45,8 @@
     "after_image_url": null,
     "is_featured": true,
     "journey_order": 2,
-    "is_active": true
+    "is_active": true,
+    "is_future": true
   },
   {
     "title": "Linen & Oak",
@@ -67,6 +69,7 @@
     "after_image_url": null,
     "is_featured": true,
     "journey_order": 3,
-    "is_active": true
+    "is_active": true,
+    "is_future": true
   }
 ]

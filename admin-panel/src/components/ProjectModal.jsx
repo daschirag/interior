@@ -62,6 +62,7 @@ function ProjectModal({ project, onClose, onProjectAdded }) {
   const [images, setImages] = useState([]);
   const [journeyOrder, setJourneyOrder] = useState(0);
   const [isFeatured, setIsFeatured] = useState(false);
+  const [isFuture, setIsFuture] = useState(false);
 
   useEffect(() => {
     setActiveSection("details");
@@ -78,6 +79,7 @@ function ProjectModal({ project, onClose, onProjectAdded }) {
       setImages(Array.isArray(project.images) ? [...project.images] : []);
       setJourneyOrder(project.journey_order || 0);
       setIsFeatured(project.is_featured || false);
+      setIsFuture(project.is_future === true);
     } else {
       setTitle("");
       setSlug("");
@@ -89,6 +91,7 @@ function ProjectModal({ project, onClose, onProjectAdded }) {
       setImages([]);
       setJourneyOrder(0);
       setIsFeatured(false);
+      setIsFuture(false);
     }
   }, [project]);
 
@@ -113,6 +116,7 @@ function ProjectModal({ project, onClose, onProjectAdded }) {
         images: images.filter(Boolean),
         journey_order: Number(journeyOrder),
         is_featured: isFeatured,
+        is_future: isFuture,
       };
 
       if (project) {
@@ -217,6 +221,15 @@ function ProjectModal({ project, onClose, onProjectAdded }) {
                   onChange={(e) => setIsFeatured(e.target.checked)}
                 />
                 Featured Project
+              </label>
+
+              <label className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={isFuture}
+                  onChange={(e) => setIsFuture(e.target.checked)}
+                />
+                Future project (shows label)
               </label>
             </div>
           )}

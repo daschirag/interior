@@ -123,9 +123,9 @@
       '</span><span class="pn">' +
       padNo(index + 1) +
       "</span></div>" +
-      '<div class="pl">' +
-      esc(sub) +
-      "</div></a>"
+      (project.is_future === true && api.futureTagHtml
+        ? '<div class="pl has-fp"><span>' + esc(sub) + "</span>" + api.futureTagHtml(project) + "</div></a>"
+        : '<div class="pl">' + esc(sub) + "</div></a>")
     );
   }
 

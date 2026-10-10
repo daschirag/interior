@@ -736,6 +736,22 @@
   color: var(--we-muted);
 }
 
+/* Checkbox rows inside the Website Editor panel (projectModal.css isn't loaded here) */
+.we-panel .checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d4dae3;
+  font-size: 14px;
+}
+
+.we-panel .checkbox-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: #4d7cff;
+  cursor: pointer;
+}
+
 .we-input,
 .we-textarea {
   width: 100%;

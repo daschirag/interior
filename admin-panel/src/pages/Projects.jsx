@@ -61,6 +61,7 @@ function Projects() {
               <th>Location</th>
               <th>Year</th>
               <th>Featured</th>
+              <th>Future</th>
               <th style={{ width: "180px" }}>Actions</th>
             </tr>
           </thead>
@@ -73,6 +74,7 @@ function Projects() {
                   <td>{project.location}</td>
                   <td>{project.year}</td>
                   <td>{project.is_featured ? "Yes" : "No"}</td>
+                  <td>{project.is_future ? "Yes" : "No"}</td>
 
                   <td>
                     <button

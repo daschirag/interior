@@ -801,6 +801,11 @@ html[lang="hi"].has-js [data-reveal="mask"]{
 .foot-soc-wa .soc-icon path{ fill:#25D366; }
 .foot-soc-email .soc-icon path{ fill:var(--brass); }
 
+/* "Future project" label — quiet brass outline tag at the end of a kicker/meta line */
+.fp-tag{ display:inline-flex; align-items:center; flex-shrink:0; white-space:nowrap; font-family:var(--mono); font-size:9px; line-height:1.2; letter-spacing:.16em; text-transform:uppercase; color:var(--brass); border:1px solid rgba(194,162,105,.45); padding:3px 7px 2px; }
+html[lang="kn"] .fp-tag, html[lang="hi"] .fp-tag{ text-transform:none; letter-spacing:.02em; font-size:10.5px; padding:2px 7px 1px; }
+.room-info .rk.has-fp, .proj-card .pl.has-fp, .hpanel-no.has-fp{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+
 /* ============================================================
    FOOTER
    ============================================================ */

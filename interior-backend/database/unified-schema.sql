@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS projects (
   is_featured BOOLEAN DEFAULT false,
   journey_order INTEGER DEFAULT 0,
   is_active BOOLEAN DEFAULT true,
+  is_future BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
