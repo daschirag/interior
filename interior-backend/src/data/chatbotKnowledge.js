@@ -208,9 +208,8 @@ const STUDIOS = [
     address:
       "Kouzina Kafe, Narayana Reddy Circle, 133/4, Bannerghatta Rd, Kothnur, Hommadevanahalli, Bengaluru, K.G.Hommadevanahalli, Karnataka 560083",
     hours: "Wed–Mon · 10am to 5pm (closed Tuesdays)",
-    // Temporarily shares the Dharwad studio's phone number until Bengaluru has its own line.
-    phone: "+919380348113",
-    phone_display: "+91 93803 48113",
+    phone: "+917975529588",
+    phone_display: "+91 79755 29588",
     maps_url: "https://maps.app.goo.gl/xJmyTiMZ8YpNP6Em6",
     keywords: ["bengaluru", "bangalore"],
   },
