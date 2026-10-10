@@ -70,13 +70,13 @@ function Projects() {
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => (
                 <tr key={project.id}>
-                  <td>{project.title}</td>
-                  <td>{project.location}</td>
-                  <td>{project.year}</td>
-                  <td>{project.is_featured ? "Yes" : "No"}</td>
-                  <td>{project.is_future ? "Yes" : "No"}</td>
+                  <td data-label="Title">{project.title}</td>
+                  <td data-label="Location">{project.location}</td>
+                  <td data-label="Year">{project.year}</td>
+                  <td data-label="Featured">{project.is_featured ? "Yes" : "No"}</td>
+                  <td data-label="Future">{project.is_future ? "Yes" : "No"}</td>
 
-                  <td>
+                  <td data-label="Actions">
                     <button
                       className="action-btn edit-btn"
                       onClick={() => {

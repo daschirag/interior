@@ -72,11 +72,11 @@ function Disciplines() {
             {filteredDisciplines.length > 0 ? (
               filteredDisciplines.map((discipline) => (
                 <tr key={discipline.id}>
-                  <td>{discipline.title}</td>
+                  <td data-label="Title">{discipline.title}</td>
 
-                  <td>{discipline.slug}</td>
+                  <td data-label="Slug">{discipline.slug}</td>
 
-                  <td>
+                  <td data-label="Actions">
                     <button
                       className="action-btn edit-btn"
                       onClick={() => {

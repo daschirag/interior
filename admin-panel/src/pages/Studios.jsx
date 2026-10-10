@@ -94,11 +94,11 @@ function Studios() {
             ) : filteredStudios.length > 0 ? (
               filteredStudios.map((studio) => (
                 <tr key={studio.id}>
-                  <td>{studio.display_order || "—"}</td>
-                  <td>{studio.city}</td>
-                  <td className="studios-table__addr">{studio.address || "—"}</td>
-                  <td>{studio.phone_display || studio.phone || "—"}</td>
-                  <td>
+                  <td data-label="#">{studio.display_order || "—"}</td>
+                  <td data-label="City">{studio.city}</td>
+                  <td data-label="Address" className="studios-table__addr">{studio.address || "—"}</td>
+                  <td data-label="Phone">{studio.phone_display || studio.phone || "—"}</td>
+                  <td data-label="Actions">
                     <button
                       type="button"
                       className="action-btn edit-btn"

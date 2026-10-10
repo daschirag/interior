@@ -1,0 +1,598 @@
+/* ==========================================================================
+   Admin — phone & tablet layer.
+   Additions only, all inside max-width media queries:
+     ≤ 959px  drawer layout (top bar + slide-in sidebar), contained table scroll, 16px inputs, 44px targets
+     ≤ 599px  phone specifics: card rows, full-screen dialogs, Website Editor app view
+   960px and up is untouched. Imported last (App.jsx) so it follows every other stylesheet.
+   ========================================================================== */
+
+@media (max-width: 959px) {
+  /* ---------- Layout: top bar + drawer ---------- */
+  .admin-layout {
+    display: block;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .admin-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 990; /* below .modal-overlay (999) so dialogs cover it */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: calc(56px + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) max(12px, env(safe-area-inset-right)) 0 max(8px, env(safe-area-inset-left));
+    background: #131922;
+    border-bottom: 1px solid #262d38;
+  }
+
+  .admin-menu-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid #2a3240;
+    border-radius: 10px;
+    background: #182030;
+    cursor: pointer;
+  }
+
+  .admin-menu-btn:focus-visible {
+    outline: 2px solid #5fb7ff;
+    outline-offset: 2px;
+  }
+
+  .admin-menu-btn__bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: #dfe6ef;
+  }
+
+  .admin-topbar__brand {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    line-height: 1;
+    color: #f8f8f8;
+    white-space: nowrap;
+  }
+
+  .admin-topbar__brand span {
+    color: #5fb7ff;
+    font-weight: 300;
+  }
+
+  .admin-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+    background: rgba(5, 8, 12, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+
+  .drawer-open .admin-drawer-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .admin-layout .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1100;
+    width: min(84vw, 320px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: calc(24px + env(safe-area-inset-top)) 22px calc(20px + env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .admin-layout.drawer-open .sidebar {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.25s ease, visibility 0s;
+  }
+
+  .admin-layout .logo {
+    margin-bottom: 28px;
+  }
+
+  .admin-layout .logo h2 {
+    font-size: 38px;
+  }
+
+  .admin-layout .logo h2 span {
+    font-size: 20px;
+    margin-top: 8px;
+  }
+
+  .admin-layout .menu {
+    gap: 4px;
+  }
+
+  .admin-layout .menu-item {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 17px;
+  }
+
+  .admin-layout .content {
+    min-width: 0;
+    padding: 24px max(20px, env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Headers ---------- */
+  .admin-layout .page-header {
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .admin-layout .page-title {
+    font-size: 44px;
+  }
+
+  /* ---------- Inputs: 16px stops iOS zooming on focus ---------- */
+  /* attribute :not()s lift specificity above class rules such as .admin-input / .we-input / .ml-sort__select */
+  body :is(input, select, textarea):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]) {
+    font-size: 16px;
+  }
+
+  /* SiteSettingsForm studio-locations textarea sets fontSize 15px inline: !important needed */
+  body textarea[style*="font-size: 15px"] {
+    font-size: 16px !important;
+  }
+
+  .admin-layout .search-box {
+    width: 100%;
+    max-width: none;
+    min-height: 44px;
+  }
+
+  /* ---------- Tap targets ---------- */
+  .admin-layout .content button,
+  .admin-layout .content select,
+  .modal-overlay button,
+  body div[style*="z-index: 9999"] button {
+    min-height: 44px;
+  }
+
+  .admin-layout .content button {
+    min-width: 44px;
+  }
+
+  .admin-layout .action-btn {
+    padding: 10px 16px;
+  }
+
+  .admin-layout .checkbox-row,
+  .modal-overlay .checkbox-row {
+    min-height: 44px;
+  }
+
+  .admin-layout .content a.ml-card__link,
+  .admin-layout .page-header a,
+  .admin-layout .content a.we-link-btn,
+  .admin-layout .content a.dash-panel-link,
+  .admin-layout .studios-verify a,
+  .admin-layout .we-entity-hint a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .admin-layout .content a.ml-card__link {
+    min-width: 44px;
+    justify-content: center;
+  }
+
+  /* Media Library: names wrap instead of being cut off */
+  .admin-layout .ml-card__name {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Tables: contained horizontal scroll (never the page) ---------- */
+  .admin-layout .table-card {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ---------- Dashboard ---------- */
+  .admin-layout .dashboard-header {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .admin-layout .chart-wrap {
+    max-width: 100%;
+  }
+
+  /* ---------- Dialogs (tablet): centred, inside the screen ---------- */
+  .modal-overlay .project-modal {
+    width: min(700px, 92vw);
+    max-height: 90vh;
+    max-height: 90dvh;
+  }
+
+  /* ---------- Website Editor (tablet): keep inside the screen ---------- */
+  .admin-layout .we-toolbar,
+  .admin-layout .we-workspace {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 599px) {
+  .admin-layout .content {
+    padding: 18px max(16px, env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+
+  .admin-layout .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-layout .page-title {
+    font-size: 36px;
+  }
+
+  .admin-layout .page-header .primary-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  /* ---------- Tables with data-label: card rows ---------- */
+  .admin-layout .table-card:has(td[data-label]) {
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table,
+  .admin-layout .table-card:has(td[data-label]) .admin-table tbody,
+  .admin-layout .table-card:has(td[data-label]) .admin-table tr,
+  .admin-layout .table-card:has(td[data-label]) .admin-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table tr {
+    margin-bottom: 12px;
+    padding: 14px 16px;
+    border: 1px solid #2a3140;
+    border-radius: 12px;
+    background: #1b212b;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 6px 0;
+    border: 0;
+    text-align: left;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[data-label]::before {
+    content: attr(data-label);
+    flex: 0 0 84px;
+    color: #8d97a6;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td:first-child {
+    font-size: 18px;
+    color: #f5f5f5;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[data-label="Actions"] {
+    gap: 10px;
+    padding-top: 12px;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[data-label="Actions"]::before {
+    display: none;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[data-label="Actions"] .action-btn {
+    flex: 1;
+    margin: 0;
+    min-height: 44px;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[colspan] {
+    display: block;
+  }
+
+  /* ---------- Dialogs: full-screen sheets, sticky header + Save bar inside the scroller ---------- */
+  .modal-overlay {
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .modal-overlay .project-modal {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+    overscroll-behavior: contain;
+    scroll-padding-top: 88px;
+    scroll-padding-bottom: 96px;
+  }
+
+  .modal-overlay .project-modal .modal-title {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    margin: 0 calc(-1 * max(16px, env(safe-area-inset-right))) 12px calc(-1 * max(16px, env(safe-area-inset-left)));
+    padding: calc(16px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 14px max(16px, env(safe-area-inset-left));
+    background: #1d232d;
+    border-bottom: 1px solid #2d3542;
+    font-size: 26px;
+  }
+
+  .modal-overlay .project-modal .modal-buttons {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+    margin: 20px calc(-1 * max(16px, env(safe-area-inset-right))) 0 calc(-1 * max(16px, env(safe-area-inset-left)));
+    padding: 12px max(16px, env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    background: #1d232d;
+    border-top: 1px solid #2d3542;
+  }
+
+  .modal-overlay .project-modal .modal-buttons button {
+    flex: 1;
+    min-height: 48px;
+    margin: 0;
+  }
+
+  /* DisciplineModal has inline styles only (no classes): matched by its inline style, !important needed */
+  body div[style*="z-index: 9999"] {
+    align-items: stretch !important;
+    justify-content: stretch !important;
+  }
+
+  body div[style*="z-index: 9999"] > div[style*="width: 700px"] {
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)) !important;
+    overscroll-behavior: contain;
+    scroll-padding-top: 88px;
+    scroll-padding-bottom: 96px;
+  }
+
+  body div[style*="z-index: 9999"] > div[style*="width: 700px"] > h2 {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    margin: 0 calc(-1 * max(16px, env(safe-area-inset-right))) 12px calc(-1 * max(16px, env(safe-area-inset-left))) !important;
+    padding: calc(16px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 14px max(16px, env(safe-area-inset-left));
+    background: #23242d;
+    border-bottom: 1px solid #353846;
+    font-size: 26px !important;
+  }
+
+  body div[style*="z-index: 9999"] > div[style*="width: 700px"] > div[style*="justify-content: flex-end"] {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    margin: 20px calc(-1 * max(16px, env(safe-area-inset-right))) 0 calc(-1 * max(16px, env(safe-area-inset-left))) !important;
+    padding: 12px max(16px, env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    background: #23242d;
+    border-top: 1px solid #353846;
+  }
+
+  body div[style*="z-index: 9999"] > div[style*="width: 700px"] > div[style*="justify-content: flex-end"] > button {
+    flex: 1;
+    min-height: 48px;
+  }
+
+  /* ---------- Dashboard ---------- */
+  .admin-layout .dashboard-title {
+    font-size: 36px;
+  }
+
+  .admin-layout .analytics-toolbar,
+  .admin-layout .analytics-export-row,
+  .admin-layout .dashboard-header-actions {
+    flex-wrap: wrap;
+  }
+
+  .admin-layout .analytics-export-row button {
+    flex: 1 1 140px;
+  }
+
+  /* ---------- Media Library ---------- */
+  .admin-layout .ml-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .admin-layout .ml-card__name {
+    white-space: normal;
+  }
+
+  .admin-layout .ml-card__actions {
+    flex-wrap: wrap;
+  }
+
+  /* ---------- Website Editor: app view ---------- */
+  .admin-layout:has(.website-editor) {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .admin-layout .content:has(.website-editor) {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 8px max(8px, env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+  }
+
+  .admin-layout .website-editor {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Compact controls bar: Edit/Desktop/Mobile switch and page select on one row */
+  .admin-layout .we-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .admin-layout .we-toolbar__left,
+  .admin-layout .we-page-select > span {
+    display: none;
+  }
+
+  .admin-layout .we-toolbar__center {
+    flex: 1 1 190px;
+    min-width: 0;
+  }
+
+  .admin-layout .we-toolbar__right {
+    flex: 1 1 110px;
+    min-width: 0;
+  }
+
+  .admin-layout .we-view-switch {
+    width: 100%;
+    padding: 3px;
+  }
+
+  .admin-layout .we-view-switch button {
+    padding-inline: 6px;
+  }
+
+  .admin-layout .we-page-select,
+  .admin-layout .we-page-select select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-layout .we-workspace {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .admin-layout .we-preview-stage {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .admin-layout .we-frame-shell {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .admin-layout .we-frame {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .admin-layout .we-preview-hint {
+    display: none;
+  }
+
+  /* Not editing: a small tray under the preview (section list + collapsed guide) */
+  .admin-layout .we-side {
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 0;
+    max-height: 24vh;
+    max-height: 24dvh;
+  }
+
+  .admin-layout .we-side-top {
+    max-height: none;
+  }
+
+  .admin-layout .we-guide {
+    padding: 10px 12px;
+  }
+
+  .admin-layout .we-guide__steps {
+    display: none;
+  }
+
+  .admin-layout .we-guide__head {
+    margin-bottom: 0;
+  }
+
+  /* Editing: the side panel becomes a bottom sheet over the preview; its head/foot stay pinned */
+  .admin-layout .we-side--editing {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1200;
+    height: 85vh;
+    height: 85dvh;
+    max-height: none;
+    border-radius: 18px 18px 0 0;
+    border-bottom: 0;
+    padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.55), 0 0 0 100vmax rgba(5, 8, 12, 0.45);
+  }
+
+  /* the sheet's own close button returns to the section list, so the "Current item" strip is not needed */
+  .admin-layout .we-side--editing .we-side-top {
+    display: none;
+  }
+
+  .admin-layout .we-side--editing .we-panel__body {
+    overscroll-behavior: contain;
+    scroll-padding-bottom: 24px;
+  }
+}
