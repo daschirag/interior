@@ -13,6 +13,7 @@ const COMPANY = {
   email: "vinayakainteriors308@gmail.com",
   contactPage: "Contact.html",
   studiosSummary: "Bengaluru, Vijayapura, Dharwad, Kalaburagi, and Hospet",
+  hoursSummary: "All five studios are open Wednesday to Monday, 10am to 5pm, and closed on Tuesdays.",
 };
 
 /**
@@ -166,7 +167,7 @@ const STUDIOS = [
     brand: "Vinayak Aluminium Interiors",
     address:
       "Hubli-Bagalkot Road, Opp. Ayurgram Hospital, Amruth Nagar, Vijayapura — 586101",
-    hours: "Mon–Sat · 10am to 5:30pm",
+    hours: "Wed–Mon · 10am to 5pm (closed Tuesdays)",
     phone: "+917019631202",
     phone_display: "+91 70196 31202",
     keywords: ["vijayapura", "bijapur"],
@@ -176,7 +177,7 @@ const STUDIOS = [
     brand: "Vinayak Aluminium Interiors",
     address:
       "2nd Cross, Maratha Colony, Near Ganesh Temple, Shinde Avenue, Dharwad — 580001",
-    hours: "Mon–Sat · 10am to 5pm",
+    hours: "Wed–Mon · 10am to 5pm (closed Tuesdays)",
     phone: "+919380348113",
     phone_display: "+91 93803 48113",
     keywords: ["dharwad", "hubli", "hubballi"],
@@ -186,7 +187,7 @@ const STUDIOS = [
     brand: "Vinayak Aluminium Interiors",
     address:
       "SP Sambha Complex, Bidar Colony, Near Hanuman Temple, Kalaburagi — 585102",
-    hours: "Mon–Sat · 10am to 5:30pm",
+    hours: "Wed–Mon · 10am to 5pm (closed Tuesdays)",
     phone: "+917483620588",
     phone_display: "+91 74836 20588",
     keywords: ["kalaburagi", "gulbarga"],
@@ -196,7 +197,7 @@ const STUDIOS = [
     brand: "Vinayak Aluminium Interiors",
     address:
       "First Floor, Above Ramdev Mobile Shop, Near Ganesh Travels Office, Station Road, Hospet — 583201",
-    hours: "Mon–Sat · 10am to 5pm",
+    hours: "Wed–Mon · 10am to 5pm (closed Tuesdays)",
     phone: "+919483145955",
     phone_display: "+91 94831 45955",
     keywords: ["hospet", "hosapete"],
@@ -206,7 +207,7 @@ const STUDIOS = [
     brand: "Vinayak Aluminium Interiors",
     address:
       "Kouzina Kafe, Narayana Reddy Circle, 133/4, Bannerghatta Rd, Kothnur, Hommadevanahalli, Bengaluru, K.G.Hommadevanahalli, Karnataka 560083",
-    hours: "Mon–Sat · 10am to 5:30pm",
+    hours: "Wed–Mon · 10am to 5pm (closed Tuesdays)",
     // Temporarily shares the Dharwad studio's phone number until Bengaluru has its own line.
     phone: "+919380348113",
     phone_display: "+91 93803 48113",

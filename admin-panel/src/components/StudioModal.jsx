@@ -42,7 +42,7 @@ function StudioModal({ studio, onClose, onSaved }) {
       setCity("");
       setBrand("Vinayak Aluminium Interiors");
       setAddress("");
-      setHours("Mon–Sat · 10am to 5:30pm");
+      setHours("Wed–Mon · 10am to 5pm");
       setMapsUrl("");
       setPhone("");
       setPhoneDisplay("");
@@ -122,7 +122,7 @@ function StudioModal({ studio, onClose, onSaved }) {
         />
 
         <Input
-          placeholder="Hours (e.g. Mon–Sat · 10am to 5:30pm)"
+          placeholder="Hours (e.g. Wed–Mon · 10am to 5pm)"
           value={hours}
           onChange={(e) => setHours(e.target.value)}
         />

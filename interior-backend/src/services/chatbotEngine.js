@@ -466,7 +466,7 @@ function replyLocation(normalized) {
       `• ${st.city}: ${st.address}\n  Hours ${st.hours} · ${st.phone_display}`,
   ).join("\n\n");
   return (
-    `We have ${NUMBER_WORDS[STUDIOS.length] || STUDIOS.length} studios across ${COMPANY.serviceArea}:\n\n${blocks}\n\n` +
+    `We have ${NUMBER_WORDS[STUDIOS.length] || STUDIOS.length} studios across ${COMPANY.serviceArea}. ${COMPANY.hoursSummary}\n\n${blocks}\n\n` +
     `Ask for a city (e.g. “Dharwad address”), or open ${link("Contact — The Studios", "Contact.html#locations")} for maps and WhatsApp.`
   );
 }
