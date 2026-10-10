@@ -798,6 +798,8 @@ html[lang="hi"].has-js [data-reveal="mask"]{
 .foot-soc-yt .soc-icon path{ fill:#FF0000; }
 .foot-soc-fb .soc-icon path{ fill:#1877F2; }
 .foot-soc-ig .soc-icon{ fill:none; }
+.foot-soc-wa .soc-icon path{ fill:#25D366; }
+.foot-soc-email .soc-icon path{ fill:var(--brass); }
 
 /* ============================================================
    FOOTER

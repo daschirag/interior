@@ -115,6 +115,8 @@
       }
 
       col.querySelectorAll("a").forEach(function (a) {
+        // Icon links (.foot-soc) keep their SVG — they're handled below, href only.
+        if (a.classList.contains("foot-soc")) return;
         var href = a.getAttribute("href") || "";
         if (settings.email && href.indexOf("mailto:") === 0) {
           a.href = "mailto:" + settings.email;
@@ -137,6 +139,10 @@
       if (settings.instagram_url) {
         var ig = col.querySelector(".foot-soc-ig");
         if (ig) ig.href = settings.instagram_url;
+      }
+      if (settings.email) {
+        var em = col.querySelector(".foot-soc-email");
+        if (em) em.href = "mailto:" + settings.email;
       }
     });
 
