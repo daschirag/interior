@@ -3,6 +3,22 @@
   <head>
     <meta charset="UTF-8" />
 
+    <script>
+      // A page cached from an earlier deploy points at asset files that no longer exist:
+      // reload once to fetch the current index.html instead of staying blank.
+      // Reloads only after the guard is stored, so blocked storage can never cause a loop.
+      window.addEventListener("error", function (e) {
+        var t = e.target, url = t && (t.src || t.href);
+        if (!url || !/\/assets\//.test(url)) return;
+        try {
+          var last = +sessionStorage.getItem("assetReloadAt") || 0;
+          if (Date.now() - last < 10000) return;
+          sessionStorage.setItem("assetReloadAt", String(Date.now()));
+          location.reload();
+        } catch (err) {}
+      }, true);
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta
