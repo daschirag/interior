@@ -14,7 +14,10 @@ async function ensureChatbotLeadsTable() {
       original_question TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
-  `);
+  `).catch((err) => {
+    tableReady = null; // retry on the next lead instead of failing until the server restarts
+    throw err;
+  });
   return tableReady;
 }
 
