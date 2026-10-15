@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
 import "../styles/login.css";
-import Button from "../components/Button";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
@@ -38,6 +37,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const submittingRef = useRef(false); // blocks a second submit before React re-renders
   const passwordRef = useRef(null);
   const selectionRef = useRef(null);
   const navigate = useNavigate();
@@ -74,7 +75,11 @@ function Login() {
     setShowPassword((shown) => !shown);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  if (submittingRef.current) return;
+  submittingRef.current = true;
+  setSubmitting(true);
   try {
     const response = await api.post("/auth/login", {
       email,
@@ -96,6 +101,8 @@ function Login() {
   } catch (error) {
     alert(loginErrorMessage(error));
   } finally {
+    submittingRef.current = false;
+    setSubmitting(false);
     setShowPassword(false);
   }
 };
@@ -107,7 +114,10 @@ function Login() {
         <h2>Interiors</h2>
         <p>ADMIN PANEL</p>
 
+        <form onSubmit={handleLogin}>
+        <label htmlFor="login-email" className="login-sr-only">Email</label>
         <input
+          id="login-email"
           className="admin-input"
           type="email"
           name="email"
@@ -118,6 +128,7 @@ function Login() {
         />
 
         <div className="login-password">
+          <label htmlFor="login-password" className="login-sr-only">Password</label>
           <input
             ref={passwordRef}
             id="login-password"
@@ -143,10 +154,10 @@ function Login() {
           </button>
         </div>
 
-        <Button
-          text="Login"
-          onClick={handleLogin}
-        />
+        <button type="submit" className="admin-btn" disabled={submitting}>
+          Login
+        </button>
+        </form>
       </div>
     </div>
   );

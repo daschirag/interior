@@ -147,6 +147,20 @@ body {
   background: var(--accent-hover);
 }
 
+/* Labels for screen readers only: present for assistive tech, invisible and out of the layout */
+.login-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Password field with show/hide button. Scoped to .login-password: login.css is bundled globally,
    so plain .admin-input rules here would change every admin input. */
 .login-password {
