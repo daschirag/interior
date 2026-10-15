@@ -169,27 +169,27 @@ function OverviewPanel({ cmsStats, analytics, leads, loading, onViewAnalytics })
               <tbody>
                 {previewLeads.map((lead) => (
                   <tr key={lead.id}>
-                    <td>
+                    <td data-label="Name">
                       <strong className="lead-name">{lead.name}</strong>
                     </td>
-                    <td>
+                    <td data-label="Contact">
                       <div className="lead-contact">
                         <span>{lead.email}</span>
                         <span>{lead.phone}</span>
                       </div>
                     </td>
-                    <td>
+                    <td data-label="City">
                       <span className="lead-badge lead-badge--city">{lead.city || "—"}</span>
                     </td>
-                    <td>
+                    <td data-label="Project">
                       <span className="lead-badge">{lead.space_type || "—"}</span>
                     </td>
-                    <td>
+                    <td data-label="Style">
                       <span className="lead-badge lead-badge--muted">
                         {lead.style || "—"}
                       </span>
                     </td>
-                    <td className="lead-date">
+                    <td data-label="When" className="lead-date">
                       {new Date(lead.created_at).toLocaleString("en-GB", {
                         day: "2-digit",
                         month: "short",

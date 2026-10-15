@@ -235,6 +235,40 @@
   .admin-layout .we-workspace {
     min-width: 0;
   }
+
+  /* ---------- Scrolling tables: opt out of the .content overflow-wrap:anywhere ----------
+     "anywhere" shrinks a cell's minimum width to one character, so auto table layout squeezed
+     Name/Contact to a letter per line. With normal wrapping columns keep their width and the
+     .table-card scrolls sideways instead. Card rows (599px and below) switch it back on. */
+  .admin-layout .table-card .admin-table th,
+  .admin-layout .table-card .admin-table td {
+    overflow-wrap: normal;
+  }
+
+  /* Recent Enquiries message: wrap the full text instead of the desktop 200px ellipsis */
+  .admin-layout .table-card .admin-table td.lead-message {
+    min-width: 220px;
+    max-width: 320px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Charts: let grid columns and cards shrink below the canvas width ----------
+     The desktop 1024px rule uses 1fr (= minmax(auto, 1fr)), which never goes narrower than the
+     canvas Chart.js last drew, so cards overflowed the screen at 360px. */
+  .admin-layout .analytics-charts,
+  .admin-layout .overview-grid,
+  .admin-layout .visitor-charts-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-layout .analytics-chart-card,
+  .admin-layout .visitor-insights,
+  .admin-layout .chart-wrap {
+    min-width: 0;
+  }
 }
 
 @media (max-width: 599px) {
@@ -329,6 +363,61 @@
 
   .admin-layout .table-card:has(td[data-label]) .admin-table td[colspan] {
     display: block;
+  }
+
+  /* card rows wrap long words again (the 959px block opts tables out) */
+  .admin-layout .table-card:has(td[data-label]) .admin-table td {
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Enquiry tables as card rows ---------- */
+  /* Name is the card heading; contact lines, email and phone carry no label */
+  .admin-layout .table-card:has(td[data-label]) .admin-table td:is([data-label="Name"], [data-label="Contact"], [data-label="Email"], [data-label="Phone"])::before {
+    display: none;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td:is([data-label="Contact"], [data-label="Email"], [data-label="Phone"]) {
+    padding: 2px 0;
+    color: #dce4f2;
+    font-size: 14px;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .lead-contact {
+    min-width: 0;
+    flex: 1;
+  }
+
+  /* City, project/space and style: badges side by side, wrapping */
+  .admin-layout .table-card:has(td[data-label]) .admin-table td:is([data-label="City"], [data-label="Project"], [data-label="Space"], [data-label="Style"]) {
+    display: inline-flex;
+    width: auto;
+    max-width: 100%;
+    padding: 8px 6px 2px 0;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td:is([data-label="City"], [data-label="Project"], [data-label="Space"], [data-label="Style"])::before {
+    display: none;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .lead-badge {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  /* When / Submitted / Message stay as label: value lines; the message wraps in full */
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[data-label="When"],
+  .admin-layout .table-card:has(td[data-label]) .admin-table td[data-label="Submitted"] {
+    padding-top: 10px;
+  }
+
+  .admin-layout .table-card:has(td[data-label]) .admin-table td.lead-message {
+    min-width: 0;
+    max-width: none;
+  }
+
+  /* Latest Enquiries panel: less side padding on phones so the cards get the width */
+  .admin-layout .dash-panel {
+    padding: 16px 14px;
   }
 
   /* ---------- Dialogs: full-screen sheets, sticky header + Save bar inside the scroller ---------- */

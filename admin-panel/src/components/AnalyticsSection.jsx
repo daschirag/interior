@@ -342,22 +342,22 @@ function AnalyticsSection({ onDataRefresh, initialLeads = [] }) {
               ) : (
                 leads.map((lead) => (
                   <tr key={lead.id}>
-                    <td><strong className="lead-name">{lead.name}</strong></td>
-                    <td>{lead.email}</td>
-                    <td>{lead.phone}</td>
-                    <td>
+                    <td data-label="Name"><strong className="lead-name">{lead.name}</strong></td>
+                    <td data-label="Email">{lead.email}</td>
+                    <td data-label="Phone">{lead.phone}</td>
+                    <td data-label="City">
                       <span className="lead-badge lead-badge--city">{lead.city || "—"}</span>
                     </td>
-                    <td>
+                    <td data-label="Space">
                       <span className="lead-badge">{lead.space_type || "—"}</span>
                     </td>
-                    <td>
+                    <td data-label="Style">
                       <span className="lead-badge lead-badge--muted">
                         {lead.style || "—"}
                       </span>
                     </td>
-                    <td className="lead-message">{lead.message || "—"}</td>
-                    <td className="lead-date">
+                    <td data-label="Message" className="lead-message">{lead.message || "—"}</td>
+                    <td data-label="Submitted" className="lead-date">
                       {new Date(lead.created_at).toLocaleString()}
                     </td>
                   </tr>
