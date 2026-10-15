@@ -420,6 +420,17 @@
     padding: 16px 14px;
   }
 
+  /* Recent Enquiries with no rows: show the empty message across the card, not centred in the
+     8-column scrolling table. Browsers without :has() drop these two rules and keep the table. */
+  .admin-layout .table-card:has(td.analytics-empty) .admin-table thead {
+    display: none;
+  }
+
+  .admin-layout .table-card:has(td.analytics-empty) :is(.admin-table, tbody, tr, td) {
+    display: block;
+    width: 100%;
+  }
+
   /* ---------- Dialogs: full-screen sheets, sticky header + Save bar inside the scroller ---------- */
   .modal-overlay {
     align-items: stretch;
